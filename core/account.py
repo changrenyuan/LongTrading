@@ -103,14 +103,14 @@ class Portfolio:
 
     def _record_deposit(self):
         """💡 新增：在流水账第一行记录初始本金"""
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        # timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         # 检查是否是空文件（只有表头），避免重复启动时重复记录入金
         with open(self.ledger_path, 'r', encoding='utf-8-sig') as f:
             if len(f.readlines()) <= 1:
                 with open(self.ledger_path, mode='a', newline='', encoding='utf-8-sig') as out_f:
                     writer = csv.writer(out_f)
                     writer.writerow(
-                        [timestamp, 'ACCOUNT', 'DEPOSIT', '--', '--', self.initial_cash, 0.0, '--', '--', '--', '--',
+                        ['MoneyInit', 'ACCOUNT', 'DEPOSIT', '--', '--', self.initial_cash, 0.0, '--', '--', '--', '--',
                          self.initial_cash])
 
     # ==================== 查询接口 ====================
@@ -151,7 +151,7 @@ class Portfolio:
     # ==================== 核心执行接口 ====================
 
     def execute_trade(self, symbol: str, action: str, shares: int, price: float,
-                      commission_rate: float = 0.0003, stamp_tax_rate: float = 0.0005) -> dict:
+                      commission_rate: float = 0.0003, stamp_tax_rate: float = 0.0005, current_time: str = "2023-06-12") -> dict:
         """
         统一的交易执行入口
         """
@@ -239,17 +239,17 @@ class Portfolio:
         if result['success']:
             self._record_trade(symbol, action, result['filled_shares'],
                                price, result['trade_value'], result['fee'],
-                               realized_pnl, trade_roi)
-            self._record_position()
+                               realized_pnl, trade_roi,current_time)
+            self._record_position(current_time)
         return result
 
-    def _record_trade(self, symbol: str, action: str, shares: int, price: float, trade_value: float, fee: float, realized_pnl: float,trade_roi: float):
+    def _record_trade(self, symbol: str, action: str, shares: int, price: float, trade_value: float, fee: float, realized_pnl: float,trade_roi: float, current_time: str = "2023-06-12"):
         """记录每一次成功的交易，并直接追加到本地 CSV 文件中"""
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        # timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         roi_str = f"{trade_roi * 100:.2f}%" if action == "SELL" else "--"
         # 1. 记入内存供本次运行快速查询
         trade_record = {
-            'timestamp': timestamp,
+            'timestamp': current_time,
             'symbol': symbol,
             'action': action,
             'shares': shares,
@@ -266,14 +266,15 @@ class Portfolio:
         try:
             with open(self.ledger_path, mode='a', newline='', encoding='utf-8-sig') as f:
                 writer = csv.writer(f)
-                writer.writerow([timestamp, symbol, action, shares, price,
+                writer.writerow([current_time, symbol, action, shares, price,
                                  round(trade_value, 2), round(fee, 2), round(realized_pnl, 2),roi_str, round(self.cash, 2)])
         except Exception as e:
             logger.error(f"账本写入失败: {e}")
 
-    def _record_position(self):
+    def _record_position(self, current_time: str = "2023-06-12"):
         """💡 审计核心：记录当前仓位快照底稿（宏观资金面 + 微观个股）"""
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        # timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        timestamp = current_time
         try:
             with open(self.position_path, mode='a', newline='', encoding='utf-8-sig') as f:
                 writer = csv.writer(f)

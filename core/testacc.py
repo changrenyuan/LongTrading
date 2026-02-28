@@ -20,17 +20,17 @@ def test_account_module():
 
     # 2. 模拟真实交易流水
     logger.info("⏳ [测试 1 & 2] 买入并加仓 000001，测试加权均价...")
-    portfolio.execute_trade("000001", "BUY", 250, 10.55)  # 实际买入 200股
-    portfolio.execute_trade("000001", "BUY", 300, 11.20)  # 实际买入 300股，总计 500股
+    portfolio.execute_trade("000001", "BUY", 250, 10.55,0.003, 0.005,'2023-06-12')  # 实际买入 200股
+    portfolio.execute_trade("000001", "BUY", 300, 11.20,0.003, 0.005,'2023-06-12')  # 实际买入 300股，总计 500股
 
     logger.info("⏳ [测试 3] 买入其他股票，触发风控...")
-    portfolio.execute_trade("600519", "BUY", 100, 150.0)  # 茅台
-    portfolio.execute_trade("000858", "BUY", 100, 50.0)  # 五粮液
-    portfolio.execute_trade("BYD", "BUY", 100, 20.0)  # 第4只，预期被风控拦截不入账
+    portfolio.execute_trade("600519", "BUY", 100, 150.0,0.003, 0.005,'2023-06-15')  # 茅台
+    portfolio.execute_trade("000858", "BUY", 100, 50.0,0.003, 0.005,'2023-06-15')  # 五粮液
+    portfolio.execute_trade("BYD", "BUY", 100, 20.0,0.003, 0.005,'2023-06-15')  # 第4只，预期被风控拦截不入账
 
     logger.info("⏳ [测试 4] 卖出 000858，生成实现盈亏 (Realized PnL)...")
     # 五粮液 50块买的，涨到 60块卖出，预期赚 1000块，扣除手续费和印花税
-    portfolio.execute_trade("000858", "SELL", 100, 60.0)
+    portfolio.execute_trade("000858", "SELL", 100, 60.0,0.003, 0.005,'2023-08-15')
 
     # 3. 模拟收盘，保存持仓快照底稿
     logger.info("⏳ [测试 5] 模拟收盘，给当前持仓拍照存档...")

@@ -30,7 +30,7 @@ def test_account_module():
 
     logger.info("⏳ [测试 4] 卖出 000858，生成实现盈亏 (Realized PnL)...")
     # 五粮液 50块买的，涨到 60块卖出，预期赚 1000块，扣除手续费和印花税
-    portfolio.execute_trade("000858", "SELL", 100, 60.0,0.003, 0.005,'2023-08-15')
+    portfolio.execute_trade("000858", "SELL", 100, 60.0,0.003, 0.005,'2023-10-15')
 
     # 3. 模拟收盘，保存持仓快照底稿
     logger.info("⏳ [测试 5] 模拟收盘，给当前持仓拍照存档...")

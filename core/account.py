@@ -57,14 +57,21 @@ class Position:
         self.symbol = symbol
         self.shares: int = 0
         self.avg_price: float = 0.0
-        self.first_buy_time: Optional[datetime] = None  # 💡 新增：记录这波建仓的首次时间
+        self.first_buy_time: Optional[datetime] = None  # 💡 记录建仓时间
 
     @property
     def cost(self) -> float:
         return self.shares * self.avg_price
 
-    def add_shares(self, shares: int, price: float,):  # 💡 参数增加 current_time
+    def add_shares(self, shares: int, price: float, current_time: str):  # 💡 接收当前时间字符串
         """买入加仓逻辑"""
+        if self.shares == 0:
+            # 💡 截取字符串前10位(YYYY-MM-DD)，安全转换为 datetime 对象
+            try:
+                self.first_buy_time = datetime.strptime(current_time[:10], "%Y-%m-%d")
+            except ValueError:
+                self.first_buy_time = datetime.now() # 极端情况防错保底
+
         total_value = (self.shares * self.avg_price) + (shares * price)
         self.shares += shares
         self.avg_price = total_value / self.shares
@@ -77,7 +84,6 @@ class Position:
             self.first_buy_time = None  # 清仓后重置时间
         else:
             self.shares -= shares
-
 
 class Portfolio:
     """大管家：管理现金、所有持仓及交易流水"""
@@ -119,15 +125,15 @@ class Portfolio:
         """确保账本文件夹和文件存在，并写入表头"""
         os.makedirs(os.path.dirname(self.ledger_path), exist_ok=True)
 
-        # 1. 流水表头（增加了回报率、天数、年化）
+        # 1. 流水表头（💡 增加了 hold_days 和 annualized_roi）
         if not os.path.exists(self.ledger_path) or os.path.getsize(self.ledger_path) == 0:
             with open(self.ledger_path, mode='w', newline='', encoding='utf-8-sig') as f:
                 writer = csv.writer(f)
                 writer.writerow(['timestamp', 'symbol', 'action', 'shares', 'price',
                                  'trade_value', 'fee', 'realized_pnl', 'trade_roi',
-                                 'cash_balance'])
+                                 'hold_days', 'annualized_roi', 'cash_balance'])
 
-        # 2. 持仓底稿表头（改为审计分层格式）
+        # 2. 持仓底稿表头
         if not os.path.exists(self.position_path) or os.path.getsize(self.position_path) == 0:
             with open(self.position_path, mode='w', newline='', encoding='utf-8-sig') as f:
                 writer = csv.writer(f)
@@ -135,17 +141,50 @@ class Portfolio:
                     ['position_id', 'timestamp', 'item_type', 'symbol', 'shares', 'avg_price', 'cost_basis', 'ratio'])
 
 
-    def get_equity(self, current_prices: Optional[Dict[str, float]] = None) -> float:
-        """获取总动态权益（现金 + 股票市值）"""
-        stock_value = 0.0
-        for symbol, pos in self.positions.items():
-            if current_prices and symbol in current_prices:
-                stock_value += pos.shares * current_prices[symbol]
-            else:
-                stock_value += pos.cost
-        return self.cash + stock_value
 
     def get_available_slots(self) -> int:
+        return max(0, self.risk_manager.max_positions - len(self.positions))
+
+    # ==================== 查询接口 (静态账面纯净版) ====================
+
+    def has_position(self, symbol: str) -> bool:
+        """是否持有某股票"""
+        return symbol in self.positions
+
+    def get_position(self, symbol: str):
+        """获取持仓对象 (Position)"""
+        return self.positions.get(symbol)
+
+    def get_shares(self, symbol: str) -> int:
+        """获取持仓股数"""
+        pos = self.positions.get(symbol)
+        return pos.shares if pos else 0
+
+    def get_avg_price(self, symbol: str) -> float:
+        """获取持仓均价 (买入成本均价)"""
+        pos = self.positions.get(symbol)
+        return pos.avg_price if pos else 0.0
+
+    def get_position_cost(self, symbol: str) -> float:
+        """获取单只股票的账面总成本（买入时花掉的钱）"""
+        pos = self.positions.get(symbol)
+        return pos.cost if pos else 0.0
+
+    def get_book_value(self) -> float:
+        """
+        💡 替代原来的 get_equity。
+        获取账户【总账面价值】(剩余现金 + 所有持仓的买入总成本)。
+        绝对不依赖最新市场价！
+        """
+        total_cost = sum(pos.cost for pos in self.positions.values())
+        return self.cash + total_cost
+
+    def get_position_count(self) -> int:
+        """获取当前持仓股票的数量"""
+        return len(self.positions)
+
+    def get_available_slots(self) -> int:
+        """获取可用仓位槽位"""
         return max(0, self.risk_manager.max_positions - len(self.positions))
 
     # ==================== 核心执行接口 ====================
@@ -199,7 +238,7 @@ class Portfolio:
 
             if symbol not in self.positions:
                 self.positions[symbol] = Position(symbol)
-            self.positions[symbol].add_shares(shares, price)
+            self.positions[symbol].add_shares(shares, price, current_time)
 
             # 💡 修复：加入了 'trade_value': trade_value
             result.update({'success': True, 'filled_shares': shares, 'trade_value': trade_value, 'fee': commission,
@@ -224,6 +263,16 @@ class Portfolio:
             realized_pnl = net_revenue - cost_basis_of_sold
             if cost_basis_of_sold > 0:
                 trade_roi = realized_pnl / cost_basis_of_sold
+                # 💡 计算持仓天数与年化 (安全转换当前时间)
+                try:
+                    current_dt = datetime.strptime(current_time[:10], "%Y-%m-%d")
+                    delta_days = (current_dt - pos.first_buy_time).days
+                    hold_days = max(1, delta_days)  # 防止当天买卖 (T+0) 除以零
+                except:
+                    hold_days = 1
+
+                annualized_roi = (trade_roi / hold_days) * 365
+
             # 执行更新
             self.cash += net_revenue
             self.total_commission += commission
@@ -234,19 +283,22 @@ class Portfolio:
                 del self.positions[symbol]
 
             result.update({'success': True, 'filled_shares': sell_shares, 'trade_value': trade_value, 'fee': total_fee, 'message': "卖出成功"})
-
         # 💡 记录流水
         if result['success']:
+            # 💡 把 hold_days 和 annualized_roi 传给流水记录
             self._record_trade(symbol, action, result['filled_shares'],
                                price, result['trade_value'], result['fee'],
-                               realized_pnl, trade_roi,current_time)
+                               realized_pnl, trade_roi, hold_days, annualized_roi, current_time)
             self._record_position(current_time)
-        return result
+            return result
 
-    def _record_trade(self, symbol: str, action: str, shares: int, price: float, trade_value: float, fee: float, realized_pnl: float,trade_roi: float, current_time: str = "2023-06-12"):
+    def _record_trade(self, symbol: str, action: str, shares: int, price: float, trade_value: float, fee: float,
+                      realized_pnl: float, trade_roi: float, hold_days: int, annualized_roi: float, current_time: str):
         """记录每一次成功的交易，并直接追加到本地 CSV 文件中"""
         # timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         roi_str = f"{trade_roi * 100:.2f}%" if action == "SELL" else "--"
+        days_str = f"{hold_days} 天" if action == "SELL" else "--"
+        ann_roi_str = f"{annualized_roi * 100:.2f}%" if action == "SELL" else "--"
         # 1. 记入内存供本次运行快速查询
         trade_record = {
             'timestamp': current_time,
@@ -258,6 +310,8 @@ class Portfolio:
             'fee': fee,
             'realized_pnl': realized_pnl,
             'trade_roi':roi_str,
+            'hold_days': days_str,  # 💡 新增
+            'annualized_roi': ann_roi_str,  # 💡 新增
             'balance': self.cash
         }
         self.trade_history.append(trade_record)
@@ -267,7 +321,8 @@ class Portfolio:
             with open(self.ledger_path, mode='a', newline='', encoding='utf-8-sig') as f:
                 writer = csv.writer(f)
                 writer.writerow([current_time, symbol, action, shares, price,
-                                 round(trade_value, 2), round(fee, 2), round(realized_pnl, 2),roi_str, round(self.cash, 2)])
+                                 round(trade_value, 2), round(fee, 2), round(realized_pnl, 2),
+                                 roi_str, days_str, ann_roi_str, round(self.cash, 2)])
         except Exception as e:
             logger.error(f"账本写入失败: {e}")
 
@@ -303,4 +358,3 @@ class Portfolio:
                 writer.writerow(['=$'])
         except Exception as e:
             logger.error(f"仓位快照写入失败: {e}")
-

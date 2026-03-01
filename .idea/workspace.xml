@@ -5,6 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="init">
+      <change afterPath="$PROJECT_DIR$/strategies/base.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/strategies/sma520.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/strategies/test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/strategies/testwplot.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/plotter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/LongTrading.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/LongTrading.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/account.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/account.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/testacc.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/testacc.py" afterDir="false" />
@@ -27,9 +33,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="3AHJlodmnOYdegiY17LkRSoh1ri" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -41,11 +47,15 @@
     "Python.account.executor": "Run",
     "Python.akshare_pd.executor": "Run",
     "Python.main.executor": "Run",
+    "Python.plotter.executor": "Run",
     "Python.test.executor": "Run",
     "Python.testacc.executor": "Run",
+    "Python.testwplot.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main"
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/git/LongTrading",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="RunManager">
@@ -75,7 +85,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-67fca87a943a-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.11799.259" />
+        <option value="bundled-python-sdk-ce3d9afa04ac-ba05f1cad1b1-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.20224.347" />
       </set>
     </attachedChunks>
   </component>

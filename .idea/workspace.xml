@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="tpara tuing">
+    <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="tpara tuing by ai">
+      <change afterPath="$PROJECT_DIR$/para_tuing_multi.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/para_tuing_multi_all.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/para_tuing.py" beforeDir="false" afterPath="$PROJECT_DIR$/para_tuing.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +43,8 @@
     "Python.main.executor": "Run",
     "Python.mainv2.executor": "Run",
     "Python.para_tuing.executor": "Run",
+    "Python.para_tuing_multi.executor": "Run",
+    "Python.para_tuing_multi_all.executor": "Run",
     "Python.plotter.executor": "Run",
     "Python.test.executor": "Run",
     "Python.testacc.executor": "Run",
@@ -156,7 +159,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772369723534</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="tpara tuing by ai">
+      <option name="closed" value="true" />
+      <created>1772370249200</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1772370249200</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -166,6 +177,7 @@
     <MESSAGE value="trendv4" />
     <MESSAGE value="trend,main to main" />
     <MESSAGE value="tpara tuing" />
-    <option name="LAST_COMMIT_MESSAGE" value="tpara tuing" />
+    <MESSAGE value="tpara tuing by ai" />
+    <option name="LAST_COMMIT_MESSAGE" value="tpara tuing by ai" />
   </component>
 </project>

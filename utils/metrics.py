@@ -182,4 +182,19 @@ class MetricsCalculator:
         win_rate = win_trades / total_exits
 
         avg_profit = np.mean(profits) if profits else 0.0
-        avg_loss = np
+        avg_loss = np.mean(losses) if losses else 0.0
+
+        profit_loss_ratio = (avg_profit / avg_loss) if avg_loss > 0 else 0.0
+        if avg_loss == 0 and avg_profit > 0:
+            profit_loss_ratio = float('inf')
+
+            # 💡 👇 就是这里！最核心的 return 必须存在
+        return {
+            'total_exits': total_exits,
+            'win_trades': win_trades,
+            'loss_trades': loss_trades,
+            'win_rate': win_rate,
+            'profit_loss_ratio': profit_loss_ratio,
+            'avg_profit': avg_profit,
+            'avg_loss': avg_loss,
+        }

@@ -133,32 +133,33 @@ class Plotter:
                 ax_pnl.legend(loc='upper left')
                 ax_pnl.grid(True, linestyle=':', alpha=0.6)
 
-            # ---------- 图 4: 胜率统计饼图 (右下) ----------
+            # ---------- 图 4: 胜率统计饼图 (右下 - 完美支持加仓与分批平仓) ----------
             wins, losses = 0, 0
-            buy_price_cache = 0
 
-            # 简单的 FIFO 匹配胜率统计 (适合全仓买卖的策略)
-            for idx, row in df_res.iterrows():
-                if buy_col in df_res.columns and pd.notna(row[buy_col]):
-                    buy_price_cache = row[buy_col]
-                elif sell_col in df_res.columns and pd.notna(row[sell_col]):
-                    sell_price = row[sell_col]
-                    if buy_price_cache > 0:
-                        if sell_price > buy_price_cache:
+            # 💡 抛弃不准的 FIFO，改用：当前卖出价 vs 昨日持仓均价
+            for i in range(1, len(df_res)):
+                # 如果今天发生了卖出
+                if sell_col in df_res.columns and pd.notna(df_res[sell_col].iloc[i]):
+                    sell_price = df_res[sell_col].iloc[i]
+                    # 拿出昨天的持仓成本均价
+                    cost_price_yesterday = df_res[avg_price_col].iloc[i - 1]
+
+                    if cost_price_yesterday > 0:
+                        # 卖出价高于昨日底仓成本，即为一笔成功的落袋为安
+                        if sell_price > cost_price_yesterday:
                             wins += 1
                         else:
                             losses += 1
-                        buy_price_cache = 0  # 匹配完重置
 
             total_trades = wins + losses
             if total_trades > 0:
-                ax_pie.pie([wins, losses], labels=['盈利交易 (Win)', '亏损交易 (Loss)'],
+                ax_pie.pie([wins, losses], labels=['盈利操作 (Win)', '亏损操作 (Loss)'],
                            autopct='%1.1f%%', colors=['#e74c3c', '#2ecc71'],
                            startangle=90, explode=(0.05, 0), shadow=True)
-                ax_pie.set_title(f"4. 策略胜率分布 (共 {total_trades} 次开平仓)", fontsize=12)
+                ax_pie.set_title(f"4. 实际平仓胜率统计 (共 {total_trades} 次出场)", fontsize=12)
             else:
-                ax_pie.text(0.5, 0.5, "回测期间无完整交易记录", ha='center', va='center', fontsize=12)
-                ax_pie.set_title("4. 策略胜率分布", fontsize=12)
+                ax_pie.text(0.5, 0.5, "回测期间无卖出平仓记录", ha='center', va='center', fontsize=12)
+                ax_pie.set_title("4. 实际平仓胜率统计", fontsize=12)
 
             # 调整时间轴格式 (前三个图)
             for ax in [ax_price, ax_alloc, ax_pnl]:
@@ -168,7 +169,7 @@ class Plotter:
 
             plt.tight_layout(rect=[0, 0, 1, 0.96])  # 留出总标题空间
 
-            filepath_stock = os.path.join(save_dir, f"{symbol}_2x2_analysis.png")
+            filepath_stock = os.path.join(save_dir, f"{strategy_name}{symbol}_2x2_analysis.png")
             fig.savefig(filepath_stock, dpi=150, bbox_inches='tight')
             plt.close(fig)
             logger.info(f"📈 {symbol} 专业 2x2 深度分析图已保存至: {filepath_stock}")

@@ -88,13 +88,17 @@ class Position:
 class Portfolio:
     """大管家：管理现金、所有持仓及交易流水"""
 
-    def __init__(self, initial_cash: float, max_positions: int = 3, ledger_path: str = "data/trade_ledger.csv"):
+    def __init__(self, initial_cash: float, symbols: List[str], ledger_path: str = "data/trade_ledger.csv"):
         self.initial_cash = initial_cash
-        self.cash = initial_cash
+        self.central_vault = 0.0  # 中央资金池
+        self.sub_budgets: Dict[str, float] = {}  # 各股独立预算
         self.positions: Dict[str, Position] = {}
 
-        self.position_sizer = PositionSizer(max_positions=max_positions)
-        self.risk_manager = RiskManager(max_positions=max_positions)
+        # self.position_sizer = PositionSizer(max_positions=max_positions)
+        # self.risk_manager = RiskManager(max_positions=max_positions)
+
+        max_pos = len(symbols) if symbols else 3
+        self.risk_manager = RiskManager(max_positions=max_pos)
 
         self.total_commission = 0.0
         self.total_tax = 0.0
@@ -106,6 +110,11 @@ class Portfolio:
 
         self._init_ledger_file()
         self._record_deposit()  # 💡 新增：系统初始化时记录老板入金
+        # 记录上一次审计时的总资产，用于对比盈亏
+        per_stock_cash = initial_cash / len(symbols) if symbols else 0
+        for sym in symbols:
+            self.sub_budgets[sym] = per_stock_cash
+        self.last_audit_equity: Dict[str, float] = {sym: per_stock_cash for sym in symbols}
 
     def _record_deposit(self):
         """💡 新增：在流水账第一行记录初始本金"""
@@ -177,7 +186,7 @@ class Portfolio:
         绝对不依赖最新市场价！
         """
         total_cost = sum(pos.cost for pos in self.positions.values())
-        return self.cash + total_cost
+        return self.total_cash + total_cost
 
     def get_position_count(self) -> int:
         """获取当前持仓股票的数量"""
@@ -187,6 +196,52 @@ class Portfolio:
         """获取可用仓位槽位"""
         return max(0, self.risk_manager.max_positions - len(self.positions))
 
+    # ==================== 资金隔离查询接口 ====================
+    def get_allocated_cash(self, symbol: str) -> float:
+        """获取某只股票当前剩余的可用预算"""
+        return self.sub_budgets.get(symbol, 0.0)
+
+    def get_symbol_book_value(self, symbol: str) -> float:
+        """获取某只股票目前的总账面资产 (剩余预算 + 买入成本)"""
+        return self.get_allocated_cash(symbol) + self.get_position_cost(symbol)
+
+    @property
+    def total_cash(self) -> float:
+        """所有剩余现金总和 (用于总资产计算)"""
+        return self.central_vault + sum(self.sub_budgets.values())
+
+    # ==================== T+20 滚动审计核心逻辑 ====================
+    def audit_and_rebalance(self, current_prices: Dict[str, float], date_str: str):
+        """每 20 天调用一次，执行奖惩机制"""
+        logger.info(f"[{date_str}] 🏦 审计部启动 T+20 绩效清算与预算再分配...")
+
+        for symbol in self.sub_budgets.keys():
+            shares = self.get_shares(symbol)
+            # 这里的 current_equity 是【奖惩调拨前】的权益
+            current_equity = self.sub_budgets[symbol] + (shares * current_prices.get(symbol, 0))
+            last_equity = self.last_audit_equity[symbol]
+
+            # 表现不好 (亏损)：削减剩余预算的 20%
+            if current_equity < last_equity:
+                penalty = self.sub_budgets[symbol] * 0.20
+                if penalty > 0:
+                    self.sub_budgets[symbol] -= penalty
+                    self.central_vault += penalty
+                    logger.warning(f"  🔻 审计降级 [{symbol}]: 周期亏损，削减可用预算 {penalty:.2f} 元归入中央池")
+
+            # 表现优异 (盈利)：奖励可用预算的 10%
+            elif current_equity > last_equity:
+                reward_request = self.sub_budgets[symbol] * 0.10
+                # 前提是中央池有钱
+                actual_reward = min(reward_request, self.central_vault)
+                if actual_reward > 0:
+                    self.central_vault -= actual_reward
+                    self.sub_budgets[symbol] += actual_reward
+                    logger.info(f"  🌟 审计奖励 [{symbol}]: 周期盈利，由中央池增拨预算 {actual_reward:.2f} 元")
+
+            # 💡 致命 BUG 修复：基准线必须是【奖惩调拨后】的新权益！绝对不能用调拨前的！
+            new_equity_after_rebalance = self.sub_budgets[symbol] + (shares * current_prices.get(symbol, 0))
+            self.last_audit_equity[symbol] = new_equity_after_rebalance
     # ==================== 核心执行接口 ====================
 
     def execute_trade(self, symbol: str, action: str, shares: int, price: float,
@@ -228,12 +283,24 @@ class Portfolio:
             commission = max(5.0, trade_value * commission_rate)  # A股规矩：最低收费 5 元
             total_cost = trade_value + commission
 
-            if total_cost > self.cash:
-                result['message'] = f"资金不足：需 {total_cost:.2f}，剩余 {self.cash:.2f}"
+            if total_cost > self.sub_budgets[symbol]:
+                result['message'] = f"该股专属预算不足：需 {total_cost:.2f}，剩余 {self.sub_budgets[symbol]:.2f}"
+                return result
+
+            # 💡 4. 新增风控核心：审计部拦截 (单票仓位占比上限检查)
+            current_pos_cost = self.get_position_cost(symbol)
+            total_book_value = self.get_book_value()  # 获取总账面本金
+            proposed_total_cost = current_pos_cost + total_cost  # 如果买入，这只股的总成本
+
+            # max_single_position_pct 默认是 0.4 (单只股票不能超过总盘子的 40%)
+            if proposed_total_cost > total_book_value * self.risk_manager.max_single_position_pct:
+                result[
+                    'message'] = f"风控拦截：买入后该股占比超限 ({proposed_total_cost / total_book_value * 100:.1f}% > 40%)"
+                logger.warning(f"[{current_time}] ❌ 风控拦截 [{symbol}]: {result['message']}")
                 return result
 
             # 4. 执行更新
-            self.cash -= total_cost
+            self.sub_budgets[symbol] -= total_cost
             self.total_commission += commission
 
             if symbol not in self.positions:
@@ -274,7 +341,7 @@ class Portfolio:
                 annualized_roi = (trade_roi / hold_days) * 365
 
             # 执行更新
-            self.cash += net_revenue
+            self.sub_budgets[symbol] += net_revenue
             self.total_commission += commission
             self.total_tax += tax
 
@@ -312,7 +379,7 @@ class Portfolio:
             'trade_roi':roi_str,
             'hold_days': days_str,  # 💡 新增
             'annualized_roi': ann_roi_str,  # 💡 新增
-            'balance': self.cash
+            'balance': self.total_cash
         }
         self.trade_history.append(trade_record)
 
@@ -322,7 +389,7 @@ class Portfolio:
                 writer = csv.writer(f)
                 writer.writerow([current_time, symbol, action, shares, price,
                                  round(trade_value, 2), round(fee, 2), round(realized_pnl, 2),
-                                 roi_str, days_str, ann_roi_str, round(self.cash, 2)])
+                                 roi_str, days_str, ann_roi_str, round(self.total_cash, 2)])
         except Exception as e:
             logger.error(f"账本写入失败: {e}")
 
@@ -340,9 +407,9 @@ class Portfolio:
                 writer.writerow(
                     [self.position_id, timestamp, 'SUMMARY', 'INITIAL_FUNDS', '--', '--', self.initial_cash, '100.00%'])
 
-                cash_ratio = (self.cash / self.initial_cash) * 100
+                cash_ratio = (self.total_cash / self.initial_cash) * 100
                 writer.writerow(
-                    [self.position_id, timestamp, 'SUMMARY', 'CASH_BALANCE', '--', '--', round(self.cash, 2),
+                    [self.position_id, timestamp, 'SUMMARY', 'CASH_BALANCE', '--', '--', round(self.total_cash, 2),
                      f"{cash_ratio:.2f}%"])
 
                 # 2. 微观个股

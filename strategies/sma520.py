@@ -10,7 +10,7 @@ from .base import MultiStockStrategy
 
 class SMA520Strategy(MultiStockStrategy):
 
-    def __init__(self, symbols=None):
+    def __init__(self, cfg=None, symbols=None):
         super().__init__(symbols)
         # 策略参数
         self.fast_window = 5

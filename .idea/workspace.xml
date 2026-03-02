@@ -5,9 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="tpara tuing by ai">
-      <change afterPath="$PROJECT_DIR$/para_tuing_multi.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/para_tuing_multi_all.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/account.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_provider/testakshare.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/live_tradingv2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/living/live_trading.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/strategies/paratuning/para_tuing_multi_all.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/strategies/paratuning/para_tuing_multi_all_log.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/strategies/paratuning/para_tuing_multi_all_log_kama.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/para_tuing.py" beforeDir="false" afterPath="$PROJECT_DIR$/strategies/paratuning/para_tuing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/para_tuing_multi.py" beforeDir="false" afterPath="$PROJECT_DIR$/strategies/paratuning/para_tuing_multi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/para_tuing_multi_all.py" beforeDir="false" afterPath="$PROJECT_DIR$/para_tuing_multi_all.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,14 +48,19 @@
   "keyToString": {
     "Python.account.executor": "Run",
     "Python.akshare_pd.executor": "Run",
+    "Python.live_trading.executor": "Run",
+    "Python.live_tradingv2.executor": "Run",
     "Python.main.executor": "Run",
     "Python.mainv2.executor": "Run",
     "Python.para_tuing.executor": "Run",
     "Python.para_tuing_multi.executor": "Run",
     "Python.para_tuing_multi_all.executor": "Run",
+    "Python.para_tuing_multi_all_log.executor": "Run",
+    "Python.para_tuing_multi_all_log_kama.executor": "Run",
     "Python.plotter.executor": "Run",
     "Python.test.executor": "Run",
     "Python.testacc.executor": "Run",
+    "Python.testakshare.executor": "Run",
     "Python.testwplot.executor": "Run",
     "Python.trendv4.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -61,6 +74,10 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\git\LongTrading" />
       <recent name="D:\git\LongTrading\strategies" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\git\LongTrading\living" />
+      <recent name="D:\git\LongTrading\strategies\paratuning" />
     </key>
   </component>
   <component name="RunManager">

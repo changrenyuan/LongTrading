@@ -3,7 +3,6 @@ import glob
 import logging
 import pandas as pd
 import optuna
-from datetime import datetime  # 💡 引入时间模块，用于解决覆盖问题
 
 from data_provider.akshare_pd import AkShareProvider
 from core.account import Portfolio
@@ -16,12 +15,15 @@ from utils.plotter import Plotter
 optuna.logging.set_verbosity(optuna.logging.WARNING)
 
 
-def get_top_stocks_from_local_csv(csv_path="data/market_snapshot.csv", top_n=10):
+def get_top_stocks_from_local_csv(csv_path="data/market_snapshot.csv", top_n=20):
+    """
+    从本地提取 Top N 龙头，组成我们的【联合测试组合】
+    """
     logger.info(f"正在从本地读取市场快照: {csv_path}")
     try:
         if not os.path.exists(csv_path):
             csv_files = glob.glob("data_provider/test_cache_data/*spot*.csv") + glob.glob(
-                "data_provider/test_cache_data/*snapshot*.csv") + glob.glob("data/*snapshot*.csv")
+                "data_provider/test_cache_data/*snapshot*.csv")
             if csv_files:
                 csv_path = csv_files[0]
             else:
@@ -53,7 +55,10 @@ def get_top_stocks_from_local_csv(csv_path="data/market_snapshot.csv", top_n=10)
 
 
 def run_portfolio_ai_optimization(data_dict, symbols, initial_capital, n_trials=500):
-    logger.info(f"🧠 贝叶斯寻优 开始【多股联合盘】智能推演，目标：寻找最高通用夏普！(最高止损限制 10%)")
+    """
+    🧠 投资组合级 AI 贝叶斯寻优 (全维度参数解禁版 + 日志持久化)
+    """
+    logger.info(f"🧠 贝叶斯寻优 开始【多股联合盘】智能推演，全维度参数已解禁，目标：寻找最高通用夏普！")
 
     original_level = logger.level
     logger.setLevel(logging.ERROR)
@@ -63,6 +68,10 @@ def run_portfolio_ai_optimization(data_dict, symbols, initial_capital, n_trials=
 
     def objective(trial):
         nonlocal best_metrics, best_df_results
+
+        # ==========================================
+        # 🧠 全维度参数寻优考卷 (Full Parameters)
+        # ==========================================
 
         # 1. 均线周期
         ma_short = trial.suggest_int('ma_short', 3, 10)
@@ -80,8 +89,8 @@ def run_portfolio_ai_optimization(data_dict, symbols, initial_capital, n_trials=
         breakout_window = trial.suggest_int('breakout_window', 5, 20)
         breakout_vol_limit = trial.suggest_float('breakout_vol_limit', 1.1, 1.5, step=0.1)
 
-        # 4. 基础风控与底线 (💡 这里强行压制硬止损的上限为 0.10)
-        stop_loss_pct = trial.suggest_float('stop_loss_pct', 0.05, 0.10, step=0.01)
+        # 4. 基础风控与底线
+        stop_loss_pct = trial.suggest_float('stop_loss_pct', 0.05, 0.15, step=0.01)
         trailing_stop_pct = trial.suggest_float('trailing_stop_pct', 0.15, 0.30, step=0.01)
 
         # 5. 分档止盈体系
@@ -125,7 +134,7 @@ def run_portfolio_ai_optimization(data_dict, symbols, initial_capital, n_trials=
             'unit_size': unit_size, 'max_units': int(1.0 // unit_size)
         }
 
-        ledger_path = "data/temp_portfolio_ledger.csv"
+        ledger_path = "../../data/temp_portfolio_ledger.csv"
         if os.path.exists(ledger_path): os.remove(ledger_path)
         if os.path.exists(ledger_path.replace("ledger", "positions")): os.remove(
             ledger_path.replace("ledger", "positions"))
@@ -163,27 +172,26 @@ def run_portfolio_ai_optimization(data_dict, symbols, initial_capital, n_trials=
     # 恢复日志
     logger.setLevel(original_level)
 
-    # 💡 提取所有试验记录并保存到 CSV 日志 (加入时间戳防止覆盖)
+    # 💡 1. 提取所有试验记录并保存到 CSV 日志
     df_trials = study.trials_dataframe(attrs=('number', 'value', 'params', 'state'))
-    df_trials = df_trials[df_trials['state'] == 'COMPLETE']
+    df_trials = df_trials[df_trials['state'] == 'COMPLETE']  # 只保留成功跑完的局
     df_trials = df_trials.sort_values(by='value', ascending=False).reset_index(drop=True)
 
-    os.makedirs("data/tuning_logs", exist_ok=True)
-    # 获取当前时间戳，确保文件名绝对唯一
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    log_filename = f"data/tuning_logs/optuna_log_{len(symbols)}stocks_trials{n_trials}_{timestamp}.csv"
-
+    # 构建动态的文件名，这样多次跑不会覆盖（以当前股票数量命名）
+    os.makedirs("../../data/tuning_logs", exist_ok=True)
+    log_filename = f"data/tuning_logs/optuna_log_{len(symbols)}stocks_trials{n_trials}.csv"
     df_trials.to_csv(log_filename, index=False, encoding='utf-8-sig')
-    logger.info(f"💾 【极其重要】本次寻优的 {len(df_trials)} 组全量参数及成绩已永久保存至: {log_filename}")
+    logger.info(f"💾 【重要】已将本次寻优的 {len(df_trials)} 组全量参数及夏普成绩保存至: {log_filename}")
 
-    # 💡 打印 Top 20 最佳参数组合排行榜
+    # 💡 2. 打印 Top 20 最佳参数组合排行榜
     print("\n" + "★" * 120)
-    print(f"🏆 AI 寻优 Top 20 最佳参数组合排行榜 (防被套版：硬止损卡死在 10% 以内)")
+    print(f"🏆 AI 寻优 Top 20 最佳参数组合排行榜 (多股联合夏普)")
     print("★" * 120)
     for idx in range(min(20, len(df_trials))):
         row = df_trials.iloc[idx]
         sharpe = row['value']
 
+        # 格式化提取核心微操参数用于打印
         p_ma = f"均线:{row['params_ma_short']}/{row['params_ma_mid']}/{row['params_ma_long']}"
         p_risk = f"止损:{row['params_stop_loss_pct']:.2f}, 回撤:{row['params_trailing_stop_pct']:.2f}"
         p_buy = f"追高:{row['params_bias_entry_limit']:.2f}, 仓位:{row['params_unit_size']}"
@@ -202,13 +210,12 @@ def main():
     initial_capital = 10000000.0  # 大资金：1000万
 
     logger.info("==========================================")
-    logger.info("🌍 启动【多股联合盘】防过拟合 AI 寻优 (修复覆盖Bug版)...")
+    logger.info("🌍 启动【多股联合盘】防过拟合 AI 寻优...")
     logger.info("==========================================")
 
-    csv_files = glob.glob("data_provider/test_cache_data/*spot*.csv") + glob.glob(
-        "data_provider/test_cache_data/*snapshot*.csv") + glob.glob("data/*snapshot*.csv")
-    csv_path = csv_files[0]
-    # 💡 股票数量控制点
+    csv_path = "../../data_provider/test_cache_data/market_snapshot_20260302.csv"  # 指向你本地的数据
+
+    # 💡 股票数量控制点：如果你想扩大测试范围，改这里的 top_n (比如改成 20)
     symbols, symbol_names = get_top_stocks_from_local_csv(csv_path, top_n=20)
     if not symbols: return
 
@@ -223,7 +230,7 @@ def main():
         logger.error("数据拉取失败！")
         return
 
-    # 💡 让 AI 跑 500 局
+    # 💡 让 AI 跑 500 局 (如果股票变多，建议调到 1000)
     best_cfg, best_metrics, best_df_results = run_portfolio_ai_optimization(data_dict, list(data_dict.keys()),
                                                                             initial_capital, n_trials=500)
 
@@ -247,7 +254,7 @@ def main():
             symbols=symbols,
             symbol_names=symbol_names,
             strategy_name=f"AI_Portfolio_Master",
-            save_dir="data/charts"
+            save_dir="../../data/charts"
         )
 
 

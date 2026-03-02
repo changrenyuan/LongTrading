@@ -172,7 +172,7 @@ def main():
             symbols=[target_symbol],
             symbol_names={target_symbol: target_name},
             strategy_name=f"AI_Opt_{target_name}",
-            save_dir="data/charts"
+            save_dir="../../data/charts"
         )
 
 

@@ -100,7 +100,7 @@ def run_portfolio_ai_optimization(data_dict, symbols, initial_capital, n_trials=
             'unit_size': unit_size, 'max_units': int(1.0 // unit_size)
         }
 
-        ledger_path = "data/temp_portfolio_ledger.csv"
+        ledger_path = "../../data/temp_portfolio_ledger.csv"
         if os.path.exists(ledger_path): os.remove(ledger_path)
 
         # 💡 让这 5 只股票在一个大管家（100万总资金）下联合回测
@@ -155,7 +155,7 @@ def main():
     logger.info("==========================================")
 
     # 💡 选出全市场最猛的 5 只龙头，作为我们的联合考验篮子
-    csv_path = "data_provider/test_cache_data/market_snapshot_20260228.csv"  # 指向你本地的数据
+    csv_path = "../../data_provider/test_cache_data/market_snapshot_20260228.csv"  # 指向你本地的数据
     symbols, symbol_names = get_top_stocks_from_local_csv(csv_path, top_n=5)
     if not symbols: return
 
@@ -195,7 +195,7 @@ def main():
             symbols=symbols,
             symbol_names=symbol_names,
             strategy_name=f"AI_Portfolio_Master",
-            save_dir="data/charts"
+            save_dir="../../data/charts"
         )
 
 

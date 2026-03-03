@@ -4,18 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="add living account json">
-      <change afterPath="$PROJECT_DIR$/data_provider/testak.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/live_trading.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/living/live_tradingv2.py" afterDir="false" />
+    <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="update live">
+      <change afterPath="$PROJECT_DIR$/.env_example" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/living/live_tradingv3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/notifier.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/testnf.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/live_broker_account.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/live_broker_account.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_provider/akshare_pd.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_provider/akshare_pd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_provider/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_provider/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_provider/testakshare.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_provider/testakshare.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/live_tradingv2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/living/live_trading.py" beforeDir="false" afterPath="$PROJECT_DIR$/living/live_tradingv1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/logger.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/live_trading.py" beforeDir="false" afterPath="$PROJECT_DIR$/live_trading.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +47,7 @@
     "Python.live_tradingv2.executor": "Run",
     "Python.main.executor": "Run",
     "Python.mainv2.executor": "Run",
+    "Python.notifier.executor": "Run",
     "Python.para_tuing.executor": "Run",
     "Python.para_tuing_multi.executor": "Run",
     "Python.para_tuing_multi_all.executor": "Run",
@@ -62,19 +58,20 @@
     "Python.testacc.executor": "Run",
     "Python.testak.executor": "Run",
     "Python.testakshare.executor": "Run",
+    "Python.testnf.executor": "Run",
     "Python.testwplot.executor": "Run",
     "Python.trendv4.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/git/LongTrading/living",
+    "last_opened_file_path": "D:/git/LongTrading",
     "settings.editor.selected.configurable": "http.proxy"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\git\LongTrading\living" />
       <recent name="D:\git\LongTrading" />
+      <recent name="D:\git\LongTrading\living" />
       <recent name="D:\git\LongTrading\strategies" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -202,7 +199,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772445172720</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="update live">
+      <option name="closed" value="true" />
+      <created>1772525389295</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1772525389295</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -215,6 +220,7 @@
     <MESSAGE value="tpara tuing by ai" />
     <MESSAGE value="add living account" />
     <MESSAGE value="add living account json" />
-    <option name="LAST_COMMIT_MESSAGE" value="add living account json" />
+    <MESSAGE value="update live" />
+    <option name="LAST_COMMIT_MESSAGE" value="update live" />
   </component>
 </project>

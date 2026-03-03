@@ -75,7 +75,7 @@ class AkShareProvider(BaseDataProvider):
             raw_code = self._fix_symbol(symbol)
             # 💡 默认前复权 (qfq)
             df = ak.stock_zh_a_daily(symbol=raw_code, adjust="qfq")
-            logger.info(f"👉 数据列名检查: {list(df.columns)}")
+            logger.debug(f"👉 数据列名检查: {list(df.columns)}")
             if df.empty:
                 return pd.DataFrame()
 
@@ -95,7 +95,34 @@ class AkShareProvider(BaseDataProvider):
         except Exception as e:
             logger.error(f"获取股票 {symbol} 历史数据失败: {e}")
             return pd.DataFrame()
+    def get_data_dc(self, symbol: str) -> pd.DataFrame:
+        """
+        获取单只股票的日线历史数据
+        """
+        try:
+            # raw_code = self._fix_symbol(symbol)
+            # 💡 默认前复权 (qfq)
+            df = ak.stock_zh_a_hist(symbol=symbol, adjust="qfq")
+            logger.debug(f"👉 数据列名检查: {list(df.columns)}")
+            if df.empty:
+                return pd.DataFrame()
 
+            # 💡 确保列名映射正确，适配回测引擎 (engine.py)
+            df = df.rename(columns={
+                '日期': 'date', '开盘': 'open', '收盘': 'close',
+                '最高': 'high', '最低': 'low', '成交量': 'volume',
+                '换手率': 'turnover'
+            })
+
+            df['date'] = pd.to_datetime(df['date'])
+            df.set_index('date', inplace=True)
+
+            # 返回最近的 500 个交易日（约两年数据）
+            return df[['open', 'high', 'low', 'close', 'volume', 'turnover']].sort_index().tail(500)
+
+        except Exception as e:
+            logger.error(f"获取股票 {symbol} 历史数据失败: {e}")
+            return pd.DataFrame()
     def _fix_symbol(self, symbol: str) -> str:
         """
         规范化股票代码 (以备其他需要带有 sh/sz 前缀的接口使用)

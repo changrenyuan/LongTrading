@@ -8,10 +8,46 @@
             "highest_price": 10.4
         },
         {
-            "symbol": "601138",
-            "shares": 0,
-            "cost_price": 0.0,
-            "highest_price": 0.0
+            "symbol": "600410",
+            "shares": 1000,
+            "cost_price": 28.127,
+            "highest_price": 31.13
+        },
+        {
+            "symbol": "600111",
+            "shares": 1000,
+            "cost_price": 60,
+            "highest_price": 63.57
+        },
+        {
+            "symbol": "600938",
+            "shares": 1000,
+            "cost_price": 36.5,
+            "highest_price": 42.6
+        },
+        {
+            "symbol": "601899",
+            "shares": 1000,
+            "cost_price": 40.77,
+            "highest_price": 44.94
+        },
+        {
+            "symbol": "002490",
+            "shares": 1000,
+            "cost_price": 9.4,
+            "highest_price": 10.65
+        },
+        {
+            "symbol": "600522",
+            "shares": 1000,
+            "cost_price": 30.29,
+            "highest_price": 31.82
+        },
+        {
+            "symbol": "601939",
+            "shares": 1000,
+            "cost_price": 8.62,
+            "highest_price": 9.84
         }
     ]
 }

@@ -31,7 +31,7 @@ def test_akshare_provider():
     except Exception as e:
         print(f"❌ 快照获取失败，错误信息: {e}")
 
-    # 3. 测试获取个股历史数据
+    # 3. 测试获取个股历史数据 dc
     print("\n⏳ [测试 2/2] 正在获取个股日线数据 (get_data)...")
     test_symbols = ["000001", "600519"]  # 平安银行(深市), 贵州茅台(沪市)
 

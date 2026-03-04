@@ -15,8 +15,8 @@ from utils.logger import global_logger as logger
 from utils.notifier import MessagePusher  # 💡 导入新增的推送模块
 
 # 常量定义
-MANUAL_ACCOUNT_FILE = "data/live_broker_account.json"  # 人工维护的真实账本
-SYSTEM_ACCOUNT_FILE = "data/system_account.json"  # 系统自动生成的预期账本
+MANUAL_ACCOUNT_FILE = "../data/live_broker_account.json"  # 人工维护的真实账本
+SYSTEM_ACCOUNT_FILE = "../data/system_account.json"  # 系统自动生成的预期账本
 
 
 # ... (保留原有的 get_latest_live_params 和 get_live_target_pool 函数不变) ...

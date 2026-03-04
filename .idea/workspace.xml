@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="update nf">
-      <change afterPath="$PROJECT_DIR$/live_tradingv4.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/live_broker_account.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/live_broker_account.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_provider/akshare_pd.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_provider/akshare_pd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/live_trading.py" beforeDir="false" afterPath="$PROJECT_DIR$/live_trading.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/para_tuing_multi_all.py" beforeDir="false" afterPath="$PROJECT_DIR$/para_tuing_multi_all.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/notifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/notifier.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/testnf.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/testnf.py" afterDir="false" />
+    <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="update nf2">
+      <change afterPath="$PROJECT_DIR$/backtest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/live_tradingv4.py" beforeDir="false" afterPath="$PROJECT_DIR$/living/live_tradingv4.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -217,7 +211,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772530324295</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="update nf2">
+      <option name="closed" value="true" />
+      <created>1772602758444</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1772602758444</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -232,6 +234,7 @@
     <MESSAGE value="add living account json" />
     <MESSAGE value="update live" />
     <MESSAGE value="update nf" />
-    <option name="LAST_COMMIT_MESSAGE" value="update nf" />
+    <MESSAGE value="update nf2" />
+    <option name="LAST_COMMIT_MESSAGE" value="update nf2" />
   </component>
 </project>

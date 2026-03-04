@@ -19,6 +19,7 @@ MANUAL_ACCOUNT_FILE = "data/live_broker_account.json"  # 人工维护的真实�
 SYSTEM_ACCOUNT_FILE = "data/system_account.json"  # 系统自动生成的预期账本
 
 
+# ... (保留原有的 get_latest_live_params 和 get_live_target_pool 函数不变) ...
 def get_latest_live_params(log_dir="data/tuning_logs"):
     csv_files = glob.glob(f"{log_dir}/optuna_log_*.csv") + glob.glob("optuna_log_*.csv")
     if not csv_files:
@@ -51,10 +52,14 @@ def get_latest_live_params(log_dir="data/tuning_logs"):
     live_params.update(base_cfg)
     if 'unit_size' in live_params: live_params['max_units'] = int(1.0 // live_params['unit_size'])
 
-    # 💡 透明汇报读取到的核心参数与来源
+    # ==========================================
+    # 💡 新增：向老板透明汇报读取到的核心参数与来源
+    # ==========================================
     logger.info("-" * 80)
     logger.info(f"⚙️ 【策略参数装载与核对】")
     logger.info(f"   - 寻优参数文件路径 : {os.path.abspath(latest_csv)}")
+
+    # 仅提取 AI 寻优得出的动态参数进行打印
     dynamic_params = {k: v for k, v in live_params.items() if k not in base_cfg}
     param_str = ", ".join([f"{k}: {v}" for k, v in dynamic_params.items()])
     logger.info(f"   - 注入动态寻优参数 : {param_str}")
@@ -62,16 +67,12 @@ def get_latest_live_params(log_dir="data/tuning_logs"):
 
     return live_params
 
-
 def get_live_target_pool(top_n=5):
     csv_files = glob.glob("data_provider/test_cache_data/*spot*.csv") + glob.glob(
         "data_provider/test_cache_data/*snapshot*.csv") + glob.glob("data/*snapshot*.csv")
     if not csv_files: return ["300308", "601138"], "UNKNOWN"
-
     csv_path = max(csv_files, key=os.path.getmtime)
     filename = os.path.basename(csv_path)
-    logger.info(f"📡 正在读取全市场成交额 Top {top_n} (数据源: {filename})...")
-
     try:
         spot_df = pd.read_csv(csv_path, dtype=str)
         code_col = '代码' if '代码' in spot_df.columns else 'symbol'
@@ -86,10 +87,12 @@ def get_live_target_pool(top_n=5):
         spot_df = spot_df.sort_values(by=amount_col, ascending=False).head(top_n)
         return spot_df['clean_code'].tolist(), filename
     except Exception as e:
-        logger.error(f"提取股票失败: {e}")
         return [], "ERROR"
 
 
+# ==========================================================
+# 🟢 核心重构：双账本核对机制 (Maker-Checker Reconciliation)
+# ==========================================================
 def load_and_reconcile_ledgers():
     """读取并核对系统应有账本与人工真实账本"""
     if not os.path.exists(MANUAL_ACCOUNT_FILE):
@@ -101,11 +104,13 @@ def load_and_reconcile_ledgers():
     with open(MANUAL_ACCOUNT_FILE, 'r', encoding='utf-8') as f:
         manual_data = json.load(f)
 
+    # 读取系统昨日记忆
     system_data = None
     if os.path.exists(SYSTEM_ACCOUNT_FILE):
         with open(SYSTEM_ACCOUNT_FILE, 'r', encoding='utf-8') as f:
             system_data = json.load(f)
 
+    # 💡 执行审计核对
     if system_data:
         logger.info("⚖️ 正在执行【双账本对账】...")
         sys_pos = {p['symbol']: p['shares'] for p in system_data.get('positions', [])}
@@ -119,24 +124,26 @@ def load_and_reconcile_ledgers():
             if sys_shares != man_shares:
                 if sys_shares > 0 and man_shares == 0:
                     logger.error(
-                        f"🚨 【对账异常】 {sym} 系统应有 {sys_shares} 股，真实账本 0 股。判定: 老板未执行买入/手工平仓。已强制回退基准！")
+                        f"🚨 【对账异常】 {sym} 系统应有 {sys_shares} 股，真实账本 0 股。判定: 老板未执行买入/手工平仓。已回退！")
                 elif sys_shares == 0 and man_shares > 0:
                     logger.error(
                         f"🚨 【对账异常】 {sym} 系统应有 0 股，真实账本 {man_shares} 股。判定: 老板未执行卖出。重新接管防守！")
                 else:
                     logger.warning(
-                        f"🚨 【对账异常】 {sym} 数量不符 (系统{sys_shares} != 真实{man_shares})。强制修正为真实数量！")
+                        f"🚨 【对账异常】 {sym} 数量不符 (系统{sys_shares} != 真实{man_shares})。已强制修正为真实数量！")
 
+    # 无条件返回人工账本作为不可撼动的基线
     return float(manual_data.get("available_cash", 0.0)), manual_data.get("positions", [])
 
 
 def save_system_ledger(account, strategy):
-    """实盘结束后，将系统今日执行后的最新状态持久化"""
+    """💡 实盘结束后，将系统今日执行后的最新状态持久化"""
     sys_data = {
         "available_cash": account.total_cash,
         "positions": []
     }
     for sym, pos in account.positions.items():
+        # 提取策略大脑中记录的历史最高价
         peak = strategy.pos_state.get(sym, {}).get('peak_price', pos.avg_price)
         sys_data["positions"].append({
             "symbol": sym,
@@ -153,8 +160,10 @@ def save_system_ledger(account, strategy):
 def main():
     logger.info("=" * 80)
     logger.info(f" 🚀 启动量化交易实盘中心 ({datetime.now().strftime('%Y-%m-%d %H:%M')})")
-
-    # 动态打印所有文件的物理路径
+    # ==========================================
+    # 💡 新增：动态抓取并打印所有的环境物理地址
+    # ==========================================
+    # 动态获取系统日志的实际物理路径 (从 logger handler 提取)
     sys_log_path = "logs/ 系统可能未开启文件日志"
     if logger.handlers:
         for handler in logger.handlers:
@@ -168,10 +177,10 @@ def main():
     logger.info(f"   - 💸 实盘交易流水 : {os.path.abspath('data/live_trade_ledger.csv')}")
     logger.info("=" * 80)
 
-    # 1. 载入参数与快照数据总线
     live_cfg = get_latest_live_params()
     provider = AkShareProvider()
 
+    # 1. 挂载数据总线
     price_col, open_col, high_col, low_col, vol_col, turn_col, name_col = [None] * 7
     try:
         spot_df = provider.get_market_snapshot()
@@ -202,7 +211,7 @@ def main():
     def get_sym_name(sym):
         return str(get_spot_val(sym, name_col, sym))
 
-    # 2. 执行双账本审计与接管
+    # 2. 💡 执行双账本审计与接管
     radar_symbols, source_file = get_live_target_pool(top_n=5)
     available_cash, positions_list = load_and_reconcile_ledgers()
     if available_cash is None:
@@ -211,14 +220,10 @@ def main():
     held_symbols = [str(pos.get('symbol', '')) for pos in positions_list if int(pos.get('shares', 0)) > 0]
     final_target_symbols = list(dict.fromkeys(held_symbols + radar_symbols))
 
-    # 💡 恢复遗失的特性：向老板汇报接管情况
-    logger.info(
-        f"🏦 会计部接管完毕: 真实可用现金 【{available_cash:,.2f} 元】，真实持仓 【{len(held_symbols)} 只】，雷达标的 【{len(radar_symbols)} 只】。")
-
-    # 3. 初始化大管家 (指派专属实盘交易流水 CSV)
-    live_ledger_file = "data/live_trade_ledger.csv"
-    account = Portfolio(initial_cash=available_cash, symbols=final_target_symbols, ledger_path=live_ledger_file)
-    # account.central_vault = available_cash
+    logger.info("-" * 80)
+    # 初始化大管家 (严格按人工真实账本)
+    account = Portfolio(initial_cash=available_cash, symbols=final_target_symbols)
+    account.central_vault = available_cash  # 初始化可用现金
 
     for pos_data in positions_list:
         sym = str(pos_data.get('symbol', ''))
@@ -230,7 +235,7 @@ def main():
             pos_obj.avg_price = cost
             account.positions[sym] = pos_obj
 
-    # 4. 💡 恢复遗失的特性：盘前宏观资产核算看板 (NAV Dashboard)
+    # 3. 盘前资产核算与数据切片注入
     total_cost, total_market_value = 0.0, 0.0
     for sym, pos_obj in account.positions.items():
         current_price = get_spot_val(sym, price_col)
@@ -243,28 +248,14 @@ def main():
 
     current_equity = account.total_cash + total_market_value
     floating_pnl = total_market_value - total_cost
-    floating_pnl_pct = (floating_pnl / total_cost * 100) if total_cost > 0 else 0.0
 
-    logger.info("-" * 80)
-    logger.info("【盘前资产风控评估 (Pre-Trade NAV Dashboard)】")
-    logger.info(f"   - 可用现金 (Available Cash) : {account.total_cash:,.2f}")
-    logger.info(f"   - 持仓成本 (Total Cost)     : {total_cost:,.2f}")
-    logger.info(f"   - 持仓市值 (Market Value)   : {total_market_value:,.2f}")
-    logger.info(f"   - 净 资 产 (Total Equity)   : {current_equity:,.2f}")
-    logger.info(f"   - 账面浮盈 (Floating PnL)   : {floating_pnl:,.2f} ({floating_pnl_pct:.2f}%)")
-    logger.info("-" * 80)
-
-    # 5. K线历史拉取与当日脉搏注入
     data_dict = {}
     current_date_str = datetime.now().strftime("%Y-%m-%d")
-
     for sym in final_target_symbols:
         df = provider.get_data(sym)
         if df.empty or len(df) < live_cfg['ma_long']: continue
-
         last_date = pd.to_datetime(df.index[-1]).strftime("%Y-%m-%d")
         sym_name = get_sym_name(sym)
-
         if last_date != current_date_str and not spot_df.empty and sym in spot_df.index and price_col:
             try:
                 last_close = float(df.iloc[-1]['close'])
@@ -277,21 +268,16 @@ def main():
                     'turnover': float(get_spot_val(sym, turn_col, 0.0))
                 }], index=[pd.to_datetime(current_date_str)])
                 today_kline.index.name = 'date'
-
                 if today_kline.iloc[0]['close'] > 0:
                     df = pd.concat([df, today_kline])
                     logger.info(f"⚡ [{sym} {sym_name}] 盘中数据注入成功！(今日跳动现价: {today_kline.iloc[0]['close']})")
-            except Exception as e:
+            except Exception:
                 logger.error(f"[{sym} {sym_name}] 盘中数据注入失败: {e}")
-
         data_dict[sym] = df
-
-        # 💡 恢复遗失的特性：强力打印最新 3 行数据让老板检查
         logger.debug(f"\n📊 [{sym} {sym_name}] 最新 3 行数据切片检查:\n{df.tail(3).to_string()}\n" + "-" * 60)
+    if not data_dict: return logger.error("数据注入失败。")
 
-    if not data_dict: return logger.error("数据注入失败，无可用标的，程序终止。")
-
-    # 6. 策略计算与指令生成
+    # 4. 策略计算与指令生成
     strategy = InstitutionalTrendStrategy(cfg=live_cfg, symbols=final_target_symbols)
 
     def live_get_current_row(sym):
@@ -307,93 +293,42 @@ def main():
                 strategy.pos_state[sym]['units_held'] = 1
                 strategy.pos_state[sym]['peak_price'] = float(pos.get('highest_price', 0.0))
 
-    buy_orders, sell_orders, hold_reports, rejected_orders = [], [], [], []
-    sold_symbols_today = []
-
+    buy_orders, sell_orders, hold_reports = [], [], []
     for symbol, df_analyzed in indicators_dict.items():
         sym_name = get_sym_name(symbol)
         today_bar = df_analyzed.iloc[-1]
         action, intent_shares = strategy.on_bar(today_bar, account, symbol)
         price = today_bar['close']
-        cost = account.get_avg_price(symbol)
-        held_shares = account.get_shares(symbol)
 
         if action in ["BUY", "SELL"]:
-            reason = strategy.intended_signals[-1]['reason'] if strategy.intended_signals else "触发买卖点"
             trade_result = account.execute_trade(symbol=symbol, action=action, shares=intent_shares, price=price,
                                                  current_time=current_date_str)
-
             if trade_result['success']:
-                filled_shares = trade_result['filled_shares']
-                fee = trade_result['fee']
-                trade_value = trade_result['trade_value']
-
                 if action == "SELL":
-                    sold_symbols_today.append(symbol)
-                    profit_pct = (price - cost) / cost if cost > 0 else 0
                     sell_orders.append(
-                        f"🔴 {symbol} ({sym_name}) 卖出 {filled_shares} 股 | 现价: {price:.2f}\n"
-                        f"   - 回笼资金: {trade_value:,.2f} 元 (扣减税费 {fee:.2f} 元)\n"
-                        f"   - 逻辑: {reason} (单笔盈亏: {profit_pct * 100:.2f}%)"
-                    )
+                        f"🔴 {symbol} ({sym_name}) 卖出 {trade_result['filled_shares']} 股 | 现价: {price:.2f}")
                 else:
-                    status = "建仓" if held_shares == 0 else "加仓"
                     buy_orders.append(
-                        f"🟢 {symbol} ({sym_name}) {status} {filled_shares} 股 | 现价: {price:.2f}\n"
-                        f"   - 动用资金: {trade_value:,.2f} 元 (预扣佣金 {fee:.2f} 元)\n"
-                        f"   - 逻辑: {reason}"
-                    )
-            else:
-                rejected_orders.append(
-                    f"⛔ {symbol} ({sym_name}) 拦截: 试图 {action} {intent_shares} 股。原因: {trade_result['message']}")
-        else:
-            if held_shares > 0:
-                profit_pct = (price - cost) / cost if cost > 0 else 0
-                peak = strategy.pos_state[symbol]['peak_price']
-                hold_reports.append(
-                    f"🛡️ {symbol} ({sym_name}) 持仓 {held_shares} 股 | 现价: {price:.2f} | 浮盈: {profit_pct * 100:.2f}%")
+                        f"🟢 {symbol} ({sym_name}) 买入 {trade_result['filled_shares']} 股 | 现价: {price:.2f}")
 
-    # 7. 落库记录与手机推送
+    # ==========================================================
+    # 🟢 核心重构：系统状态落库与手机推送打通
+    # ==========================================================
+
+    # 1. 把系统经过买卖推演后的最新账本存起来，明天比对！
     save_system_ledger(account, strategy)
 
+    # 2. 打印屏幕日志
     logger.info("=" * 80)
     logger.info("【操作审批纪要 (Execution Summary)】")
-    if sell_orders:
-        for o in sell_orders: logger.info(o)
-    if buy_orders:
-        for o in buy_orders: logger.info(o)
-    if not sell_orders and not buy_orders:
-        logger.info("   无操作指令。")
-    if rejected_orders:
-        for o in rejected_orders: logger.warning(o)
-
-    logger.info("\n【持仓状态确认 (Positions Audit)】")
-    if hold_reports:
-        for report in hold_reports: logger.info(report)
-    else:
-        logger.info("   - 当前未持有任何底层资产。")
-
+    for o in sell_orders: logger.info(o)
+    for o in buy_orders: logger.info(o)
+    if not sell_orders and not buy_orders: logger.info("   无操作指令。")
     logger.info("=" * 80)
-    logger.info("👀 【交易额最大监控池 (拒绝交易名单)】")
-    watched_count = 0
-    for symbol, df_analyzed in indicators_dict.items():
-        if account.get_shares(symbol) == 0 and symbol not in sold_symbols_today:
-            today_bar = df_analyzed.iloc[-1]
-            bias = today_bar.get('Bias', 999)
-            is_bullish = today_bar.get('Strong_Trend', False)
-            if not is_bullish:
-                reason = "未形成多头排列"
-            elif bias > live_cfg['bias_entry_limit']:
-                reason = f"乖离率偏高 ({bias:.2f})"
-            else:
-                reason = "未满足缩量回踩或放量突破"
-            logger.info(f"   - 🚫 观望 {symbol} ({get_sym_name(symbol)}): {reason}")
-            watched_count += 1
 
-    if watched_count == 0: logger.info("   (无监控池或已全部发车)")
+    # 3. 推送手机 Markdown 战报
+    pusher = MessagePusher()  # 💡 这里填入您的钉钉或企业微信 Webhook
 
-    # 推送手机 Markdown 战报
-    pusher = MessagePusher()
     md_content = f"**净资产评估**: {current_equity:,.2f} 元\n" \
                  f"**今日总浮盈**: {floating_pnl:,.2f} 元\n\n" \
                  f"### 🛑 清仓/防守指令:\n" + (
@@ -401,7 +336,7 @@ def main():
                                                                                                 f"### 🎯 建仓/加仓指令:\n" + (
                      "\n".join([f"- {o}" for o in buy_orders]) if buy_orders else "- 无\n")
 
-    pusher.push_message(title="【MT_Alpha】实盘交易指令核对", content=md_content)
+    pusher.push_message(title="【MT_Alpha】今日交易指令核对", content=md_content)
 
 
 if __name__ == "__main__":

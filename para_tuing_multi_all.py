@@ -81,7 +81,7 @@ def run_portfolio_ai_optimization(data_dict, symbols, initial_capital, n_trials=
         breakout_vol_limit = trial.suggest_float('breakout_vol_limit', 1.1, 1.5, step=0.1)
 
         # 4. 基础风控与底线 (💡 这里强行压制硬止损的上限为 0.10)
-        stop_loss_pct = trial.suggest_float('stop_loss_pct', 0.05, 0.10, step=0.01)
+        stop_loss_pct = trial.suggest_float('stop_loss_pct', 0.05, 0.20, step=0.01)
         trailing_stop_pct = trial.suggest_float('trailing_stop_pct', 0.15, 0.30, step=0.01)
 
         # 5. 分档止盈体系
@@ -205,12 +205,40 @@ def main():
     logger.info("🌍 启动【多股联合盘】防过拟合 AI 寻优 (修复覆盖Bug版)...")
     logger.info("==========================================")
 
-    csv_files = glob.glob("data_provider/test_cache_data/*spot*.csv") + glob.glob(
-        "data_provider/test_cache_data/*snapshot*.csv") + glob.glob("data/*snapshot*.csv")
-    csv_path = csv_files[0]
-    # 💡 股票数量控制点
-    symbols, symbol_names = get_top_stocks_from_local_csv(csv_path, top_n=20)
-    if not symbols: return
+    # 1. 获取所有可能的数据源文件
+    csv_files = glob.glob("data_provider/test_cache_data/*spot*.csv") + \
+                glob.glob("data_provider/test_cache_data/*snapshot*.csv") #+ \
+                #glob.glob("data/*snapshot*.csv")
+
+    if not csv_files:
+        return  # 没找到任何文件则直接退出
+
+    # 💡 修复 1：强制按文件的最后修改时间【降序】排列，确保排在最前面的是最近的日子
+    csv_files.sort(key=os.path.getmtime, reverse=True)
+
+    # 💡 修复 2：安全地截取最近的 3 个文件（就算本地只有 2 个文件也不会报错越界）
+    recent_files = csv_files[:3]
+
+    symbols = []
+    symbol_names = {}  # 名字应该是字典格式
+
+    # 遍历最近 3 天的文件
+    for csv_path in recent_files:
+        temp_symbols, temp_names = get_top_stocks_from_local_csv(csv_path, top_n=20)
+
+        if temp_symbols:
+            symbols.extend(temp_symbols)  # 列表追加用 extend
+        if temp_names:
+            symbol_names.update(temp_names)  # 字典合并用 update
+
+    # 💡 修复 3：全集去重！3 天的 top10 合并后最多 30 只，去重后可能只有 15 只
+    final_symbols = list(dict.fromkeys(symbols))
+
+    if not final_symbols:
+        return
+
+    # 最终送给调优引擎的参数
+    symbols = final_symbols
 
     provider = AkShareProvider()
     data_dict = {}

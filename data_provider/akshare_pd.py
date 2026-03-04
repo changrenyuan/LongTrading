@@ -24,7 +24,7 @@ class AkShareProvider(BaseDataProvider):
         now = datetime.now()
         today_str = now.strftime('%Y%m%d')
         # 💡 修复：将时间阈值设定为 11:30，与你的注释保持一致
-        threshold_time = time(11, 30)
+        threshold_time = time(10, 30)
 
         cache_file_today = os.path.join(self.cache_dir, f"market_snapshot_{today_str}.csv")
 

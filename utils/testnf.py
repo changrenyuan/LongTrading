@@ -19,7 +19,7 @@ def test():
 
     # 2. 测试紧急错误拦截
     title_crit = "对账失败拦截123"
-    content_crit = "系统预期应有 1000 股，真实账本 0 股。\n🚨 已触发回退防守机制！"
+    content_crit = "系统预期应有 1000 股，真实账本 0 股。\n 已触发回退防守机制！"
     print("\n[测试 2] 发送 CRITICAL 级别消息...")
     pusher.push_message(title_crit, content_crit, level=NotificationLevel.CRITICAL)
 

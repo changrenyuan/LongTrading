@@ -4,11 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="update backtest">
-      <change afterPath="$PROJECT_DIR$/webui/api_server.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webui/test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webui/web_dashboard.py" afterDir="false" />
+    <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="update webui">
+      <change afterPath="$PROJECT_DIR$/data/market_snapshot_20260304.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/live.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/live_exchage/config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/live_exchage/engine.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/live_exchage/executor.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/live_exchage/ledger.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/live_exchage/test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/live_exchage/universe.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/living/live_tradingv1.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/living/live_tradingv2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/living/live_tradingv3.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/living/live_tradingv4.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/notifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/notifier.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/testnf.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/testnf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/api_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/webui/api_server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/webui/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/web_dashboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/webui/web_dashboard.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +56,8 @@
     "Python.account.executor": "Run",
     "Python.akshare_pd.executor": "Run",
     "Python.api_server.executor": "Run",
+    "Python.engine.executor": "Run",
+    "Python.live.executor": "Run",
     "Python.live_trading.executor": "Run",
     "Python.live_tradingv2.executor": "Run",
     "Python.main.executor": "Run",
@@ -63,12 +79,13 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/git/LongTrading",
+    "last_opened_file_path": "D:/git/LongTrading/data",
     "settings.editor.selected.configurable": "http.proxy"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\git\LongTrading\data" />
       <recent name="D:\git\LongTrading" />
       <recent name="D:\git\LongTrading\living" />
       <recent name="D:\git\LongTrading\strategies" />
@@ -230,7 +247,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772603034315</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="update webui">
+      <option name="closed" value="true" />
+      <created>1772606573635</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1772606573635</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -247,6 +272,7 @@
     <MESSAGE value="update nf" />
     <MESSAGE value="update nf2" />
     <MESSAGE value="update backtest" />
-    <option name="LAST_COMMIT_MESSAGE" value="update backtest" />
+    <MESSAGE value="update webui" />
+    <option name="LAST_COMMIT_MESSAGE" value="update webui" />
   </component>
 </project>

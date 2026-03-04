@@ -104,25 +104,21 @@ class MessagePusher:
             return False
 
     def _send_dingtalk(self, title: str, content: str, level: NotificationLevel) -> bool:
-        """发送钉钉通知 (Markdown格式，包含自定义关键词longT以通过认证)"""
-        # 构造消息体，确保包含自定义关键词longT
-        emoji_map = {
-            NotificationLevel.INFO: "ℹ️",
-            NotificationLevel.WARNING: "⚠️",
-            NotificationLevel.ERROR: "❌",
-            NotificationLevel.CRITICAL: "🚨"
-        }
+        """发送钉钉通知 (优雅高颜值的 Markdown 格式)"""
 
-        # 核心：在消息文本中嵌入自定义关键词（longT），确保通过钉钉安全验证
-        text_content = f"{emoji_map.get(level, '')} ### [{level.name.upper()}] {title}\n{content}\n\n【{self.dingtalk_secret}】"
+        # 💡 获取精确到秒的当前时间
+        current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+
+        # 💡 核心优化：去除了丑陋的 ### [INFO] 标签，完全交由内容自行排版。
+        # 加入了一条专业的灰色引用签名线（带时间），并隐藏了用来通过安全校验的钉钉密码。
+        text_content = f"{content}\n\n---\n*Powered by 3和7 • {current_time}* &nbsp; <font color='#ffffff'>【{self.dingtalk_secret}】</font>"
 
         payload = {
             "msgtype": "markdown",
             "markdown": {
-                "title": title,
+                "title": title,  # 手机端消息列表外显的标题
                 "text": text_content
             },
-            # 可选：at所有人/指定人（不需要可删除）
             "at": {
                 "isAtAll": False
             }
@@ -137,11 +133,11 @@ class MessagePusher:
                 timeout=5,
                 proxies={"http": None, "https": None}
             )
-            res.raise_for_status()  # 抛出HTTP异常
+            res.raise_for_status()
             response_json = res.json()
 
             if response_json.get("errcode") == 0:
-                self.logger.info("📱 钉钉 推送成功！")
+                self.logger.info("📱 钉钉 机构级战报推送成功！")
                 return True
             else:
                 self.logger.error(f"📱 钉钉 推送失败: {response_json.get('errmsg', '未知错误')}")

@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="update nf2">
-      <change afterPath="$PROJECT_DIR$/backtest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/live_tradingv4.py" beforeDir="false" afterPath="$PROJECT_DIR$/living/live_tradingv4.py" afterDir="false" />
+    <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="update backtest">
+      <change afterPath="$PROJECT_DIR$/webui/api_server.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webui/test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webui/web_dashboard.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +41,7 @@
   "keyToString": {
     "Python.account.executor": "Run",
     "Python.akshare_pd.executor": "Run",
+    "Python.api_server.executor": "Run",
     "Python.live_trading.executor": "Run",
     "Python.live_tradingv2.executor": "Run",
     "Python.main.executor": "Run",
@@ -219,7 +222,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772602758444</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="update backtest">
+      <option name="closed" value="true" />
+      <created>1772603034315</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1772603034315</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -235,6 +246,7 @@
     <MESSAGE value="update live" />
     <MESSAGE value="update nf" />
     <MESSAGE value="update nf2" />
-    <option name="LAST_COMMIT_MESSAGE" value="update nf2" />
+    <MESSAGE value="update backtest" />
+    <option name="LAST_COMMIT_MESSAGE" value="update backtest" />
   </component>
 </project>

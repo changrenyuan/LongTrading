@@ -1,7 +1,6 @@
 import os
 import pandas as pd
 from datetime import datetime
-from data_provider.akshare_pd import AkShareProvider
 from strategies.trend import InstitutionalTrendStrategy
 from core.account import Portfolio, Position
 from utils.logger import global_logger as logger
@@ -16,8 +15,7 @@ from .executor import TradeExecutor
 class LiveEngine:
     def __init__(self):
         self.config = LiveConfig.get_latest_live_params()
-        self.provider = AkShareProvider()
-        self.universe = UniverseManager(self.provider)
+        self.universe = UniverseManager()
         self.ledger = LedgerManager()
         self.executor = TradeExecutor(self.ledger)
 

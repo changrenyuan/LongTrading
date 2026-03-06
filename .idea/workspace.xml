@@ -4,25 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="update webui">
-      <change afterPath="$PROJECT_DIR$/data/market_snapshot_20260304.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/live.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/live_exchage/config.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/live_exchage/engine.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/live_exchage/executor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/live_exchage/ledger.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/live_exchage/test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/live_exchage/universe.py" afterDir="false" />
+    <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="update webui and nf">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/system_account.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_provider/cloudakpd.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_provider/cron_scheduler.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_provider/testcloud.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/historyfile/para_tuning_win50p.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/historyfile/para_tuning_win50pv2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/historyfile/para_tuning_win50pv3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/live_exchage/universeold.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/para_tuning_win50pv4.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/living/live_tradingv1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/living/live_tradingv2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/living/live_tradingv3.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/living/live_tradingv4.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/notifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/notifier.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/testnf.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/testnf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/live_broker_account.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/live_broker_account.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/live_exchage/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/live_exchage/engine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/live_exchage/ledger.py" beforeDir="false" afterPath="$PROJECT_DIR$/live_exchage/ledger.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/live_exchage/universe.py" beforeDir="false" afterPath="$PROJECT_DIR$/live_exchage/universe.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/live_trading.py" beforeDir="false" afterPath="$PROJECT_DIR$/historyfile/live_trading.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/historyfile/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/para_tuing_multi_all.py" beforeDir="false" afterPath="$PROJECT_DIR$/historyfile/para_tuing_multi_all.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webui/api_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/webui/api_server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webui/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/webui/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webui/web_dashboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/webui/web_dashboard.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +57,8 @@
     "Python.account.executor": "Run",
     "Python.akshare_pd.executor": "Run",
     "Python.api_server.executor": "Run",
+    "Python.cloudakpd.executor": "Run",
+    "Python.cron_scheduler.executor": "Run",
     "Python.engine.executor": "Run",
     "Python.live.executor": "Run",
     "Python.live_trading.executor": "Run",
@@ -68,29 +71,36 @@
     "Python.para_tuing_multi_all.executor": "Run",
     "Python.para_tuing_multi_all_log.executor": "Run",
     "Python.para_tuing_multi_all_log_kama.executor": "Run",
+    "Python.para_tuning_win50p.executor": "Run",
+    "Python.para_tuning_win50pv2.executor": "Run",
+    "Python.para_tuning_win50pv3.executor": "Run",
+    "Python.para_tuning_win50pv4.executor": "Run",
     "Python.plotter.executor": "Run",
     "Python.test.executor": "Run",
     "Python.testacc.executor": "Run",
     "Python.testak.executor": "Run",
     "Python.testakshare.executor": "Run",
+    "Python.testcloud.executor": "Run",
     "Python.testnf.executor": "Run",
     "Python.testwplot.executor": "Run",
     "Python.trendv4.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/git/LongTrading/data",
-    "settings.editor.selected.configurable": "http.proxy"
+    "last_opened_file_path": "D:/git/LongTrading",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\git\LongTrading\data" />
       <recent name="D:\git\LongTrading" />
+      <recent name="D:\git\LongTrading\live_exchage" />
+      <recent name="D:\git\LongTrading\historyfile" />
+      <recent name="D:\git\LongTrading\data" />
       <recent name="D:\git\LongTrading\living" />
-      <recent name="D:\git\LongTrading\strategies" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\git\LongTrading\historyfile" />
       <recent name="D:\git\LongTrading\living" />
       <recent name="D:\git\LongTrading\strategies\paratuning" />
     </key>
@@ -122,7 +132,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-ce3d9afa04ac-ba05f1cad1b1-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.20224.347" />
+        <option value="bundled-python-sdk-67fca87a943a-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.11799.259" />
       </set>
     </attachedChunks>
   </component>

@@ -1,102 +1,133 @@
 import os
-import glob
 import json
 import pandas as pd
+from sqlalchemy import text
 from utils.logger import global_logger as logger
+from data_provider.cloudakpd import DataCenter  # 💡 引入云端地基
 
 
 class UniverseManager:
-    def __init__(self, provider, pool_file="data/universe_pool.json"):
-        self.provider = provider
+    def __init__(self, pool_file="data/universe_pool.json"):
+        """
+        股票池管理器：从云端动态筛选“活水”，并维护实盘监控属性
+        """
+        self.dc = DataCenter()  # 💡 建立云端数据库连接
         self.pool_file = pool_file
         self.spot_df = pd.DataFrame()
-        self.price_col = None
-        self.open_col, self.high_col, self.low_col = '今开', '最高', '最低'
-        self.vol_col, self.turn_col = '成交量', '换手率'
-        self.name_col = '名称'
+
+        # 💡 核心列属性：严格保留，禁止删减。对齐 cloudakpd.py 的字段名
+        self.price_col = 'latest_price'
+        self.name_col = 'name'
+        self.amt_col = 'amount'
+        self.open_col = 'open'  # 针对 engine.py 的盘中注入
+        self.high_col = 'high'  # 针对 engine.py 的盘中注入
+        self.low_col = 'low'  # 针对 engine.py 的盘中注入
+        self.vol_col = 'volume'  # 针对 engine.py 的盘中注入
+        self.turn_col = 'turnover_rate'
+
         self._load_snapshot()
 
     def _load_snapshot(self):
+        """
+        💡 升级：直接从云端 PostgreSQL 获取全量快照，不再依赖本地 CSV
+        """
         try:
-            spot_df = self.provider.get_market_snapshot()
-            if not spot_df.empty:
-                code_raw = '代码' if '代码' in spot_df.columns else ('code' if 'code' in spot_df.columns else 'symbol')
-                spot_df['clean_code'] = spot_df[code_raw].astype(str).str.extract(r'(\d{6})')
-                spot_df = spot_df.dropna(subset=['clean_code'])
-                spot_df.set_index('clean_code', inplace=True)
-                self.price_col = '最新价' if '最新价' in spot_df.columns else (
-                    'trade' if 'trade' in spot_df.columns else None)
-                self.name_col = '名称' if '名称' in spot_df.columns else 'name'
-                self.spot_df = spot_df
+            # 调用 DataCenter 的云端读取方法
+            self.spot_df = self.dc.get_snapshot_from_cloud()
+            if not self.spot_df.empty:
+                # 确保代码是 6 位字符串并设为索引
+                self.spot_df.set_index('symbol', inplace=True)
+                logger.info(f"✅ [UniverseManager] 云端全量快照加载成功，当前监控 {len(self.spot_df)} 只标的。")
+            else:
+                logger.warning("⚠️ [UniverseManager] 云端快照为空，请检查数据同步。")
         except Exception as e:
-            logger.warning(f"获取全市场快照异常: {e}")
+            logger.error(f"❌ [UniverseManager] 获取全市场快照异常: {e}")
 
     def get_spot_val(self, sym, col_name, fallback=None):
-        if self.spot_df.empty or sym not in self.spot_df.index or not col_name:
+        """
+        从快照中提取指定字段的值（如最新价、开盘价等）
+        """
+        if self.spot_df.empty or sym not in self.spot_df.index:
             return fallback
-        info = self.spot_df.loc[sym]
-        if isinstance(info, pd.DataFrame): info = info.iloc[0]
-        val = info.get(col_name)
+
+        val = self.spot_df.loc[sym, col_name]
+        # 处理 Pandas 结果集或空值
+        if isinstance(val, pd.Series):
+            val = val.iloc[0]
+
         return fallback if pd.isna(val) or val == '-' or val == '' else val
 
     def get_sym_name(self, sym):
+        """获取股票名称"""
         return str(self.get_spot_val(sym, self.name_col, sym))
 
-    def build_dynamic_stock_pool(self, held_symbols, max_size=20):
+    def build_dynamic_stock_pool(self, held_symbols, max_size=20, lookback_days=20):
+        """
+        💡 升级：基于云端 20 日成交额排名统计热度，构建动态股票池
+        """
         pool_details = []
         pool_symbols = []
 
-        # 1. 强制保留当前持仓
+        # 1. 强制保留当前持仓标的 (🛡️ 老兵)
         for sym in dict.fromkeys(held_symbols):
+            sym = str(sym).zfill(6)  # 补齐 6 位
             pool_symbols.append(sym)
             pool_details.append({
                 "symbol": sym,
                 "name": self.get_sym_name(sym),
-                "reason": "🛡️ 当前持仓，强制保留名额"
+                "reason": "🛡️ 实盘持仓标的，强制监控"
             })
 
-        # 2. 统计近期热度
+        # 2. 💡 从云端数据库进行 SQL 热度审计 (不再扫描本地文件)
+        logger.info(f"📊 正在通过云端 SQL 审计近 {lookback_days} 个交易日的热点标的...")
         hot_counter = {}
-        csv_files = glob.glob("data_provider/test_cache_data/*spot*.csv") + glob.glob(
-            "data_provider/test_cache_data/*snapshot*.csv") + glob.glob("data/*snapshot*.csv")
-        csv_files.sort(key=os.path.getmtime, reverse=True)
-        recent_files = csv_files[:20]
+        try:
+            # 统计最近 X 个交易日内，每日成交额排名前 20 的频次
+            query = text(f"""
+                WITH daily_rank AS (
+                    SELECT trade_date, symbol, 
+                           ROW_NUMBER() OVER(PARTITION BY trade_date ORDER BY amount DESC) as rk
+                    FROM market_snapshots
+                    WHERE name NOT LIKE '%ST%' 
+                      AND (symbol LIKE '60%' OR symbol LIKE '00%' OR symbol LIKE '30%')
+                )
+                SELECT symbol, COUNT(*) as hit_count
+                FROM daily_rank
+                WHERE rk <= 20
+                GROUP BY symbol
+                ORDER BY hit_count DESC
+                LIMIT 50
+            """)
 
-        for f in recent_files:
-            try:
-                spot_df = pd.read_csv(f, dtype=str)
-                code_col = '代码' if '代码' in spot_df.columns else 'symbol'
-                amt_col = '成交额' if '成交额' in spot_df.columns else 'amount'
-                name_col = '名称' if '名称' in spot_df.columns else 'name'
+            with self.dc.engine.connect() as conn:
+                hot_results = conn.execute(query).fetchall()
 
-                spot_df['clean_code'] = spot_df[code_col].str.extract(r'(\d{6})')
-                spot_df = spot_df.dropna(subset=['clean_code'])
-                if name_col in spot_df.columns:
-                    spot_df = spot_df[~spot_df[name_col].astype(str).str.contains('ST')]
-                spot_df = spot_df[spot_df['clean_code'].str.startswith(('60', '00', '30'))]
-                spot_df[amt_col] = pd.to_numeric(spot_df[amt_col], errors='coerce').fillna(0)
+            for row in hot_results:
+                hot_counter[row[0]] = row[1]
 
-                top10 = spot_df.sort_values(by=amt_col, ascending=False).head(10)['clean_code'].tolist()
-                for code in top10:
-                    hot_counter[code] = hot_counter.get(code, 0) + 1
-            except:
-                continue
+        except Exception as e:
+            logger.error(f"❌ [UniverseManager] 云端热度审计失败: {e}")
 
-        sorted_hot = sorted(hot_counter.keys(), key=lambda x: hot_counter[x], reverse=True)
+        # 3. 填充活水池标的 (🔥 新秀)
+        # 按入榜频次降序排列
+        sorted_codes = sorted(hot_counter.keys(), key=lambda x: hot_counter[x], reverse=True)
 
-        # 3. 填充活水池
-        for code in sorted_hot:
+        for code in sorted_codes:
             if code not in pool_symbols and len(pool_symbols) < max_size:
                 pool_symbols.append(code)
                 pool_details.append({
                     "symbol": code,
                     "name": self.get_sym_name(code),
-                    "reason": f"🔥 近 {len(recent_files)} 日内霸榜全市场成交额 Top10 共 {hot_counter[code]} 次"
+                    "reason": f"🔥 近期榜单前20强入围 {hot_counter[code]} 次"
                 })
 
-        # 💡 新增：保存股票池和入选理由给前端展示
-        os.makedirs(os.path.dirname(self.pool_file), exist_ok=True)
-        with open(self.pool_file, 'w', encoding='utf-8') as f:
-            json.dump(pool_details, f, indent=4, ensure_ascii=False)
+        # 4. 持久化股票池 JSON (供实盘与 WebUI 展示)
+        try:
+            os.makedirs(os.path.dirname(self.pool_file), exist_ok=True)
+            with open(self.pool_file, 'w', encoding='utf-8') as f:
+                json.dump(pool_details, f, indent=4, ensure_ascii=False)
+            logger.info(f"✅ [UniverseManager] 动态股票池已对齐云端，当前池规模: {len(pool_symbols)}")
+        except Exception as e:
+            logger.error(f"❌ [UniverseManager] 保存股票池详情失败: {e}")
 
-        return pool_symbols, len(recent_files)
+        return pool_symbols, lookback_days

@@ -219,7 +219,6 @@ def main():
     live_ledger_file = "data/live_trade_ledger.csv"
     account = Portfolio(initial_cash=available_cash, symbols=final_target_symbols, ledger_path=live_ledger_file)
     # account.central_vault = available_cash
-
     for pos_data in positions_list:
         sym = str(pos_data.get('symbol', ''))
         shares = int(pos_data.get('shares', 0))

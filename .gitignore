@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+data/*.csv
+data/*.json
+!data/live_broker_account.json
+.env
+.idea/
+.vscode/
+/data_provider/logs/
+

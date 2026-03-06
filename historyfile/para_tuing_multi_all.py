@@ -275,7 +275,7 @@ def main():
             symbols=symbols,
             symbol_names=symbol_names,
             strategy_name=f"AI_Portfolio_Master",
-            save_dir="data/charts"
+            save_dir="../data/charts"
         )
 
 

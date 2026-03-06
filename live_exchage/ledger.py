@@ -104,3 +104,72 @@ class LedgerManager:
         with open(self.nav_file, 'a', encoding='utf-8') as f:
             if not file_exists: f.write("Date,Equity\n")
             f.write(f"{date_str},{total_equity}\n")
+
+    def sync_manual_to_system(self, universe_manager):
+        """
+        💡 核心逻辑：人工账本 -> 系统账本 (全量补全)
+        调用 UniverseManager 实时补全名称、现价、盈亏。
+        """
+        if not os.path.exists(self.manual_file):
+            logger.error("❌ 同步失败：人工账本不存在。")
+            return False
+
+        try:
+            # 1. 读取人工输入的“干货” (只有代码、股数、成本)
+            with open(self.manual_file, 'r', encoding='utf-8') as f:
+                manual_data = json.load(f)
+
+            # 2. 读取旧系统账本用于保留“最高价”等记忆
+            old_sys_lookup = {}
+            if os.path.exists(self.system_file):
+                with open(self.system_file, 'r', encoding='utf-8') as f:
+                    old_sys_lookup = {p['symbol']: p for p in json.load(f).get('positions', [])}
+
+            new_sys_data = {
+                "available_cash": manual_data.get("available_cash", 0.0),
+                "positions": []
+            }
+
+            # 3. 遍历人工持仓，利用云端数据“点石成金”
+            for m_pos in manual_data.get("positions", []):
+                sym = m_pos['symbol']
+                shares = m_pos.get('shares', 0)
+                cost_price = m_pos.get('cost_price', 0.0)
+
+                # 从 UniverseManager (云端快照) 拿现成的数据
+                name = universe_manager.get_sym_name(sym)
+                curr_price = universe_manager.get_spot_val(sym, universe_manager.price_col)
+                curr_price = float(curr_price) if curr_price else cost_price
+
+                # 计算实时盈亏
+                cost_value = shares * cost_price
+                market_value = shares * curr_price
+                pnl = market_value - cost_value
+                pnl_pct = (pnl / cost_value * 100) if cost_value > 0 else 0.0
+
+                # 保留最高价记忆，用于计算回撤
+                highest = old_sys_lookup.get(sym, {}).get('highest_price', curr_price)
+                highest = max(highest, curr_price)
+
+                new_sys_data["positions"].append({
+                    "symbol": sym,
+                    "name": name,
+                    "shares": shares,
+                    "cost_price": round(cost_price, 3),
+                    "current_price": round(curr_price, 3),
+                    "pnl": round(pnl, 2),
+                    "pnl_pct": f"{pnl_pct:+.2f}%",
+                    "highest_price": round(highest, 3),
+                    "buy_date": old_sys_lookup.get(sym, {}).get('buy_date', '手动录入'),
+                    "buy_reason": old_sys_lookup.get(sym, {}).get('buy_reason', '手动同步')
+                })
+
+            # 4. 存盘
+            with open(self.system_file, 'w', encoding='utf-8') as f:
+                json.dump(new_sys_data, f, indent=4, ensure_ascii=False)
+
+            logger.info("✅ 账本同步完成：已根据云端快照补全所有持仓明细。")
+            return True
+        except Exception as e:
+            logger.error(f"❌ 同步过程崩溃: {e}")
+            return False

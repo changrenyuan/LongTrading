@@ -4,25 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="update webui and nf">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/system_account.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_provider/cloudakpd.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_provider/cron_scheduler.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_provider/testcloud.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/historyfile/para_tuning_win50p.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/historyfile/para_tuning_win50pv2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/historyfile/para_tuning_win50pv3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/live_exchage/universeold.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/para_tuning_win50pv4.py" afterDir="false" />
+    <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="update webui and indexnew">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/live_broker_account.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/live_broker_account.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/live_exchage/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/live_exchage/engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/live_exchage/ledger.py" beforeDir="false" afterPath="$PROJECT_DIR$/live_exchage/ledger.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/live_exchage/universe.py" beforeDir="false" afterPath="$PROJECT_DIR$/live_exchage/universe.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/live_trading.py" beforeDir="false" afterPath="$PROJECT_DIR$/historyfile/live_trading.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/historyfile/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/para_tuing_multi_all.py" beforeDir="false" afterPath="$PROJECT_DIR$/historyfile/para_tuing_multi_all.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/system_account.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_account.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webui/api_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/webui/api_server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -265,7 +250,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772606573635</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="update webui and indexnew">
+      <option name="closed" value="true" />
+      <created>1772791406427</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1772791406428</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -283,6 +276,7 @@
     <MESSAGE value="update nf2" />
     <MESSAGE value="update backtest" />
     <MESSAGE value="update webui" />
-    <option name="LAST_COMMIT_MESSAGE" value="update webui" />
+    <MESSAGE value="update webui and indexnew" />
+    <option name="LAST_COMMIT_MESSAGE" value="update webui and indexnew" />
   </component>
 </project>

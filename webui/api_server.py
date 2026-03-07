@@ -38,11 +38,21 @@ def ping(): return {"status": "ok"}
 def get_ledger_status():
     sys_pos, man_pos = {}, {}
     if os.path.exists(SYSTEM_ACCOUNT_FILE):
-        with open(SYSTEM_ACCOUNT_FILE, "r", encoding="utf-8") as f: sys_pos = {p['symbol']: p['shares'] for p in
-                                                                               json.load(f).get('positions', [])}
+        with open(SYSTEM_ACCOUNT_FILE, "r", encoding="utf-8") as f:
+            # 使用 (shares, cost_price) 元组作为值
+            sys_pos = {
+                p['symbol']: (p['shares'], round(float(p.get('cost_price', 0)), 3))
+                for p in json.load(f).get('positions', [])
+            }
+
+    # 2. 提取人工账本：包含股数和成本价
     if os.path.exists(MANUAL_ACCOUNT_FILE):
-        with open(MANUAL_ACCOUNT_FILE, "r", encoding="utf-8") as f: man_pos = {p['symbol']: p['shares'] for p in
-                                                                               json.load(f).get('positions', [])}
+        with open(MANUAL_ACCOUNT_FILE, "r", encoding="utf-8") as f:
+            # 确保人工账本 JSON 中也包含 cost_price 字段
+            man_pos = {
+                p['symbol']: (p['shares'], round(float(p.get('cost_price', 0)), 3))
+                for p in json.load(f).get('positions', [])
+            }
     is_match = (sys_pos == man_pos)
     return {"is_match": is_match,
             "message": "🟢 账本对账一致" if is_match else "🔴 对账异常：系统预估持仓与人工真实账本不符！"}
@@ -137,6 +147,38 @@ def get_portfolio_status():
             print(f"精算分析失败: {e}")
 
     return data
+
+
+@app.get("/api/v1/ledger/nav_history")
+def get_nav_history():
+    """
+    📈 获取历史净值曲线数据，直接对接前端图表
+    """
+    if not os.path.exists(DAILY_NAV_FILE):
+        return []
+
+    try:
+        # 读取 CSV 数据
+        df = pd.read_csv(DAILY_NAV_FILE)
+        if df.empty:
+            return []
+
+        # 1. 数据清洗：去除空值
+        df = df.dropna(subset=['Date', 'Equity'])
+
+        # 2. 转换日期格式，确保前端能够识别
+        df['Date'] = pd.to_datetime(df['Date']).dt.strftime('%Y-%m-%d')
+
+        # 3. 按日期排序并去重（保留最后一次记录）
+        df = df.sort_values('Date').drop_duplicates('Date', keep='last')
+
+        # 4. 转换为前端标准格式：[{date: '...', equity: ...}]
+        chart_data = df.rename(columns={'Date': 'date', 'Equity': 'equity'}).to_dict(orient='records')
+
+        return chart_data
+    except Exception as e:
+        print(f"提取净值历史失败: {e}")
+        return []
 @app.get("/api/v1/universe/pool")
 def get_universe_pool():
     if not os.path.exists(UNIVERSE_POOL_FILE): return []

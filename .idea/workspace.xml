@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="update webui and indexnew">
+    <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="update webui and nextjs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/live_broker_account.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/live_broker_account.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/system_account.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_account.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/pnpm-lock.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/src/app/settings/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/src/app/settings/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/src/lib/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/src/lib/api.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webui/api_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/webui/api_server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -258,7 +260,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772791406428</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="update webui and nextjs">
+      <option name="closed" value="true" />
+      <created>1772875662764</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1772875662764</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -277,6 +287,7 @@
     <MESSAGE value="update backtest" />
     <MESSAGE value="update webui" />
     <MESSAGE value="update webui and indexnew" />
-    <option name="LAST_COMMIT_MESSAGE" value="update webui and indexnew" />
+    <MESSAGE value="update webui and nextjs" />
+    <option name="LAST_COMMIT_MESSAGE" value="update webui and nextjs" />
   </component>
 </project>

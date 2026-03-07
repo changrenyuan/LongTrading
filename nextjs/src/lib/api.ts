@@ -68,7 +68,7 @@ class ApiClient {
 
   // 触发交易引擎运行一次
   async runEngine(): Promise<{ status: string } | null> {
-    return this.request('/api/v1/engine/run-once', {
+    return this.request('/api/v1/engine/run_once', {
       method: 'POST',
     })
   }

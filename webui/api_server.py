@@ -6,6 +6,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from live_exchage.universe import UniverseManager
 from live_exchage.ledger import LedgerManager
+from fastapi import BackgroundTasks
 app = FastAPI(title="MT_Alpha 核心数据总线", version="1.0.0")
 origins = [
     "http://localhost:3000",  # Next.js 默认开发端口
@@ -26,6 +27,7 @@ SYSTEM_ACCOUNT_FILE = os.path.join(BASE_DIR, "data", "system_account.json")
 MANUAL_ACCOUNT_FILE = os.path.join(BASE_DIR, "data", "live_broker_account.json")
 LIVE_LEDGER_FILE = os.path.join(BASE_DIR, "data", "live_trade_ledger.csv")
 UNIVERSE_POOL_FILE = os.path.join(BASE_DIR, "data", "universe_pool.json")
+STRATEGY_CONFIG_FILE = os.path.join(BASE_DIR, "data", "best_params_win50p.json")
 DAILY_NAV_FILE = os.path.join(BASE_DIR, "data", "daily_nav.csv")
 LIVE_SCRIPT = os.path.join(BASE_DIR, "live_main.py")
 from utils.metrics import MetricsCalculator # 💡 引入专业的精算师
@@ -218,3 +220,44 @@ def run_live_engine():
     result = subprocess.run(["python", LIVE_SCRIPT], cwd=BASE_DIR, capture_output=True, text=True, timeout=180)
     if result.returncode == 0: return {"status": "success"}
     raise HTTPException(status_code=500, detail=f"引擎报错: {result.stderr}")
+
+#策略
+@app.get("/api/v1/strategy/params")
+def get_strategy_params():
+    """读取当前实盘使用的策略参数"""
+    if not os.path.exists(STRATEGY_CONFIG_FILE):
+        return {}
+    with open(STRATEGY_CONFIG_FILE, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+@app.post("/api/v1/strategy/params")
+def update_strategy_params(new_params: dict):
+    """手动下发新参数，直接覆盖配置文件"""
+    try:
+        with open(STRATEGY_CONFIG_FILE, "w", encoding="utf-8") as f:
+            json.dump(new_params, f, indent=4, ensure_ascii=False)
+        return {"status": "success", "message": "策略参数已动态更新"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/v1/backtest/latest")
+def get_backtest_report():
+    """获取最近一次回测的业绩报告（Metrics）"""
+    # 从 data/tuning_logs 找最新的 CSV
+    return {"metrics": "...", "chart_url": "/api/v1/charts/latest_backtest"}
+
+@app.post("/api/v1/backtest/run_static")
+def run_static_backtest():
+    """🧪 静态回测：验证当前参数"""
+    res = subprocess.run(["python", os.path.join(BASE_DIR, "backtest.py")], capture_output=True, text=True)
+    if res.returncode == 0: return {"status": "success"}
+    raise HTTPException(status_code=500, detail=res.stderr)
+
+@app.post("/api/v1/tuning/start")
+async def trigger_ai_tuning(background_tasks: BackgroundTasks):
+    """🧠 AI 寻优：进化最佳参数"""
+    def run_task(): subprocess.run(["python", os.path.join(BASE_DIR, "para_tuning_win50pv4.py")])
+    background_tasks.add_task(run_task)
+    return {"status": "processing", "message": "AI 寻优任务已在后台启动"}
+
+

@@ -25,6 +25,10 @@ import {
   RefreshCw,
   Download,
   Zap,
+  Grid3X3,
+  PieChart,
+  CandlestickChart,
+  FileText,
 } from 'lucide-react'
 import {
   LineChart,
@@ -40,6 +44,18 @@ import {
   Bar,
   ReferenceLine,
 } from 'recharts'
+
+// 导入新组件
+import { StrategySelector } from '@/components/charts/StrategySelector'
+import { EquityCurveChart } from '@/components/charts/EquityCurveChart'
+import { DrawdownChart } from '@/components/charts/DrawdownChart'
+import { PnlImpactCard } from '@/components/charts/PnlImpactCard'
+import { CapitalUsageCard } from '@/components/charts/CapitalUsageCard'
+import { WinRatePieChart } from '@/components/charts/WinRatePieChart'
+import { KlineSignalChart } from '@/components/charts/KlineSignalChart'
+import { TradeLogTable } from '@/components/charts/TradeLogTable'
+import { ParameterHeatmap } from '@/components/charts/ParameterHeatmap'
+import { RiskAttribution } from '@/components/charts/RiskAttribution'
 
 // 模拟回测结果数据
 const mockBacktestResult = {
@@ -73,6 +89,21 @@ const mockBacktestResult = {
   ],
 }
 
+// 策略列表
+const strategies = [
+  { id: 'strategy-1', name: '趋势跟踪策略 v2.0', type: '趋势跟踪', status: 'running' as const, return_pct: 25.49 },
+  { id: 'strategy-2', name: '均值回归策略', type: '均值回归', status: 'paused' as const, return_pct: 12.35 },
+  { id: 'strategy-3', name: '动量策略', type: '动量策略', status: 'stopped' as const, return_pct: -3.21 },
+]
+
+// 回测股票列表
+const backtestStocks = [
+  { symbol: '300308', name: '中际旭创', return_pct: 14.94, trades: 3 },
+  { symbol: '600519', name: '贵州茅台', return_pct: 29.82, trades: 2 },
+  { symbol: '300502', name: '新易盛', return_pct: 8.5, trades: 1 },
+  { symbol: '601606', name: '长城军工', return_pct: 2.3, trades: 1 },
+]
+
 // 策略配置类型
 interface StrategyConfig {
   stop_loss_pct: number
@@ -86,6 +117,7 @@ interface StrategyConfig {
 }
 
 export default function StrategyPage() {
+  const [selectedStrategy, setSelectedStrategy] = useState(strategies[0].id)
   const [isRunning, setIsRunning] = useState(true)
   const [isBacktesting, setIsBacktesting] = useState(false)
   const [showBacktestResult, setShowBacktestResult] = useState(false)
@@ -113,11 +145,12 @@ export default function StrategyPage() {
   // 运行回测
   const runBacktest = async () => {
     setIsBacktesting(true)
-    // 模拟回测延迟
     await new Promise(resolve => setTimeout(resolve, 2000))
     setIsBacktesting(false)
     setShowBacktestResult(true)
   }
+
+  const currentStrategy = strategies.find(s => s.id === selectedStrategy)
 
   return (
     <div className="flex h-screen bg-background">
@@ -131,7 +164,13 @@ export default function StrategyPage() {
               <h1 className="text-3xl font-bold">策略中心</h1>
               <p className="text-muted-foreground">策略配置、回测与实时监控</p>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
+              {/* 策略选择器 */}
+              <StrategySelector
+                strategies={strategies}
+                selectedId={selectedStrategy}
+                onSelect={setSelectedStrategy}
+              />
               <Badge variant={isRunning ? 'default' : 'secondary'} className="px-3 py-1">
                 <Activity className={`h-3 w-3 mr-1 ${isRunning ? 'animate-pulse' : ''}`} />
                 {isRunning ? '运行中' : '已暂停'}
@@ -166,7 +205,7 @@ export default function StrategyPage() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-green-700 dark:text-green-400">
-                  +25.49%
+                  +{currentStrategy?.return_pct || 0}%
                 </div>
                 <p className="text-xs text-green-600/70 dark:text-green-400/70">
                   年化收益率
@@ -180,9 +219,9 @@ export default function StrategyPage() {
                 <Target className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">62.5%</div>
+                <div className="text-2xl font-bold">{mockBacktestResult.win_rate}%</div>
                 <p className="text-xs text-muted-foreground">
-                  30胜 / 18负
+                  {mockBacktestResult.profit_trades}胜 / {mockBacktestResult.loss_trades}负
                 </p>
               </CardContent>
             </Card>
@@ -193,7 +232,7 @@ export default function StrategyPage() {
                 <TrendingDown className="h-4 w-4 text-red-500" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-red-500">-8.32%</div>
+                <div className="text-2xl font-bold text-red-500">{mockBacktestResult.max_drawdown}%</div>
                 <p className="text-xs text-muted-foreground">
                   风险控制良好
                 </p>
@@ -206,7 +245,7 @@ export default function StrategyPage() {
                 <BarChart3 className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">1.85</div>
+                <div className="text-2xl font-bold">{mockBacktestResult.sharpe_ratio}</div>
                 <Badge variant="success" className="mt-1">优秀</Badge>
               </CardContent>
             </Card>
@@ -217,131 +256,112 @@ export default function StrategyPage() {
             <TabsList className="grid w-full grid-cols-3 lg:w-auto lg:inline-grid">
               <TabsTrigger value="overview">策略概览</TabsTrigger>
               <TabsTrigger value="config">参数配置</TabsTrigger>
-              <TabsTrigger value="backtest">历史回测</TabsTrigger>
+              <TabsTrigger value="analysis">高级分析</TabsTrigger>
             </TabsList>
 
             {/* 策略概览 */}
             <TabsContent value="overview" className="space-y-4">
-              <div className="grid gap-4 lg:grid-cols-3">
-                {/* 当前策略信息 */}
-                <Card className="lg:col-span-2">
-                  <CardHeader>
-                    <CardTitle>当前策略: 趋势跟踪策略 v2.0</CardTitle>
-                    <CardDescription>
-                      基于均线系统的趋势跟踪策略，配合动态仓位管理
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                      <div className="space-y-1">
-                        <p className="text-muted-foreground">策略类型</p>
-                        <p className="font-medium">趋势跟踪</p>
-                      </div>
-                      <div className="space-y-1">
-                        <p className="text-muted-foreground">交易标的</p>
-                        <p className="font-medium">A股主板/创业板</p>
-                      </div>
-                      <div className="space-y-1">
-                        <p className="text-muted-foreground">持仓周期</p>
-                        <p className="font-medium">中短线 (5-30天)</p>
-                      </div>
-                      <div className="space-y-1">
-                        <p className="text-muted-foreground">最大持仓</p>
-                        <p className="font-medium">5 只股票</p>
-                      </div>
-                    </div>
-
-                    <div className="mt-4 pt-4 border-t">
-                      <h4 className="text-sm font-medium mb-2">策略逻辑</h4>
-                      <ul className="text-sm text-muted-foreground space-y-1">
-                        <li className="flex items-start gap-2">
-                          <ChevronRight className="h-4 w-4 mt-0.5 text-primary" />
-                          <span>买入信号：股价突破中期均线且成交量放大</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <ChevronRight className="h-4 w-4 mt-0.5 text-primary" />
-                          <span>加仓条件：底仓浮盈超过8%且回踩支撑确认</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <ChevronRight className="h-4 w-4 mt-0.5 text-primary" />
-                          <span>止盈止损：硬止损10%，移动止盈25%</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <ChevronRight className="h-4 w-4 mt-0.5 text-primary" />
-                          <span>仓位管理：单只股票最大仓位30%</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* 风控参数 */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <AlertTriangle className="h-4 w-4 text-amber-500" />
-                      风控参数
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">单票最大仓位</span>
-                        <span className="font-medium">30%</span>
-                      </div>
-                      <div className="h-2 bg-muted rounded-full overflow-hidden">
-                        <div className="h-full bg-primary w-[30%]" />
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">硬止损线</span>
-                        <span className="font-medium text-red-500">-10%</span>
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">移动止盈</span>
-                        <span className="font-medium text-green-500">25%</span>
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">最大持仓数</span>
-                        <span className="font-medium">5 只</span>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* 月度收益 */}
+              {/* 当前策略信息 */}
               <Card>
                 <CardHeader>
-                  <CardTitle>月度收益分布</CardTitle>
+                  <CardTitle>当前策略: {currentStrategy?.name}</CardTitle>
+                  <CardDescription>
+                    {currentStrategy?.type} - 基于均线系统的趋势跟踪策略
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ResponsiveContainer width="100%" height={200}>
-                    <BarChart data={mockBacktestResult.monthly_returns}>
-                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                      <XAxis dataKey="month" className="text-xs" />
-                      <YAxis className="text-xs" tickFormatter={(v) => `${v}%`} />
-                      <Tooltip
-                        formatter={(value) => [`${value}%`, '收益率']}
-                        contentStyle={{
-                          backgroundColor: 'hsl(var(--popover))',
-                          border: '1px solid hsl(var(--border))',
-                          borderRadius: '8px',
-                        }}
-                      />
-                      <ReferenceLine y={0} stroke="hsl(var(--muted-foreground))" />
-                      <Bar
-                        dataKey="return"
-                        fill="hsl(var(--primary))"
-                        radius={[4, 4, 0, 0]}
-                      />
-                    </BarChart>
-                  </ResponsiveContainer>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                    <div className="space-y-1">
+                      <p className="text-muted-foreground">策略类型</p>
+                      <p className="font-medium">{currentStrategy?.type}</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-muted-foreground">交易标的</p>
+                      <p className="font-medium">A股主板/创业板</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-muted-foreground">持仓周期</p>
+                      <p className="font-medium">中短线 (5-30天)</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-muted-foreground">最大持仓</p>
+                      <p className="font-medium">5 只股票</p>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 pt-4 border-t">
+                    <h4 className="text-sm font-medium mb-2">策略逻辑</h4>
+                    <ul className="text-sm text-muted-foreground space-y-1">
+                      <li className="flex items-start gap-2">
+                        <ChevronRight className="h-4 w-4 mt-0.5 text-primary" />
+                        <span>买入信号：股价突破中期均线且成交量放大</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <ChevronRight className="h-4 w-4 mt-0.5 text-primary" />
+                        <span>加仓条件：底仓浮盈超过8%且回踩支撑确认</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <ChevronRight className="h-4 w-4 mt-0.5 text-primary" />
+                        <span>止盈止损：硬止损10%，移动止盈25%</span>
+                      </li>
+                    </ul>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* 回测股票列表 */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>回测股票列表</CardTitle>
+                  <CardDescription>本策略基于以下股票进行回测</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {backtestStocks.map((stock) => (
+                      <div key={stock.symbol} className="p-3 border rounded-lg hover:bg-muted/50 transition-colors">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="font-bold">{stock.symbol}</span>
+                          <Badge variant="outline" className="text-xs">{stock.trades} 笔</Badge>
+                        </div>
+                        <div className="text-sm text-muted-foreground">{stock.name}</div>
+                        <div className={`text-sm font-medium mt-1 ${stock.return_pct >= 0 ? 'text-red-600' : 'text-green-600'}`}>
+                          {stock.return_pct >= 0 ? '+' : ''}{stock.return_pct.toFixed(2)}%
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* 动态资产曲线和回撤曲线 */}
+              <div className="grid gap-4 lg:grid-cols-2">
+                <EquityCurveChart strategyId={selectedStrategy} />
+                <DrawdownChart strategyId={selectedStrategy} />
+              </div>
+
+              {/* K线信号可视化 */}
+              <KlineSignalChart strategyId={selectedStrategy} />
+
+              {/* 盈亏占比、资金占比、胜率饼图 */}
+              <div className="grid gap-4 lg:grid-cols-3">
+                <PnlImpactCard totalEquity={1000000} />
+                <CapitalUsageCard totalEquity={1000000} availableCash={300000} />
+                <WinRatePieChart />
+              </div>
+
+              {/* 交易日志 */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <FileText className="h-5 w-5 text-primary" />
+                    详细交易日志
+                  </CardTitle>
+                  <CardDescription>
+                    查看策略历史交易记录和信号详情
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <TradeLogTable />
                 </CardContent>
               </Card>
             </TabsContent>
@@ -500,264 +520,41 @@ export default function StrategyPage() {
               </div>
             </TabsContent>
 
-            {/* 历史回测 */}
-            <TabsContent value="backtest" className="space-y-4">
-              {/* 回测参数设置 */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>回测设置</CardTitle>
-                  <CardDescription>选择回测时间范围和初始资金</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
-                    <div className="space-y-2">
-                      <Label>开始日期</Label>
-                      <Input
-                        type="date"
-                        value={backtestParams.startDate}
-                        onChange={(e) => setBacktestParams({ ...backtestParams, startDate: e.target.value })}
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label>结束日期</Label>
-                      <Input
-                        type="date"
-                        value={backtestParams.endDate}
-                        onChange={(e) => setBacktestParams({ ...backtestParams, endDate: e.target.value })}
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label>初始资金</Label>
-                      <Input
-                        type="number"
-                        value={backtestParams.initialCapital}
-                        onChange={(e) => setBacktestParams({ ...backtestParams, initialCapital: parseInt(e.target.value) })}
-                      />
-                    </div>
-                    <Button
-                      size="lg"
-                      onClick={runBacktest}
-                      disabled={isBacktesting}
-                      className="bg-gradient-to-r from-primary to-primary/80"
-                    >
-                      {isBacktesting ? (
-                        <>
-                          <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                          回测中...
-                        </>
-                      ) : (
-                        <>
-                          <Play className="mr-2 h-4 w-4" />
-                          开始回测
-                        </>
-                      )}
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+            {/* 高级分析 */}
+            <TabsContent value="analysis" className="space-y-4">
+              <div className="grid gap-4">
+                {/* 参数敏感度热力图 */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Grid3X3 className="h-5 w-5 text-primary" />
+                      参数敏感度分析
+                    </CardTitle>
+                    <CardDescription>
+                      扫描不同参数组合的历史表现，寻找最优参数
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <ParameterHeatmap />
+                  </CardContent>
+                </Card>
 
-              {/* 回测结果 */}
-              {showBacktestResult && (
-                <>
-                  {/* 关键指标 */}
-                  <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
-                    <Card className="bg-gradient-to-br from-green-50 to-green-100/50 dark:from-green-950/30">
-                      <CardContent className="pt-4">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <p className="text-sm text-muted-foreground">总收益</p>
-                            <p className="text-2xl font-bold text-green-600">
-                              +{mockBacktestResult.total_return}%
-                            </p>
-                          </div>
-                          <TrendingUp className="h-8 w-8 text-green-500/50" />
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    <Card>
-                      <CardContent className="pt-4">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <p className="text-sm text-muted-foreground">年化收益</p>
-                            <p className="text-2xl font-bold">{mockBacktestResult.annualized_return}%</p>
-                          </div>
-                          <DollarSign className="h-8 w-8 text-muted-foreground/50" />
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    <Card>
-                      <CardContent className="pt-4">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <p className="text-sm text-muted-foreground">最大回撤</p>
-                            <p className="text-2xl font-bold text-red-500">{mockBacktestResult.max_drawdown}%</p>
-                          </div>
-                          <TrendingDown className="h-8 w-8 text-red-500/50" />
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    <Card>
-                      <CardContent className="pt-4">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <p className="text-sm text-muted-foreground">夏普比率</p>
-                            <p className="text-2xl font-bold">{mockBacktestResult.sharpe_ratio}</p>
-                          </div>
-                          <Activity className="h-8 w-8 text-muted-foreground/50" />
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    <Card>
-                      <CardContent className="pt-4">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <p className="text-sm text-muted-foreground">胜率</p>
-                            <p className="text-2xl font-bold">{mockBacktestResult.win_rate}%</p>
-                          </div>
-                          <Target className="h-8 w-8 text-muted-foreground/50" />
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-
-                  {/* 收益曲线 */}
-                  <Card>
-                    <CardHeader className="flex flex-row items-center justify-between">
-                      <div>
-                        <CardTitle>权益曲线</CardTitle>
-                        <CardDescription>策略收益 vs 基准收益</CardDescription>
-                      </div>
-                      <Button variant="outline" size="sm">
-                        <Download className="h-4 w-4 mr-2" />
-                        导出报告
-                      </Button>
-                    </CardHeader>
-                    <CardContent>
-                      <ResponsiveContainer width="100%" height={300}>
-                        <AreaChart data={mockBacktestResult.equity_curve}>
-                          <defs>
-                            <linearGradient id="equityGradient" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3} />
-                              <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.02} />
-                            </linearGradient>
-                          </defs>
-                          <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                          <XAxis dataKey="date" className="text-xs" />
-                          <YAxis
-                            className="text-xs"
-                            tickFormatter={(v) => `¥${(v / 10000).toFixed(0)}万`}
-                          />
-                          <Tooltip
-                            formatter={(value, name) => [
-                              `¥${(value as number).toLocaleString()}`,
-                              name === 'equity' ? '策略' : '基准'
-                            ]}
-                            contentStyle={{
-                              backgroundColor: 'hsl(var(--popover))',
-                              border: '1px solid hsl(var(--border))',
-                              borderRadius: '8px',
-                            }}
-                          />
-                          <Area
-                            type="monotone"
-                            dataKey="benchmark"
-                            stroke="hsl(var(--muted-foreground))"
-                            strokeDasharray="5 5"
-                            fill="transparent"
-                            strokeWidth={1.5}
-                          />
-                          <Area
-                            type="monotone"
-                            dataKey="equity"
-                            stroke="hsl(var(--primary))"
-                            fill="url(#equityGradient)"
-                            strokeWidth={2.5}
-                          />
-                        </AreaChart>
-                      </ResponsiveContainer>
-                    </CardContent>
-                  </Card>
-
-                  {/* 详细统计 */}
-                  <div className="grid gap-4 lg:grid-cols-2">
-                    {/* 交易统计 */}
-                    <Card>
-                      <CardHeader>
-                        <CardTitle>交易统计</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="grid grid-cols-2 gap-4">
-                          <div className="space-y-1">
-                            <p className="text-sm text-muted-foreground">总交易次数</p>
-                            <p className="text-xl font-bold">{mockBacktestResult.total_trades}</p>
-                          </div>
-                          <div className="space-y-1">
-                            <p className="text-sm text-muted-foreground">盈利次数</p>
-                            <p className="text-xl font-bold text-green-600">{mockBacktestResult.profit_trades}</p>
-                          </div>
-                          <div className="space-y-1">
-                            <p className="text-sm text-muted-foreground">亏损次数</p>
-                            <p className="text-xl font-bold text-red-600">{mockBacktestResult.loss_trades}</p>
-                          </div>
-                          <div className="space-y-1">
-                            <p className="text-sm text-muted-foreground">盈亏比</p>
-                            <p className="text-xl font-bold">{mockBacktestResult.profit_factor}</p>
-                          </div>
-                          <div className="space-y-1">
-                            <p className="text-sm text-muted-foreground">平均盈利</p>
-                            <p className="text-xl font-bold text-green-600">
-                              +¥{mockBacktestResult.avg_profit.toLocaleString()}
-                            </p>
-                          </div>
-                          <div className="space-y-1">
-                            <p className="text-sm text-muted-foreground">平均亏损</p>
-                            <p className="text-xl font-bold text-red-600">
-                              ¥{mockBacktestResult.avg_loss.toLocaleString()}
-                            </p>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    {/* 风险指标 */}
-                    <Card>
-                      <CardHeader>
-                        <CardTitle>风险指标</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="grid grid-cols-2 gap-4">
-                          <div className="space-y-1">
-                            <p className="text-sm text-muted-foreground">卡玛比率</p>
-                            <p className="text-xl font-bold">{mockBacktestResult.calmar_ratio}</p>
-                            <p className="text-xs text-muted-foreground">收益/最大回撤</p>
-                          </div>
-                          <div className="space-y-1">
-                            <p className="text-sm text-muted-foreground">夏普比率</p>
-                            <p className="text-xl font-bold">{mockBacktestResult.sharpe_ratio}</p>
-                            <p className="text-xs text-muted-foreground">风险调整收益</p>
-                          </div>
-                          <div className="col-span-2 pt-4 border-t">
-                            <p className="text-sm text-muted-foreground mb-2">风险评估</p>
-                            <div className="flex items-center gap-2">
-                              <Badge variant="success" className="px-3 py-1">
-                                <Zap className="h-3 w-3 mr-1" />
-                                低风险
-                              </Badge>
-                              <span className="text-sm text-muted-foreground">
-                                回撤控制良好，收益稳定性高
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </>
-              )}
+                {/* 风险归因分析 */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <PieChart className="h-5 w-5 text-primary" />
+                      风险归因分析
+                    </CardTitle>
+                    <CardDescription>
+                      分析收益来源和风险暴露
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <RiskAttribution />
+                  </CardContent>
+                </Card>
+              </div>
             </TabsContent>
           </Tabs>
         </div>

@@ -5,12 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="update webui and nextjs">
+      <change afterPath="$PROJECT_DIR$/nextjs/src/components/charts/CapitalUsageCard.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nextjs/src/components/charts/DrawdownChart.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nextjs/src/components/charts/EquityCurveChart.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nextjs/src/components/charts/HeatmapCell.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nextjs/src/components/charts/KlineSignalChart.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nextjs/src/components/charts/ParameterHeatmap.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nextjs/src/components/charts/PnlImpactCard.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nextjs/src/components/charts/RiskAttribution.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nextjs/src/components/charts/StrategySelector.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nextjs/src/components/charts/TradeLogTable.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nextjs/src/components/charts/WinRatePieChart.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nextjs/src/components/ui/progress.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nextjs/src/components/ui/select.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nextjs/src/components/ui/slider.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nextjs/src/components/ui/table.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nextjs/src/components/ui/tabs.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nextjs/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nextjs/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/pnpm-lock.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/src/app/dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/src/app/dashboard/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nextjs/src/app/settings/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/src/app/settings/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/lib/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/src/lib/api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webui/api_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/webui/api_server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/src/components/charts/AssetCurveChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/src/components/charts/AssetCurveChart.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,17 +90,17 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/git/LongTrading",
+    "last_opened_file_path": "D:/git/LongTrading/nextjs/src/components/charts",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\git\LongTrading\nextjs\src\components\charts" />
+      <recent name="D:\git\LongTrading\nextjs\src\app\settings" />
+      <recent name="D:\git\LongTrading\nextjs\src\components\ui" />
+      <recent name="D:\git\LongTrading\nextjs\src\app\dashboard" />
       <recent name="D:\git\LongTrading" />
-      <recent name="D:\git\LongTrading\live_exchage" />
-      <recent name="D:\git\LongTrading\historyfile" />
-      <recent name="D:\git\LongTrading\data" />
-      <recent name="D:\git\LongTrading\living" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\git\LongTrading\historyfile" />

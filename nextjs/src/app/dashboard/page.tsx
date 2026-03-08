@@ -323,147 +323,141 @@ export default function DashboardPage() {
           {/* 资产曲线图 */}
           <AssetCurveChart data={navHistory} />
 
-          {/* 持仓概览 */}
+          {/* 持仓概览 - 3x3 网格布局 */}
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle>持仓概览</CardTitle>
-              <span className="text-sm text-muted-foreground">
-                共 {portfolio?.positions?.length || 0} 只股票
-              </span>
+              <div className="flex items-center gap-4">
+                <span className="text-sm text-muted-foreground">
+                  共 {portfolio?.positions?.length || 0} 只股票
+                </span>
+                <SortButton field="pnl_pct" label="按盈亏排序" />
+              </div>
             </CardHeader>
             <CardContent>
               {portfolio?.positions && portfolio.positions.length > 0 ? (
-                <>
-                  {/* 排序表头 */}
-                  <div className="grid grid-cols-12 gap-4 items-center px-4 py-2 mb-2 bg-muted/50 rounded-lg text-sm font-medium">
-                    <div className="col-span-3">
-                      <SortButton field="symbol" label="股票" />
-                    </div>
-                    <div className="col-span-2 text-center">
-                      <SortButton field="shares" label="持仓" />
-                    </div>
-                    <div className="col-span-1.5 text-center">
-                      <SortButton field="cost_price" label="成本" />
-                    </div>
-                    <div className="col-span-1.5 text-center">
-                      <SortButton field="current_price" label="现价" />
-                    </div>
-                    <div className="col-span-2 text-center">
-                      <SortButton field="pnl_pct" label="盈亏比" />
-                    </div>
-                    <div className="col-span-2 text-center">
-                      <SortButton field="market_value" label="市值" />
-                    </div>
-                  </div>
-                  
-                  {/* 持仓列表 */}
-                  <div className="space-y-3">
-                    {sortedPositions.map((position) => {
-                      const costPrice = Number(position.cost_price) || 0
-                      const currentPrice = Number(position.current_price) || 0
-                      const highestPrice = Number(position.highest_price) || currentPrice
-                      const shares = Number(position.shares) || 0
-                      const pnl = Number(position.pnl) || 0
-                      const pnlPct = Number(position.pnl_pct) || 0
-                      
-                      // 计算市值和成本
-                      const marketValue = currentPrice * shares
-                      
-                      // 计算从最高价回撤
-                      const drawdownFromHigh = highestPrice > 0 
-                        ? ((currentPrice - highestPrice) / highestPrice) * 100 
-                        : 0
-                      
-                      // 盈亏程度（用于颜色深浅）
-                      const pnlIntensity = Math.min(Math.abs(pnlPct) / 10, 1)
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {sortedPositions.map((position) => {
+                    const costPrice = Number(position.cost_price) || 0
+                    const currentPrice = Number(position.current_price) || 0
+                    const highestPrice = Number(position.highest_price) || currentPrice
+                    const shares = Number(position.shares) || 0
+                    const pnl = Number(position.pnl) || 0
+                    const pnlPct = Number(position.pnl_pct) || 0
+                    
+                    // 计算市值
+                    const marketValue = currentPrice * shares
+                    
+                    // 计算从最高价回撤
+                    const drawdownFromHigh = highestPrice > 0 
+                      ? ((currentPrice - highestPrice) / highestPrice) * 100 
+                      : 0
+                    
+                    // 盈亏程度（用于颜色深浅）
+                    const pnlIntensity = Math.min(Math.abs(pnlPct) / 10, 1)
 
-                      return (
-                        <div
-                          key={position.symbol}
-                          className="group relative overflow-hidden rounded-xl border bg-gradient-to-r from-card to-transparent p-4 hover:shadow-lg transition-all duration-300"
-                        >
-                          {/* 左侧盈亏指示条 */}
-                          <div 
-                            className={`absolute left-0 top-0 bottom-0 w-1 ${
-                              pnlPct >= 0 ? 'bg-green-500' : 'bg-red-500'
-                            }`}
-                            style={{ opacity: 0.4 + pnlIntensity * 0.6 }}
-                          />
-                          
-                          <div className="grid grid-cols-12 gap-4 items-center pl-2">
-                            {/* 股票信息 */}
-                            <div className="col-span-3">
-                              <div className="flex items-center gap-2">
-                                <div>
-                                  <div className="font-bold text-lg">{position.symbol}</div>
-                                  <div className="text-sm text-muted-foreground">{position.name || '-'}</div>
-                                </div>
-                              </div>
-                              {position.buy_reason && (
-                                <div className="mt-1 text-xs text-muted-foreground truncate max-w-[180px]" title={position.buy_reason}>
-                                  {position.buy_reason}
-                                </div>
-                              )}
+                    return (
+                      <div
+                        key={position.symbol}
+                        className="relative overflow-hidden rounded-xl border bg-card hover:shadow-lg transition-all duration-300"
+                      >
+                        {/* 顶部盈亏指示条 */}
+                        <div 
+                          className={`h-1 ${
+                            pnlPct >= 0 ? 'bg-green-500' : 'bg-red-500'
+                          }`}
+                          style={{ opacity: 0.6 + pnlIntensity * 0.4 }}
+                        />
+                        
+                        <div className="p-4">
+                          {/* 股票信息 */}
+                          <div className="flex items-start justify-between mb-3">
+                            <div>
+                              <div className="font-bold text-lg">{position.symbol}</div>
+                              <div className="text-sm text-muted-foreground">{position.name || '-'}</div>
                             </div>
-                            
-                            {/* 持仓数量 */}
-                            <div className="col-span-2 text-center">
-                              <div className="font-semibold">{shares.toLocaleString()} 股</div>
-                            </div>
-                            
-                            {/* 成本价 */}
-                            <div className="col-span-1.5 text-center">
+                            <Badge 
+                              variant={pnlPct >= 0 ? 'default' : 'destructive'}
+                              className="text-xs"
+                            >
+                              {pnlPct >= 0 ? '盈利' : '亏损'}
+                            </Badge>
+                          </div>
+
+                          {/* 价格信息 */}
+                          <div className="grid grid-cols-2 gap-2 mb-3 text-sm">
+                            <div>
+                              <span className="text-muted-foreground">成本价</span>
                               <div className="font-mono font-medium">¥{costPrice.toFixed(2)}</div>
                             </div>
-                            
-                            {/* 现价 */}
-                            <div className="col-span-1.5 text-center">
+                            <div>
+                              <span className="text-muted-foreground">现价</span>
                               <div className={`font-mono font-bold ${pnlPct >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                                 ¥{currentPrice.toFixed(2)}
                               </div>
                             </div>
-                            
-                            {/* 盈亏进度条 */}
-                            <div className="col-span-2">
-                              <div className="flex items-center justify-between mb-1">
-                                <span className={`font-bold ${pnlPct >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                                  {pnlPct >= 0 ? '+' : ''}{pnlPct.toFixed(2)}%
-                                </span>
-                              </div>
-                              <div className="h-2 bg-muted rounded-full overflow-hidden">
-                                <div 
-                                  className={`h-full transition-all duration-500 ${
-                                    pnlPct >= 0 ? 'bg-gradient-to-r from-green-400 to-green-600' : 'bg-gradient-to-r from-red-400 to-red-600'
-                                  }`}
-                                  style={{ 
-                                    width: `${Math.min(Math.abs(pnlPct), 20) * 5}%`,
-                                    marginLeft: pnlPct >= 0 ? '50%' : 'auto',
-                                    marginRight: pnlPct < 0 ? '50%' : 'auto',
-                                  }}
-                                />
-                              </div>
+                          </div>
+
+                          {/* 盈亏进度条 */}
+                          <div className="mb-3">
+                            <div className="flex items-center justify-between mb-1">
+                              <span className="text-sm text-muted-foreground">盈亏比例</span>
+                              <span className={`font-bold ${pnlPct >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                {pnlPct >= 0 ? '+' : ''}{pnlPct.toFixed(2)}%
+                              </span>
                             </div>
-                            
-                            {/* 盈亏金额 & 市值 */}
-                            <div className="col-span-2 text-right">
-                              <div className={`text-lg font-bold ${pnlPct >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                                {pnl >= 0 ? '+' : ''}¥{pnl.toLocaleString('zh-CN', { minimumFractionDigits: 2 })}
-                              </div>
-                              <div className="text-xs text-muted-foreground">
-                                市值 ¥{marketValue.toLocaleString('zh-CN', { minimumFractionDigits: 0 })}
-                              </div>
-                              {highestPrice > currentPrice && (
-                                <div className="text-xs text-amber-600 mt-0.5">
-                                  回撤 {drawdownFromHigh.toFixed(1)}%
-                                </div>
-                              )}
+                            <div className="h-2 bg-muted rounded-full overflow-hidden">
+                              <div 
+                                className={`h-full transition-all duration-500 ${
+                                  pnlPct >= 0 ? 'bg-gradient-to-r from-green-400 to-green-600' : 'bg-gradient-to-r from-red-400 to-red-600'
+                                }`}
+                                style={{ 
+                                  width: `${Math.min(Math.abs(pnlPct), 20) * 5}%`,
+                                }}
+                              />
                             </div>
                           </div>
+
+                          {/* 底部信息 */}
+                          <div className="grid grid-cols-2 gap-2 text-xs pt-2 border-t">
+                            <div>
+                              <span className="text-muted-foreground">持仓</span>
+                              <div className="font-medium">{shares.toLocaleString()} 股</div>
+                            </div>
+                            <div>
+                              <span className="text-muted-foreground">市值</span>
+                              <div className="font-medium">¥{marketValue.toLocaleString('zh-CN', { minimumFractionDigits: 0 })}</div>
+                            </div>
+                          </div>
+
+                          {/* 回撤提示 */}
+                          {highestPrice > currentPrice && (
+                            <div className="mt-2 text-xs text-amber-600 flex items-center gap-1">
+                              <TrendingUp className="h-3 w-3" />
+                              距最高价回撤 {Math.abs(drawdownFromHigh).toFixed(1)}%
+                            </div>
+                          )}
+
+                          {/* 盈亏金额 */}
+                          <div className={`mt-2 text-right font-bold ${pnlPct >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                            {pnl >= 0 ? '+' : ''}¥{pnl.toLocaleString('zh-CN', { minimumFractionDigits: 2 })}
+                          </div>
                         </div>
-                      )
-                    })}
-                  </div>
-                </>
+                      </div>
+                    )
+                  })}
+                  
+                  {/* 空卡片占位（如果不足9个） */}
+                  {sortedPositions.length < 9 && Array.from({ length: Math.min(9 - sortedPositions.length, 9 - sortedPositions.length) }).map((_, i) => (
+                    <div
+                      key={`empty-${i}`}
+                      className="rounded-xl border-2 border-dashed border-muted bg-muted/30 flex flex-col items-center justify-center min-h-[200px] text-muted-foreground"
+                    >
+                      <div className="text-2xl mb-1">+</div>
+                      <div className="text-xs">空仓位</div>
+                    </div>
+                  ))}
+                </div>
               ) : (
                 <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
                   <div className="text-4xl mb-2">📊</div>

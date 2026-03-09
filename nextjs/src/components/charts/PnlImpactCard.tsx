@@ -13,6 +13,7 @@ import {
   Cell,
 } from 'recharts'
 import { TrendingUp, TrendingDown } from 'lucide-react'
+import { apiClient } from '@/lib/api'
 
 interface PnlImpactCardProps {
   trades?: any[]
@@ -31,9 +32,10 @@ export function PnlImpactCard({ trades: propTrades, totalEquity = 1000000 }: Pnl
     
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/v1/backtest/trades')
-        const data = await response.json()
-        setTrades(data)
+        const data = await apiClient.getBacktestTrades()
+        if (data) {
+          setTrades(data)
+        }
       } catch (error) {
         console.error('获取交易记录失败:', error)
       } finally {

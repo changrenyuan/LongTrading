@@ -29,6 +29,8 @@ LIVE_LEDGER_FILE = os.path.join(BASE_DIR, "data", "live_trade_ledger.csv")
 UNIVERSE_POOL_FILE = os.path.join(BASE_DIR, "data", "universe_pool.json")
 STRATEGY_CONFIG_FILE = os.path.join(BASE_DIR, "data", "best_params_win50p.json")
 DAILY_NAV_FILE = os.path.join(BASE_DIR, "data", "daily_nav.csv")
+BACKTEST_DATA_DIR = os.path.join(BASE_DIR, "data", "backtest")
+CHARTS_DIR = os.path.join(BASE_DIR, "data", "charts")
 LIVE_SCRIPT = os.path.join(BASE_DIR, "live_main.py")
 from utils.metrics import MetricsCalculator # 💡 引入专业的精算师
 
@@ -223,41 +225,69 @@ def run_live_engine():
 
 #策略
 @app.get("/api/v1/strategy/params")
-def get_strategy_params():
-    """读取当前实盘使用的策略参数"""
-    if not os.path.exists(STRATEGY_CONFIG_FILE):
-        return {}
-    with open(STRATEGY_CONFIG_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
+def get_params():
+    if not os.path.exists(STRATEGY_CONFIG_FILE): return {}
+    with open(STRATEGY_CONFIG_FILE, "r", encoding="utf-8") as f: return json.load(f)
 
 @app.post("/api/v1/strategy/params")
-def update_strategy_params(new_params: dict):
-    """手动下发新参数，直接覆盖配置文件"""
+def update_params(new_params: dict):
     try:
         with open(STRATEGY_CONFIG_FILE, "w", encoding="utf-8") as f:
             json.dump(new_params, f, indent=4, ensure_ascii=False)
-        return {"status": "success", "message": "策略参数已动态更新"}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@app.get("/api/v1/backtest/latest")
-def get_backtest_report():
-    """获取最近一次回测的业绩报告（Metrics）"""
-    # 从 data/tuning_logs 找最新的 CSV
-    return {"metrics": "...", "chart_url": "/api/v1/charts/latest_backtest"}
-
-@app.post("/api/v1/backtest/run_static")
-def run_static_backtest():
-    """🧪 静态回测：验证当前参数"""
-    res = subprocess.run(["python", os.path.join(BASE_DIR, "backtest.py")], capture_output=True, text=True)
-    if res.returncode == 0: return {"status": "success"}
-    raise HTTPException(status_code=500, detail=res.stderr)
-
-@app.post("/api/v1/tuning/start")
-async def trigger_ai_tuning(background_tasks: BackgroundTasks):
-    """🧠 AI 寻优：进化最佳参数"""
-    def run_task(): subprocess.run(["python", os.path.join(BASE_DIR, "para_tuning_win50pv4.py")])
-    background_tasks.add_task(run_task)
-    return {"status": "processing", "message": "AI 寻优任务已在后台启动"}
+        return {"status": "success"}
+    except Exception as e: raise HTTPException(status_code=500, detail=str(e))
 
 
+# 通用 JSON 读取器
+def load_backtest_json(filename: str):
+    path = os.path.join(BACKTEST_DATA_DIR, filename)
+    if not os.path.exists(path):
+        return []
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+# 💡 通用读取器：支持动态路径
+def load_json_by_strategy(strategy_id: str, filename: str):
+    # 默认值处理
+    sid = strategy_id if strategy_id else "strategy_trend"
+    path = os.path.join(BACKTEST_DATA_DIR, sid, filename)
+
+    if not os.path.exists(path):
+        # 如果子文件夹不存在，尝试读取根目录作为兜底
+        fallback_path = os.path.join(BACKTEST_DATA_DIR, filename)
+        if not os.path.exists(fallback_path):
+            return []
+        path = fallback_path
+
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+@app.get("/api/v1/backtest/equity_curve")
+def get_backtest_equity(strategy_id: str = None):
+    """📈 对接 EquityCurveChart.tsx -> equity_curve.json"""
+    return load_json_by_strategy(strategy_id, "equity_curve.json")
+
+@app.get("/api/v1/backtest/drawdown")
+def get_backtest_drawdown(strategy_id: str = None):
+    """📉 对接 DrawdownChart.tsx -> drawdown.json"""
+    return load_json_by_strategy(strategy_id, "drawdown.json")
+
+@app.get("/api/v1/backtest/backtest_stocks")
+def get_backtest_stocks():
+    """🎯 对接 KlineSignalChart.tsx 下拉框 -> backtest_stocks.json"""
+    return load_backtest_json("backtest_stocks.json")
+
+@app.get("/api/v1/backtest/kline_signals")
+def get_kline_signals(symbol: str):
+    """🕯️ 对接 KlineSignalChart.tsx 主图 -> kline_{symbol}.json"""
+    # 优先读取 PushJSON 预处理好的个股详情包
+    filename = f"kline_{symbol}.json"
+    data = load_backtest_json(filename)
+    if not data:
+        return {"symbol": symbol, "kline": [], "signals": []}
+    return data
+
+@app.get("/api/v1/backtest/trades")
+def get_backtest_trades():
+    """📊 对接 WinRatePieChart / PnlImpactCard -> trades.json"""
+    return load_backtest_json("trades.json")

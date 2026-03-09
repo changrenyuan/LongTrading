@@ -13,6 +13,7 @@ import {
   ReferenceLine,
 } from 'recharts'
 import { TrendingUp, RefreshCw } from 'lucide-react'
+import { apiClient } from '@/lib/api'
 
 interface EquityCurveChartProps {
   strategyId?: string
@@ -27,19 +28,15 @@ export function EquityCurveChart({ strategyId, title = '动态资产曲线' }: E
     const fetchData = async () => {
       setLoading(true)
       try {
-        // 调用后端API获取资产曲线数据
-        const response = await fetch(`/api/v1/backtest/equity_curve${strategyId ? `?strategy_id=${strategyId}` : ''}`)
-        if (response.ok) {
-          const result = await response.json()
-          setData(result.data || result)
+        const result = await apiClient.getEquityCurve(strategyId)
+        if (result) {
+          setData(result)
         } else {
-          // 使用模拟数据
           const mockData = generateMockData()
           setData(mockData)
         }
       } catch (error) {
         console.error('获取资产曲线失败:', error)
-        // 使用模拟数据
         const mockData = generateMockData()
         setData(mockData)
       } finally {

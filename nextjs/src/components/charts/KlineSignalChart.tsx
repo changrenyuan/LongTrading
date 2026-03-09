@@ -25,6 +25,7 @@ import {
   ReferenceLine,
 } from 'recharts'
 import { ArrowUpCircle, ArrowDownCircle, RefreshCw, CandlestickChart, TrendingUp, Wallet } from 'lucide-react'
+import { apiClient } from '@/lib/api'
 
 interface KlineSignalChartProps {
   strategyId?: string
@@ -40,11 +41,12 @@ export function KlineSignalChart({ strategyId }: KlineSignalChartProps) {
   useEffect(() => {
     const fetchStocks = async () => {
       try {
-        const response = await fetch('/api/v1/backtest/backtest_stocks')
-        const stocksData = await response.json()
-        setStocks(stocksData)
-        if (stocksData.length > 0) {
-          setSelectedSymbol(stocksData[0].symbol)
+        const stocksData = await apiClient.getBacktestStocks()
+        if (stocksData) {
+          setStocks(stocksData)
+          if (stocksData.length > 0) {
+            setSelectedSymbol(stocksData[0].symbol)
+          }
         }
       } catch (error) {
         console.error('获取股票列表失败:', error)
@@ -56,12 +58,11 @@ export function KlineSignalChart({ strategyId }: KlineSignalChartProps) {
   // 获取K线数据
   useEffect(() => {
     if (!selectedSymbol) return
-    
+
     const fetchData = async () => {
       setLoading(true)
       try {
-        const response = await fetch(`/api/v1/backtest/kline_signals?symbol=${selectedSymbol}`)
-        const result = await response.json()
+        const result = await apiClient.getKlineSignals(selectedSymbol)
         setData(result)
       } catch (error) {
         console.error('获取K线数据失败:', error)
@@ -203,13 +204,58 @@ export function KlineSignalChart({ strategyId }: KlineSignalChartProps) {
                   border: '1px solid hsl(var(--border))',
                   borderRadius: '8px',
                 }}
-                formatter={(value, name) => {
+                formatter={(value, name, props: any) => {
+                  if (name === 'close' && props.payload) {
+                    const p = props.payload
+                    return [
+                      <div key="tooltip" className="text-xs space-y-1">
+                        <div>开: ¥{p.open?.toFixed(2)}</div>
+                        <div>高: ¥{p.high?.toFixed(2)}</div>
+                        <div>低: ¥{p.low?.toFixed(2)}</div>
+                        <div>收: ¥{p.close?.toFixed(2)}</div>
+                      </div>,
+                      'K线'
+                    ]
+                  }
                   if (value === undefined || value === null) return ['-', name]
                   return [`¥${(value as number).toFixed(2)}`, name]
                 }}
+                labelFormatter={(label) => `日期: ${label}`}
               />
               <Legend />
-              
+
+              {/* 最高价线 */}
+              <Line
+                type="monotone"
+                dataKey="high"
+                stroke="#6b7280"
+                strokeWidth={1}
+                dot={false}
+                name="最高价"
+                strokeDasharray="2 2"
+              />
+
+              {/* 最低价线 */}
+              <Line
+                type="monotone"
+                dataKey="low"
+                stroke="#6b7280"
+                strokeWidth={1}
+                dot={false}
+                name="最低价"
+                strokeDasharray="2 2"
+              />
+
+              {/* 收盘价线（主价格线） */}
+              <Line
+                type="monotone"
+                dataKey="close"
+                stroke="#1f2937"
+                strokeWidth={2}
+                dot={false}
+                name="收盘价"
+              />
+
               {/* MA5 */}
               <Line
                 type="monotone"
@@ -218,6 +264,7 @@ export function KlineSignalChart({ strategyId }: KlineSignalChartProps) {
                 strokeWidth={1.5}
                 dot={false}
                 name="MA5"
+                connectNulls
               />
 
               {/* MA20 */}
@@ -228,11 +275,12 @@ export function KlineSignalChart({ strategyId }: KlineSignalChartProps) {
                 strokeWidth={1.5}
                 dot={false}
                 name="MA20"
+                connectNulls
               />
 
               {/* 买入信号 */}
               {signals
-                .filter((s: any) => s.type === 'BUY')
+                .filter((s: any) => s.action === 'BUY')
                 .map((signal: any, index: number) => {
                   const klineItem = kline.find((k: any) => k.date === signal.date)
                   if (!klineItem) return null
@@ -250,7 +298,7 @@ export function KlineSignalChart({ strategyId }: KlineSignalChartProps) {
 
               {/* 卖出信号 */}
               {signals
-                .filter((s: any) => s.type === 'SELL')
+                .filter((s: any) => s.action === 'SELL')
                 .map((signal: any, index: number) => {
                   const klineItem = kline.find((k: any) => k.date === signal.date)
                   if (!klineItem) return null
@@ -277,7 +325,7 @@ export function KlineSignalChart({ strategyId }: KlineSignalChartProps) {
                   key={index}
                   className="flex items-start gap-2 p-2 bg-muted/50 rounded-lg"
                 >
-                  {signal.type === 'BUY' ? (
+                  {signal.action === 'BUY' ? (
                     <ArrowUpCircle className="h-5 w-5 text-green-500 mt-0.5 shrink-0" />
                   ) : (
                     <ArrowDownCircle className="h-5 w-5 text-red-500 mt-0.5 shrink-0" />
@@ -285,10 +333,10 @@ export function KlineSignalChart({ strategyId }: KlineSignalChartProps) {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
                       <span className="font-medium">
-                        {signal.type === 'BUY' ? '买入' : '卖出'}
+                        {signal.action === 'BUY' ? '买入' : '卖出'}
                       </span>
                       <span className="text-sm text-muted-foreground">
-                        ¥{signal.price.toFixed(2)}
+                        ¥{(signal.price ?? 0).toFixed(2)}
                       </span>
                       <span className="text-xs text-muted-foreground">
                         {signal.date}
@@ -299,7 +347,7 @@ export function KlineSignalChart({ strategyId }: KlineSignalChartProps) {
                         </span>
                       )}
                     </div>
-                    <p className="text-sm text-muted-foreground truncate">{signal.reason}</p>
+                    <p className="text-sm text-muted-foreground truncate">{signal.reason || '-'}</p>
                   </div>
                 </div>
               ))}
@@ -341,8 +389,8 @@ export function KlineSignalChart({ strategyId }: KlineSignalChartProps) {
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-              <XAxis 
-                dataKey="date" 
+              <XAxis
+                dataKey="date"
                 className="text-xs"
                 interval="preserveStartEnd"
                 tickFormatter={(v) => v.slice(5)}
@@ -374,7 +422,7 @@ export function KlineSignalChart({ strategyId }: KlineSignalChartProps) {
               />
             </AreaChart>
           </ResponsiveContainer>
-          
+
           {/* 统计数据 */}
           <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t text-sm">
             <div>
@@ -432,8 +480,8 @@ export function KlineSignalChart({ strategyId }: KlineSignalChartProps) {
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-              <XAxis 
-                dataKey="date" 
+              <XAxis
+                dataKey="date"
                 className="text-xs"
                 interval="preserveStartEnd"
                 tickFormatter={(v) => v.slice(5)}
@@ -465,7 +513,7 @@ export function KlineSignalChart({ strategyId }: KlineSignalChartProps) {
               />
             </AreaChart>
           </ResponsiveContainer>
-          
+
           {/* 统计数据 */}
           <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t text-sm">
             <div>

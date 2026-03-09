@@ -15,6 +15,7 @@ import {
   Tooltip,
 } from 'recharts'
 import { TrendingUp, Info } from 'lucide-react'
+import { apiClient } from '@/lib/api'
 
 const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899']
 
@@ -29,8 +30,7 @@ export function RiskAttribution({ title = '风险归因分析' }: RiskAttributio
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/v1/backtest/risk_attribution')
-        const result = await response.json()
+        const result = await apiClient.getRiskAttribution()
         setData(result)
       } catch (error) {
         console.error('获取风险归因数据失败:', error)

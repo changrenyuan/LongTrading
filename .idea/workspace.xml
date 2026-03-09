@@ -5,28 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="update webui and nextjs">
-      <change afterPath="$PROJECT_DIR$/nextjs/src/components/charts/CapitalUsageCard.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nextjs/src/components/charts/DrawdownChart.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nextjs/src/components/charts/EquityCurveChart.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nextjs/src/components/charts/HeatmapCell.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nextjs/src/components/charts/KlineSignalChart.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nextjs/src/components/charts/ParameterHeatmap.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nextjs/src/components/charts/PnlImpactCard.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nextjs/src/components/charts/RiskAttribution.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nextjs/src/components/charts/StrategySelector.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nextjs/src/components/charts/TradeLogTable.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nextjs/src/components/charts/WinRatePieChart.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nextjs/src/components/ui/progress.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nextjs/src/components/ui/select.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nextjs/src/components/ui/slider.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nextjs/src/components/ui/table.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nextjs/src/components/ui/tabs.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/pushjson.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/pnpm-lock.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backtest.py" beforeDir="false" afterPath="$PROJECT_DIR$/backtest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nextjs/src/app/dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/src/app/dashboard/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nextjs/src/app/settings/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/src/app/settings/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/charts/AssetCurveChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/src/components/charts/AssetCurveChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/src/components/charts/CapitalUsageCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/src/components/charts/CapitalUsageCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/src/components/charts/DrawdownChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/src/components/charts/DrawdownChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/src/components/charts/EquityCurveChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/src/components/charts/EquityCurveChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/src/components/charts/KlineSignalChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/src/components/charts/KlineSignalChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/src/components/charts/ParameterHeatmap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/src/components/charts/ParameterHeatmap.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/src/components/charts/PnlImpactCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/src/components/charts/PnlImpactCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/src/components/charts/RiskAttribution.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/src/components/charts/RiskAttribution.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/src/components/charts/TradeLogTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/src/components/charts/TradeLogTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/src/components/charts/WinRatePieChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/src/components/charts/WinRatePieChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nextjs/src/lib/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/nextjs/src/lib/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/para_tuning_win50pv4.py" beforeDir="false" afterPath="$PROJECT_DIR$/strategies/para_tuning_trend.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/api_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/webui/api_server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +55,7 @@
     "Python.account.executor": "Run",
     "Python.akshare_pd.executor": "Run",
     "Python.api_server.executor": "Run",
+    "Python.backtest.executor": "Run",
     "Python.cloudakpd.executor": "Run",
     "Python.cron_scheduler.executor": "Run",
     "Python.engine.executor": "Run",
@@ -79,6 +75,7 @@
     "Python.para_tuning_win50pv3.executor": "Run",
     "Python.para_tuning_win50pv4.executor": "Run",
     "Python.plotter.executor": "Run",
+    "Python.pushjson.executor": "Run",
     "Python.test.executor": "Run",
     "Python.testacc.executor": "Run",
     "Python.testak.executor": "Run",
@@ -97,12 +94,13 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\git\LongTrading\nextjs\src\components\charts" />
+      <recent name="D:\git\LongTrading\strategies" />
       <recent name="D:\git\LongTrading\nextjs\src\app\settings" />
       <recent name="D:\git\LongTrading\nextjs\src\components\ui" />
       <recent name="D:\git\LongTrading\nextjs\src\app\dashboard" />
-      <recent name="D:\git\LongTrading" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\git\LongTrading\data\backtest\strategy_trend" />
       <recent name="D:\git\LongTrading\historyfile" />
       <recent name="D:\git\LongTrading\living" />
       <recent name="D:\git\LongTrading\strategies\paratuning" />
@@ -284,7 +282,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772875662764</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="update webui and nextjs">
+      <option name="closed" value="true" />
+      <created>1772951737705</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1772951737705</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

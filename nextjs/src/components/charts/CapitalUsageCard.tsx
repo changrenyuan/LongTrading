@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import { Wallet, TrendingUp, TrendingDown } from 'lucide-react'
+import { apiClient } from '@/lib/api'
 
 interface CapitalUsageCardProps {
   positions?: any[]
@@ -29,10 +30,11 @@ export function CapitalUsageCard({
     
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/v1/portfolio/assets')
-        const data = await response.json()
-        setPositions(data.positions || [])
-        setAvailableCash(data.available_cash || 0)
+        const data = await apiClient.getPortfolioAssets()
+        if (data) {
+          setPositions(data.positions || [])
+          setAvailableCash(data.available_cash || 0)
+        }
       } catch (error) {
         console.error('获取持仓数据失败:', error)
       } finally {

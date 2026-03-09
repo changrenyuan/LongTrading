@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { DashboardSidebar } from '@/components/layout/DashboardSidebar'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -53,6 +53,7 @@ import { PnlImpactCard } from '@/components/charts/PnlImpactCard'
 import { CapitalUsageCard } from '@/components/charts/CapitalUsageCard'
 import { WinRatePieChart } from '@/components/charts/WinRatePieChart'
 import { KlineSignalChart } from '@/components/charts/KlineSignalChart'
+import { apiClient } from '@/lib/api'
 import { TradeLogTable } from '@/components/charts/TradeLogTable'
 import { ParameterHeatmap } from '@/components/charts/ParameterHeatmap'
 import { RiskAttribution } from '@/components/charts/RiskAttribution'
@@ -96,14 +97,6 @@ const strategies = [
   { id: 'strategy-3', name: '动量策略', type: '动量策略', status: 'stopped' as const, return_pct: -3.21 },
 ]
 
-// 回测股票列表
-const backtestStocks = [
-  { symbol: '300308', name: '中际旭创', return_pct: 14.94, trades: 3 },
-  { symbol: '600519', name: '贵州茅台', return_pct: 29.82, trades: 2 },
-  { symbol: '300502', name: '新易盛', return_pct: 8.5, trades: 1 },
-  { symbol: '601606', name: '长城军工', return_pct: 2.3, trades: 1 },
-]
-
 // 策略配置类型
 interface StrategyConfig {
   stop_loss_pct: number
@@ -122,6 +115,10 @@ export default function StrategyPage() {
   const [isBacktesting, setIsBacktesting] = useState(false)
   const [showBacktestResult, setShowBacktestResult] = useState(false)
   const [activeTab, setActiveTab] = useState('overview')
+
+  // 回测股票列表（从后端获取）
+  const [backtestStocks, setBacktestStocks] = useState<{ symbol: string; name: string; return_pct: number; trades: number }[]>([])
+  const [loadingStocks, setLoadingStocks] = useState(true)
 
   // 策略配置状态
   const [config, setConfig] = useState<StrategyConfig>({
@@ -142,6 +139,24 @@ export default function StrategyPage() {
     initialCapital: 1000000,
   })
 
+  // 获取回测股票列表
+  useEffect(() => {
+    const fetchBacktestStocks = async () => {
+      setLoadingStocks(true)
+      try {
+        const data = await apiClient.getBacktestStocks()
+        if (data) {
+          setBacktestStocks(data)
+        }
+      } catch (error) {
+        console.error('获取回测股票列表失败:', error)
+      } finally {
+        setLoadingStocks(false)
+      }
+    }
+    fetchBacktestStocks()
+  }, [])
+
   // 运行回测
   const runBacktest = async () => {
     setIsBacktesting(true)
@@ -155,7 +170,6 @@ export default function StrategyPage() {
   return (
     <div className="flex h-screen bg-background">
       <DashboardSidebar />
-
       <main className="flex-1 overflow-y-auto">
         <div className="p-6 space-y-6">
           {/* 页面标题 */}
@@ -316,20 +330,28 @@ export default function StrategyPage() {
                   <CardDescription>本策略基于以下股票进行回测</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {backtestStocks.map((stock) => (
-                      <div key={stock.symbol} className="p-3 border rounded-lg hover:bg-muted/50 transition-colors">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="font-bold">{stock.symbol}</span>
-                          <Badge variant="outline" className="text-xs">{stock.trades} 笔</Badge>
+                  {loadingStocks ? (
+                    <div className="flex items-center justify-center py-8">
+                      <RefreshCw className="h-6 w-6 animate-spin text-muted-foreground" />
+                    </div>
+                  ) : backtestStocks.length > 0 ? (
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      {backtestStocks.map((stock) => (
+                        <div key={stock.symbol} className="p-3 border rounded-lg hover:bg-muted/50 transition-colors">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="font-bold">{stock.symbol}</span>
+                            <Badge variant="outline" className="text-xs">{stock.trades} 笔</Badge>
+                          </div>
+                          <div className="text-sm text-muted-foreground">{stock.name}</div>
+                          <div className={`text-sm font-medium mt-1 ${stock.return_pct >= 0 ? 'text-red-600' : 'text-green-600'}`}>
+                            {stock.return_pct >= 0 ? '+' : ''}{stock.return_pct.toFixed(2)}%
+                          </div>
                         </div>
-                        <div className="text-sm text-muted-foreground">{stock.name}</div>
-                        <div className={`text-sm font-medium mt-1 ${stock.return_pct >= 0 ? 'text-red-600' : 'text-green-600'}`}>
-                          {stock.return_pct >= 0 ? '+' : ''}{stock.return_pct.toFixed(2)}%
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-8 text-muted-foreground">暂无回测股票数据</div>
+                  )}
                 </CardContent>
               </Card>
 

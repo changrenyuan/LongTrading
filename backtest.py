@@ -6,7 +6,7 @@ from core.engineBacktest import BacktestEngine
 from utils.plotter import Plotter
 from strategies.trend import InstitutionalTrendStrategy
 from utils.metrics import MetricsCalculator
-
+from utils.pushjson import PushJSON
 
 def run_backtest():
     # 1. 准备交易备忘录
@@ -74,6 +74,18 @@ def run_backtest():
         save_dir="data/charts"
     )
 
+# ==========================================
+    # 📡 8. 导出前端 JSON 数据总线
+    # ==========================================
 
+    PushJSON.export_all(
+        df_res=df_results,
+        account=account,
+        symbols=symbols,
+        symbol_names=symbol_names,
+        data_dict=data_dict,
+        strategy_id = "strategy_trend",
+        base_save_dir = "data/backtest"
+    )
 if __name__ == "__main__":
     run_backtest()

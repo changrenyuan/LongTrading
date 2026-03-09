@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { RefreshCw, Play } from 'lucide-react'
+import { apiClient } from '@/lib/api'
 
 interface ParameterHeatmapProps {
   title?: string
@@ -16,17 +17,12 @@ export function ParameterHeatmap({ title = '参数敏感度分析' }: ParameterH
   const runParamSweep = async () => {
     setLoading(true)
     try {
-      const response = await fetch('/api/v1/backtest/param_sensitivity', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ma_short_range: [3, 10],
-          ma_mid_range: [15, 30],
-        }),
+      const result = await apiClient.getParamSensitivity({
+        stop_loss_range: [5, 10, 15, 20],
+        trailing_stop_range: [15, 20, 25, 30],
       })
-      const result = await response.json()
-      if (result.status === 'success') {
-        setData(result.data)
+      if (result && result.heatmap) {
+        setData(result.heatmap)
       }
     } catch (error) {
       console.error('参数扫描失败:', error)

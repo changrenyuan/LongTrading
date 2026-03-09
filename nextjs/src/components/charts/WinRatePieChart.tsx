@@ -11,6 +11,7 @@ import {
   Legend,
 } from 'recharts'
 import { Target } from 'lucide-react'
+import { apiClient } from '@/lib/api'
 
 interface WinRatePieChartProps {
   trades?: any[]
@@ -28,9 +29,10 @@ export function WinRatePieChart({ trades: propTrades }: WinRatePieChartProps) {
     
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/v1/backtest/trades')
-        const data = await response.json()
-        setTrades(data)
+        const data = await apiClient.getBacktestTrades()
+        if (data) {
+          setTrades(data)
+        }
       } catch (error) {
         console.error('获取交易记录失败:', error)
       } finally {

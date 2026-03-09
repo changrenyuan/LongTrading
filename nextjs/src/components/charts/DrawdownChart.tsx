@@ -13,6 +13,7 @@ import {
   ReferenceLine,
 } from 'recharts'
 import { TrendingDown, RefreshCw, AlertTriangle } from 'lucide-react'
+import { apiClient } from '@/lib/api'
 
 interface DrawdownChartProps {
   strategyId?: string
@@ -27,10 +28,9 @@ export function DrawdownChart({ strategyId, title = '动态回撤曲线' }: Draw
     const fetchData = async () => {
       setLoading(true)
       try {
-        const response = await fetch(`/api/v1/backtest/drawdown${strategyId ? `?strategy_id=${strategyId}` : ''}`)
-        if (response.ok) {
-          const result = await response.json()
-          setData(result.data || result)
+        const result = await apiClient.getDrawdown(strategyId)
+        if (result) {
+          setData(result)
         } else {
           const mockData = generateMockData()
           setData(mockData)

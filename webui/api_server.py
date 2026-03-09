@@ -31,7 +31,7 @@ STRATEGY_CONFIG_FILE = os.path.join(BASE_DIR, "data", "best_params_win50p.json")
 DAILY_NAV_FILE = os.path.join(BASE_DIR, "data", "daily_nav.csv")
 BACKTEST_DATA_DIR = os.path.join(BASE_DIR, "data", "backtest")
 CHARTS_DIR = os.path.join(BASE_DIR, "data", "charts")
-LIVE_SCRIPT = os.path.join(BASE_DIR, "live_main.py")
+LIVE_SCRIPT = os.path.join(BASE_DIR, "live.py")
 from utils.metrics import MetricsCalculator # 💡 引入专业的精算师
 
 @app.get("/")

@@ -83,14 +83,14 @@ class AkShareProvider(BaseDataProvider):
             df = df.rename(columns={
                 '日期': 'date', '开盘': 'open', '收盘': 'close',
                 '最高': 'high', '最低': 'low', '成交量': 'volume',
-                '换手率': 'turnover'
+                '成交额': 'amount','换手率': 'turnover'
             })
-
+            df['updated_at'] = datetime.now()
             df['date'] = pd.to_datetime(df['date'])
             df.set_index('date', inplace=True)
 
             # 返回最近的 500 个交易日（约两年数据）
-            return df[['open', 'high', 'low', 'close', 'volume', 'turnover']].sort_index().tail(500)
+            return df[['open', 'high', 'low', 'close', 'volume', 'amount','turnover','updated_at']].sort_index().tail(500)
 
         except Exception as e:
             logger.error(f"获取股票 {symbol} 历史数据失败: {e}")

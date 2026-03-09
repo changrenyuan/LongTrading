@@ -4,55 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="update webui and nextjs celue">
-      <change beforePath="$PROJECT_DIR$/.idea/LongTrading.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/LongTrading.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+    <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="nextjs clean">
+      <change afterPath="$PROJECT_DIR$/data/backtest/backtest_stocks.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/backtest/kline_300308.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/backtest/kline_300502.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/backtest/kline_601606.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/backtest/strategy_trend/drawdown.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/backtest/strategy_trend/equity_curve.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/backtest/summary.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/backtest/trades.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/daylyops.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/testops.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/eslint.config.mjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/next.config.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/pnpm-lock.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/pnpm-workspace.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/postcss.config.mjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/app/dashboard/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/app/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/app/globals.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/app/layout.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/app/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/app/positions/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/app/settings/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/app/trades/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/app/watchlist/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/charts/AssetCurveChart.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/charts/CapitalUsageCard.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/charts/DrawdownChart.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/charts/EquityCurveChart.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/charts/HeatmapCell.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/charts/KlineSignalChart.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/charts/ParameterHeatmap.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/charts/PnlImpactCard.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/charts/RiskAttribution.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/charts/StrategySelector.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/charts/TradeLogTable.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/charts/WinRatePieChart.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/layout/DashboardSidebar.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/ui/alert.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/ui/badge.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/ui/button.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/ui/card.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/ui/input.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/ui/label.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/ui/progress.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/ui/select.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/ui/slider.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/ui/table.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/components/ui/tabs.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/lib/api.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/lib/utils.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/src/types/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nextjs/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/pushjson.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/pushjson.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_provider/akshare_pd.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_provider/akshare_pd.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webui/api_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/webui/api_server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -90,6 +54,7 @@
     "Python.backtest.executor": "Run",
     "Python.cloudakpd.executor": "Run",
     "Python.cron_scheduler.executor": "Run",
+    "Python.daylyops.executor": "Run",
     "Python.engine.executor": "Run",
     "Python.live.executor": "Run",
     "Python.live_trading.executor": "Run",
@@ -114,6 +79,7 @@
     "Python.testakshare.executor": "Run",
     "Python.testcloud.executor": "Run",
     "Python.testnf.executor": "Run",
+    "Python.testops.executor": "Run",
     "Python.testwplot.executor": "Run",
     "Python.trendv4.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -323,7 +289,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772951737705</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="nextjs clean">
+      <option name="closed" value="true" />
+      <created>1773036085526</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1773036085526</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -343,6 +317,7 @@
     <MESSAGE value="update webui" />
     <MESSAGE value="update webui and indexnew" />
     <MESSAGE value="update webui and nextjs" />
-    <option name="LAST_COMMIT_MESSAGE" value="update webui and nextjs" />
+    <MESSAGE value="nextjs clean" />
+    <option name="LAST_COMMIT_MESSAGE" value="nextjs clean" />
   </component>
 </project>

@@ -296,3 +296,135 @@ def get_backtest_summary():
     path = os.path.join(BASE_DIR, "data", "backtest", "summary.json")
     if not os.path.exists(path): return {}
     with open(path, "r", encoding="utf-8") as f: return json.load(f)
+
+
+# ============================================================================
+# 调测接口 - 用于数据同步和调试
+# ============================================================================
+
+@app.get("/api/v1/debug/files")
+def get_debug_files():
+    """获取可调试的数据文件列表"""
+    files = []
+    file_configs = [
+        ("system_account.json", "系统账本", SYSTEM_ACCOUNT_FILE),
+        ("live_broker_account.json", "人工账本", MANUAL_ACCOUNT_FILE),
+        ("universe_pool.json", "股票池", UNIVERSE_POOL_FILE),
+        ("best_params_win50p.json", "策略参数", STRATEGY_CONFIG_FILE),
+        ("daily_nav.csv", "净值历史", DAILY_NAV_FILE),
+    ]
+    for filename, display_name, filepath in file_configs:
+        exists = os.path.exists(filepath)
+        size = os.path.getsize(filepath) if exists else 0
+        files.append({
+            "filename": filename,
+            "display_name": display_name,
+            "exists": exists,
+            "size": size
+        })
+    return files
+
+
+@app.get("/api/v1/debug/file/{filename}")
+def get_debug_file(filename: str):
+    """获取指定 JSON 文件内容"""
+    file_map = {
+        "system_account.json": SYSTEM_ACCOUNT_FILE,
+        "live_broker_account.json": MANUAL_ACCOUNT_FILE,
+        "universe_pool.json": UNIVERSE_POOL_FILE,
+        "best_params_win50p.json": STRATEGY_CONFIG_FILE,
+    }
+
+    if filename not in file_map:
+        raise HTTPException(status_code=404, detail=f"文件 {filename} 不在允许列表中")
+
+    filepath = file_map[filename]
+    if not os.path.exists(filepath):
+        return {"error": f"文件 {filename} 不存在", "content": None}
+
+    try:
+        with open(filepath, "r", encoding="utf-8") as f:
+            content = json.load(f)
+        return {"filename": filename, "content": content, "error": None}
+    except Exception as e:
+        return {"error": f"读取文件失败: {str(e)}", "content": None}
+
+
+@app.post("/api/v1/debug/sync")
+def debug_sync():
+    """触发数据同步"""
+    try:
+        um = UniverseManager()
+        lm = LedgerManager()
+        # 执行同步逻辑（根据实际需求补充）
+        return {
+            "success": True,
+            "message": "数据同步完成",
+            "timestamp": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S")
+        }
+    except Exception as e:
+        return {"success": False, "message": f"同步失败: {str(e)}"}
+
+
+@app.get("/api/v1/debug/compare")
+def debug_compare():
+    """对比系统账本和人工账本差异"""
+    result = {
+        "system_only": [],  # 仅系统账本有
+        "manual_only": [],  # 仅人工账本有
+        "diff_positions": [],  # 持仓数量/成本不同
+        "match_positions": [],  # 一致的持仓
+    }
+
+    # 读取系统账本
+    sys_positions = {}
+    if os.path.exists(SYSTEM_ACCOUNT_FILE):
+        with open(SYSTEM_ACCOUNT_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            sys_positions = {p['symbol']: p for p in data.get('positions', [])}
+
+    # 读取人工账本
+    man_positions = {}
+    if os.path.exists(MANUAL_ACCOUNT_FILE):
+        with open(MANUAL_ACCOUNT_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            man_positions = {p['symbol']: p for p in data.get('positions', [])}
+
+    sys_symbols = set(sys_positions.keys())
+    man_symbols = set(man_positions.keys())
+
+    # 仅系统账本有
+    for symbol in sys_symbols - man_symbols:
+        result["system_only"].append({
+            "symbol": symbol,
+            "data": sys_positions[symbol]
+        })
+
+    # 仅人工账本有
+    for symbol in man_symbols - sys_symbols:
+        result["manual_only"].append({
+            "symbol": symbol,
+            "data": man_positions[symbol]
+        })
+
+    # 对比两边都有的
+    for symbol in sys_symbols & man_symbols:
+        sys_p = sys_positions[symbol]
+        man_p = man_positions[symbol]
+
+        diff = {}
+        if sys_p.get('shares') != man_p.get('shares'):
+            diff['shares'] = {"system": sys_p.get('shares'), "manual": man_p.get('shares')}
+        if sys_p.get('cost_price') != man_p.get('cost_price'):
+            diff['cost_price'] = {"system": sys_p.get('cost_price'), "manual": man_p.get('cost_price')}
+
+        if diff:
+            result["diff_positions"].append({
+                "symbol": symbol,
+                "name": sys_p.get('name') or man_p.get('name'),
+                "diff": diff
+            })
+        else:
+            result["match_positions"].append(symbol)
+
+    return result

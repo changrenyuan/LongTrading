@@ -1,0 +1,20 @@
+[
+    {
+        "symbol": "300502",
+        "name": "新易盛",
+        "return_pct": 45.91,
+        "trades": 6
+    },
+    {
+        "symbol": "300308",
+        "name": "中际旭创",
+        "return_pct": -1.4,
+        "trades": 4
+    },
+    {
+        "symbol": "601606",
+        "name": "长城军工",
+        "return_pct": 7.36,
+        "trades": 4
+    }
+]

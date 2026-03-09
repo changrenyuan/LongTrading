@@ -5,7 +5,8 @@ from strategies.trend import InstitutionalTrendStrategy
 from core.account import Portfolio, Position
 from utils.logger import global_logger as logger
 from utils.notifier import MessagePusher
-
+# engine.py 顶部
+from data_provider.akshare_pd import AkShareProvider
 from .config import LiveConfig
 from .universe import UniverseManager
 from .ledger import LedgerManager
@@ -18,7 +19,7 @@ class LiveEngine:
         self.universe = UniverseManager()
         self.ledger = LedgerManager()
         self.executor = TradeExecutor(self.ledger)
-
+        self.provider = AkShareProvider()
     def run_daily_routine(self):
         logger.info("=" * 80)
         logger.info(f" 🚀 启动量化交易实盘中心 ({datetime.now().strftime('%Y-%m-%d %H:%M')})")

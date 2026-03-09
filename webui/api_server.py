@@ -291,3 +291,8 @@ def get_kline_signals(symbol: str):
 def get_backtest_trades():
     """📊 对接 WinRatePieChart / PnlImpactCard -> trades.json"""
     return load_backtest_json("trades.json")
+@app.get("/api/v1/backtest/summary")
+def get_backtest_summary():
+    path = os.path.join(BASE_DIR, "data", "backtest", "summary.json")
+    if not os.path.exists(path): return {}
+    with open(path, "r", encoding="utf-8") as f: return json.load(f)

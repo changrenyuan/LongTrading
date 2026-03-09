@@ -62,9 +62,10 @@ class PushJSON:
                 "shares": int(t['shares']),
                 "price": round(float(t['price']), 2),
                 "pnl": round(float(t.get('realized_pnl', 0)), 2),
-                "reason": t.get('reason', '技术指标触发')
+                "reason": t.get('reason', '技术指标触发'),
+                "status": "回测中已执行"  # 💡 补全接口期待的 status
             })
-        cls._save_json(os.path.join(save_dir, "trades.json"), trades_list)
+        cls._save_json(os.path.join(base_save_dir, "trades.json"), trades_list)
 
         # 3. 🚀 对标 plotter.py：计算每只股票的每日深度维度
         # 我们需要从账户底稿中重建每日持仓状态
@@ -75,7 +76,7 @@ class PushJSON:
             df_stock = data_dict[sym].copy()
             df_stock['ma5'] = df_stock['close'].rolling(5).mean()
             df_stock['ma20'] = df_stock['close'].rolling(20).mean()
-
+            df_stock = df_stock.fillna(0)  # 💡 建议在计算 MA 后统一填充
             # --- 精算个股每日占比逻辑 ---
             pnl_ratio_data = []
             capital_usage_data = []
@@ -132,7 +133,7 @@ class PushJSON:
             # 过滤信号
             stock_signals = [t for t in trades_list if t['symbol'] == sym]
 
-            cls._save_json(os.path.join(save_dir, f"kline_{sym}.json"), {
+            cls._save_json(os.path.join(base_save_dir, f"kline_{sym}.json"), {
                 "symbol": sym,
                 "name": symbol_names.get(sym, sym),
                 "kline": kline_data,
@@ -152,8 +153,18 @@ class PushJSON:
                 "return_pct": round((total_pnl / initial_capital) * 100, 2),
                 "trades": len(s_trades)
             })
-        cls._save_json(os.path.join(save_dir, "backtest_stocks.json"), stocks_info)
-
+        cls._save_json(os.path.join(base_save_dir, "backtest_stocks.json"), stocks_info)
+        # --- ADD: 导出宏观绩效指标 summary.json ---
+        from utils.metrics import MetricsCalculator
+        summary_metrics = MetricsCalculator.calculate(df_res, initial_capital)
+        cls._save_json(os.path.join(base_save_dir, "summary.json"), {
+            "total_pnl": round(float(df_res['equity'].iloc[-1] - initial_capital), 2),
+            "sharpe_ratio": float(summary_metrics.get("夏普比率", 0)),
+            "max_drawdown": float(summary_metrics.get("最大回撤", "0").strip('%')),
+            "calmar_ratio": float(summary_metrics.get("卡玛比率", 0)),
+            "annualized_return": float(summary_metrics.get("年化收益率", "0").strip('%')),
+            "win_rate": float(summary_metrics.get("胜率", "0").strip('%'))
+        })
         print(f"📡 [PushJSON] 策略 {strategy_id} 深度分析包(包含占比曲线)已导出。")
 
     @staticmethod

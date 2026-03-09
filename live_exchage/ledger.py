@@ -2,15 +2,16 @@ import os
 import json
 import pandas as pd
 from utils.logger import global_logger as logger
-
+from utils.metrics import MetricsCalculator
 
 class LedgerManager:
     def __init__(self, manual_file="data/live_broker_account.json", system_file="data/system_account.json",
-                 rich_ledger_file="data/live_trade_ledger.csv"):
+                 rich_ledger_file="data/live_trade_ledger.csv",summary_file="data/portfolio_assets.json"):
         self.manual_file = manual_file
         self.system_file = system_file
         self.rich_ledger_file = rich_ledger_file
         self.nav_file = "data/daily_nav.csv"
+        self.summary_file = summary_file
 
     def load_and_reconcile_ledgers(self):
         if not os.path.exists(self.manual_file):
@@ -173,3 +174,4 @@ class LedgerManager:
         except Exception as e:
             logger.error(f"❌ 同步过程崩溃: {e}")
             return False
+

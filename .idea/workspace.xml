@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="nextjs clean">
+    <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="daily update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/live_exchage/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/live_exchage/engine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/system_account.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_account.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/live_exchage/ledger.py" beforeDir="false" afterPath="$PROJECT_DIR$/live_exchage/ledger.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -310,7 +311,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773048092561</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="daily update">
+      <option name="closed" value="true" />
+      <created>1773048880256</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1773048880256</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -331,6 +340,7 @@
     <MESSAGE value="update webui and indexnew" />
     <MESSAGE value="update webui and nextjs" />
     <MESSAGE value="nextjs clean" />
-    <option name="LAST_COMMIT_MESSAGE" value="nextjs clean" />
+    <MESSAGE value="daily update" />
+    <option name="LAST_COMMIT_MESSAGE" value="daily update" />
   </component>
 </project>

@@ -1,5 +1,5 @@
 {
-    "available_cash": 10012283.85,
+    "available_cash": 10000000.0,
     "positions": [
         {
             "symbol": "002131",
@@ -24,6 +24,18 @@
             "highest_price": 32.6,
             "buy_date": "历史遗留",
             "buy_reason": "未知建仓逻辑"
+        },
+        {
+            "symbol": "600111",
+            "name": "北方稀土",
+            "shares": 100,
+            "cost_price": 60,
+            "current_price": 53.88,
+            "pnl": -612.0,
+            "pnl_pct": "-10.20%",
+            "highest_price": 53.88,
+            "buy_date": "手动录入",
+            "buy_reason": "手动同步"
         },
         {
             "symbol": "600938",
@@ -84,6 +96,18 @@
             "highest_price": 9.84,
             "buy_date": "历史遗留",
             "buy_reason": "未知建仓逻辑"
+        },
+        {
+            "symbol": "300528",
+            "name": "幸福蓝海",
+            "shares": 400,
+            "cost_price": 17.33,
+            "current_price": 17.28,
+            "pnl": -20.0,
+            "pnl_pct": "-0.29%",
+            "highest_price": 17.28,
+            "buy_date": "手动录入",
+            "buy_reason": "手动同步"
         }
     ]
 }

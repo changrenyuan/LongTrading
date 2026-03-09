@@ -5,18 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="nextjs clean">
-      <change afterPath="$PROJECT_DIR$/data/backtest/backtest_stocks.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/backtest/kline_300308.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/backtest/kline_300502.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/backtest/kline_601606.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/backtest/strategy_trend/drawdown.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/backtest/strategy_trend/equity_curve.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/backtest/summary.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/backtest/trades.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/daylyops.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/testops.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_provider/akshare_pd.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_provider/akshare_pd.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webui/api_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/webui/api_server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -297,7 +286,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773036085526</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="nextjs clean">
+      <option name="closed" value="true" />
+      <created>1773042315786</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1773042315786</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

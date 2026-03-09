@@ -428,3 +428,62 @@ def debug_compare():
             result["match_positions"].append(symbol)
 
     return result
+
+
+# ============================================================================
+# 市场快照接口
+# ============================================================================
+
+# 市场快照存储路径 (daylyops.py 保存在 utils/data/ops_test/)
+MARKET_SNAPSHOT_FILE = os.path.join(BASE_DIR, "utils", "data", "ops_test", "market_snapshot.json")
+
+
+@app.post("/api/v1/debug/market_snapshot")
+def sync_market_snapshot():
+    """触发市场快照同步任务"""
+    try:
+        from utils.daylyops import task_1_market_snapshot
+
+        # 执行同步任务
+        symbols, name_map = task_1_market_snapshot()
+
+        return {
+            "success": True,
+            "message": f"市场快照同步完成，提取 {len(symbols)} 支核心标的",
+            "symbols": symbols,
+            "name_map": name_map,
+            "timestamp": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S")
+        }
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return {"success": False, "message": f"同步失败: {str(e)}"}
+
+
+@app.get("/api/v1/debug/market_snapshot")
+def get_market_snapshot():
+    """获取市场快照 JSON 内容"""
+    if not os.path.exists(MARKET_SNAPSHOT_FILE):
+        return {
+            "success": False,
+            "message": "市场快照文件不存在，请先点击同步按钮",
+            "data": [],
+            "count": 0
+        }
+
+    try:
+        with open(MARKET_SNAPSHOT_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return {
+            "success": True,
+            "message": "获取成功",
+            "data": data,
+            "count": len(data) if isinstance(data, list) else 1
+        }
+    except Exception as e:
+        return {
+            "success": False,
+            "message": f"读取文件失败: {str(e)}",
+            "data": [],
+            "count": 0
+        }

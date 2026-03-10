@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="daily update2">
+      <change afterPath="$PROJECT_DIR$/utils/time.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/live_broker_account.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/live_broker_account.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/system_account.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_account.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/live_exchage/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/live_exchage/engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/live_exchage/ledger.py" beforeDir="false" afterPath="$PROJECT_DIR$/live_exchage/ledger.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webui/api_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/webui/api_server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -71,9 +70,11 @@
     "Python.testak.executor": "Run",
     "Python.testakshare.executor": "Run",
     "Python.testcloud.executor": "Run",
+    "Python.testdate.executor": "Run",
     "Python.testnf.executor": "Run",
     "Python.testops.executor": "Run",
     "Python.testwplot.executor": "Run",
+    "Python.time.executor": "Run",
     "Python.trendv4.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -330,7 +331,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773050476699</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="daily update2">
+      <option name="closed" value="true" />
+      <created>1773114392975</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1773114392975</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

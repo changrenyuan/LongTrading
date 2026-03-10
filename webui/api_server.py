@@ -7,6 +7,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from live_exchage.universe import UniverseManager
 from live_exchage.ledger import LedgerManager
 from fastapi import BackgroundTasks
+from utils.time import update_market_status_json
+import aiofiles  # 异步文件操作
 app = FastAPI(title="MT_Alpha 核心数据总线", version="1.0.0")
 origins = [
     "http://localhost:3000",  # Next.js 默认开发端口
@@ -21,7 +23,7 @@ app.add_middleware(
     allow_methods=["*"],  # 允许所有 HTTP 方法 (GET, POST, PUT, DELETE 等)
     allow_headers=["*"],  # 允许所有请求头
 )
-
+_trading_days_cache = {"year": 0, "days": set()}
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SYSTEM_ACCOUNT_FILE = os.path.join(BASE_DIR, "data", "system_account.json")
 MANUAL_ACCOUNT_FILE = os.path.join(BASE_DIR, "data", "live_broker_account.json")
@@ -34,139 +36,34 @@ CHARTS_DIR = os.path.join(BASE_DIR, "data", "charts")
 LIVE_SCRIPT = os.path.join(BASE_DIR, "live.py")
 # 核心资产与指标快照 (由 engine.py/ledger.py 生成)
 PORTFOLIO_ASSETS_FILE = os.path.join(BASE_DIR, "data","portfolio_assets.json")
+MARKET_STATUS_FILE = os.path.join(BASE_DIR, "data", "market_status.json")
 from utils.metrics import MetricsCalculator # 💡 引入专业的精算师
 
 @app.get("/")
 def ping(): return {"status": "ok"}
-# --- 通用读取函数 ---
-# 交易日历缓存（避免频繁请求）
-_trading_days_cache = {"year": None, "days": set()}
-
-
-def get_trading_days(year: int) -> set:
-    """获取指定年份的交易日（使用 akshare）"""
-    global _trading_days_cache
-
-    if _trading_days_cache["year"] == year:
-        return _trading_days_cache["days"]
+@app.get("/api/v1/market/status")
+async def get_market_status(background_tasks: BackgroundTasks):
+    """
+    异步读取 JSON 快照并返回。
+    同时在后台静默触发一次数据刷新，保证下一次请求是最新的。
+    """
+    # 1. 如果文件不存在，先同步运行一次生成它
+    if not os.path.exists(MARKET_STATUS_FILE):
+        update_market_status_json(MARKET_STATUS_FILE)
 
     try:
-        import akshare as ak
-        # 获取交易日历
-        df = ak.tool_trade_date_hist_sina()
-        # 筛选当年交易日
-        trading_days = set()
-        for date_str in df['trade_date'].astype(str):
-            if date_str.startswith(str(year)):
-                trading_days.add(date_str)
+        # 2. 异步读取磁盘上的 JSON 快照
+        async with aiofiles.open(MARKET_STATUS_FILE, mode='r', encoding='utf-8') as f:
+            content = await f.read()
+            data = json.loads(content)
 
-        _trading_days_cache = {"year": year, "days": trading_days}
-        return trading_days
+        # 3. (可选) 异步触发后台更新，不阻塞当前返回
+        # 这样即便 akshare 慢，前端拿到的也是上一秒的快照，体验极佳
+        background_tasks.add_task(update_market_status_json, MARKET_STATUS_FILE)
+
+        return data
     except Exception as e:
-        print(f"获取交易日历失败: {e}")
-        # 降级：排除周末
-        from datetime import date, timedelta
-        trading_days = set()
-        start = date(year, 1, 1)
-        end = date(year, 12, 31)
-        current = start
-        while current <= end:
-            if current.weekday() < 5:  # 周一到周五
-                trading_days.add(current.strftime('%Y%m%d'))
-            current += timedelta(days=1)
-        return trading_days
-
-
-@app.get("/api/v1/market/status")
-def get_market_status():
-    """获取市场交易状态"""
-    from datetime import datetime, time
-
-    now = datetime.now()
-    today_str = now.strftime('%Y%m%d')
-    current_time = now.time()
-
-    # 定义交易时段
-    MORNING_OPEN = time(9, 30)
-    MORNING_CLOSE = time(11, 30)
-    AFTERNOON_OPEN = time(13, 0)
-    AFTERNOON_CLOSE = time(15, 0)
-
-    # 判断是否是交易日
-    trading_days = get_trading_days(now.year)
-    is_trading_day = today_str in trading_days
-
-    # 判断市场状态
-    market_status = "休市"
-    status_code = 0  # 0:休市 1:开盘前 2:早盘 3:午休 4:午盘 5:收盘后
-
-    if is_trading_day:
-        if current_time < MORNING_OPEN:
-            market_status = "开盘前"
-            status_code = 1
-        elif MORNING_OPEN <= current_time < MORNING_CLOSE:
-            market_status = "早盘交易中"
-            status_code = 2
-        elif MORNING_CLOSE <= current_time < AFTERNOON_OPEN:
-            market_status = "午间休市"
-            status_code = 3
-        elif AFTERNOON_OPEN <= current_time < AFTERNOON_CLOSE:
-            market_status = "午盘交易中"
-            status_code = 4
-        else:
-            market_status = "已收盘"
-            status_code = 5
-    else:
-        # 非交易日
-        if current_time < MORNING_OPEN:
-            market_status = "非交易日"
-            status_code = 0
-        else:
-            market_status = "休市日"
-            status_code = 0
-
-    # 计算距离下一交易状态的时间
-    next_event = None
-    next_event_time = None
-
-    if is_trading_day:
-        if status_code == 1:  # 开盘前
-            next_event = "开盘"
-            next_event_time = datetime.combine(now.date(), MORNING_OPEN)
-        elif status_code == 2:  # 早盘
-            next_event = "午休"
-            next_event_time = datetime.combine(now.date(), MORNING_CLOSE)
-        elif status_code == 3:  # 午休
-            next_event = "午盘开盘"
-            next_event_time = datetime.combine(now.date(), AFTERNOON_OPEN)
-        elif status_code == 4:  # 午盘
-            next_event = "收盘"
-            next_event_time = datetime.combine(now.date(), AFTERNOON_CLOSE)
-
-    # 计算剩余时间
-    countdown = None
-    if next_event_time:
-        delta = next_event_time - now
-        total_seconds = int(delta.total_seconds())
-        if total_seconds > 0:
-            hours, remainder = divmod(total_seconds, 3600)
-            minutes, seconds = divmod(remainder, 60)
-            countdown = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
-
-    return {
-        "is_trading_day": is_trading_day,
-        "market_status": market_status,
-        "status_code": status_code,
-        "current_time": now.strftime("%Y-%m-%d %H:%M:%S"),
-        "date": now.strftime("%Y-%m-%d"),
-        "weekday": ["周一", "周二", "周三", "周四", "周五", "周六", "周日"][now.weekday()],
-        "next_event": next_event,
-        "countdown": countdown,
-        "trading_periods": {
-            "morning": {"open": "09:30", "close": "11:30"},
-            "afternoon": {"open": "13:00", "close": "15:00"}
-        }
-    }
+        return {"error": f"读取快照失败: {str(e)}"}
 # @app.get("/api/v1/ledger/status")
 @app.get("/api/v1/ledger/status")
 def get_ledger_status():

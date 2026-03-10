@@ -1,14 +1,14 @@
 {
-    "available_cash": 1000.0,
+    "available_cash": 6401.602844999999,
     "positions": [
         {
             "symbol": "002131",
             "name": "利欧股份",
             "shares": 700,
             "cost_price": 9.1,
-            "current_price": 8.54,
-            "pnl": -392.0,
-            "pnl_pct": "-6.15%",
+            "current_price": 8.57,
+            "pnl": -371.0,
+            "pnl_pct": "-5.82%",
             "highest_price": 10.4,
             "buy_date": "历史遗留",
             "buy_reason": "未知建仓逻辑"
@@ -18,22 +18,10 @@
             "name": "华胜天成",
             "shares": 1,
             "cost_price": 28.127,
-            "current_price": 30.9,
-            "pnl": 2.77,
-            "pnl_pct": "+9.86%",
-            "highest_price": 31.52,
-            "buy_date": "历史遗留",
-            "buy_reason": "未知建仓逻辑"
-        },
-        {
-            "symbol": "600111",
-            "name": "北方稀土",
-            "shares": 100,
-            "cost_price": 60,
-            "current_price": 54.23,
-            "pnl": -577.0,
-            "pnl_pct": "-9.62%",
-            "highest_price": 63.57,
+            "current_price": 31.83,
+            "pnl": 3.7,
+            "pnl_pct": "+13.17%",
+            "highest_price": 32.57,
             "buy_date": "历史遗留",
             "buy_reason": "未知建仓逻辑"
         },
@@ -42,9 +30,9 @@
             "name": "中国海油",
             "shares": 1,
             "cost_price": 36.5,
-            "current_price": 40.33,
-            "pnl": 3.83,
-            "pnl_pct": "+10.49%",
+            "current_price": 40.98,
+            "pnl": 4.48,
+            "pnl_pct": "+12.27%",
             "highest_price": 42.6,
             "buy_date": "历史遗留",
             "buy_reason": "未知建仓逻辑"
@@ -54,9 +42,9 @@
             "name": "紫金矿业",
             "shares": 200,
             "cost_price": 39.35,
-            "current_price": 37.11,
-            "pnl": -448.0,
-            "pnl_pct": "-5.69%",
+            "current_price": 37.13,
+            "pnl": -444.0,
+            "pnl_pct": "-5.64%",
             "highest_price": 44.94,
             "buy_date": "历史遗留",
             "buy_reason": "未知建仓逻辑"
@@ -69,7 +57,7 @@
             "current_price": 11.92,
             "pnl": 2.52,
             "pnl_pct": "+26.81%",
-            "highest_price": 11.92,
+            "highest_price": 12.48,
             "buy_date": "历史遗留",
             "buy_reason": "未知建仓逻辑"
         },
@@ -78,9 +66,9 @@
             "name": "中天科技",
             "shares": 300,
             "cost_price": 29.434,
-            "current_price": 28.6,
-            "pnl": -250.2,
-            "pnl_pct": "-2.83%",
+            "current_price": 28.9,
+            "pnl": -160.2,
+            "pnl_pct": "-1.81%",
             "highest_price": 31.82,
             "buy_date": "历史遗留",
             "buy_reason": "未知建仓逻辑"
@@ -90,24 +78,12 @@
             "name": "建设银行",
             "shares": 200,
             "cost_price": 8.62,
-            "current_price": 8.99,
-            "pnl": 74.0,
-            "pnl_pct": "+4.29%",
+            "current_price": 8.94,
+            "pnl": 64.0,
+            "pnl_pct": "+3.71%",
             "highest_price": 9.84,
             "buy_date": "历史遗留",
             "buy_reason": "未知建仓逻辑"
-        },
-        {
-            "symbol": "300528",
-            "name": "幸福蓝海",
-            "shares": 400,
-            "cost_price": 17.33,
-            "current_price": 17.28,
-            "pnl": -20.0,
-            "pnl_pct": "-0.29%",
-            "highest_price": 17.28,
-            "buy_date": "手动录入",
-            "buy_reason": "手动同步"
         }
     ]
 }

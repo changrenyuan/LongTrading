@@ -3,7 +3,7 @@ import json
 import pandas as pd
 from utils.logger import global_logger as logger
 from utils.metrics import MetricsCalculator
-
+from data_provider.cloudakpd import DataCenter # 确保引入云端数据中心
 class LedgerManager:
     def __init__(self, manual_file="data/live_broker_account.json", system_file="data/system_account.json",
                  rich_ledger_file="data/live_trade_ledger.csv",summary_file="data/portfolio_assets.json"):
@@ -175,3 +175,93 @@ class LedgerManager:
             logger.error(f"❌ 同步过程崩溃: {e}")
             return False
 
+
+    def update_assets_snapshot(self):
+        """
+        🎯 核心资产审计：云端价格对齐 + 15分钟保鲜期校验 + 实时精算存盘
+        """
+        # 1. 💡 云端数据对齐 (处理您要求的 15 分钟逻辑)
+        dc = DataCenter()
+        # sync_market_snapshot 内部已包含：判断交易日、检查上次更新是否超过 15 分钟
+        # 如果超过 15 分钟，它会自动调用云端 API 刷新数据库
+        dc.sync_market_snapshot(refresh_interval_hours=0.1)
+        df_cloud = dc.get_snapshot_from_cloud()
+
+        if df_cloud.empty:
+            logger.warning("⚠️ 云端行情读取为空，将使用系统账本中的历史价格进行精算")
+            price_lookup = {}
+        else:
+            # 建立 {代码: 最新价} 的快速查询表
+            price_lookup = dict(zip(df_cloud['symbol'], df_cloud['latest_price']))
+
+        # 2. 读取系统账本（包含当前现金和持仓股数）
+        if not os.path.exists(self.system_file):
+            return None
+        with open(self.system_file, 'r', encoding='utf-8') as f:
+            sys_raw = json.load(f)
+
+        cash = float(sys_raw.get("available_cash", 0.0))
+        positions = sys_raw.get("positions", [])
+
+        # 3. 🛠️ 实时精算：使用云端最新价格更新所有持仓
+        total_market_value = 0.0
+        total_cost_value = 0.0
+
+        for p in positions:
+            sym = p['symbol']
+            shares = float(p.get('shares', 0))
+            cost_price = float(p.get('cost_price', 0))
+
+            # 优先级：云端最新价 > 账本原有价 > 成本价
+            curr_price = price_lookup.get(sym, p.get('current_price', cost_price))
+
+            p['current_price'] = round(curr_price, 3)
+            p['pnl'] = round((curr_price - cost_price) * shares, 2)
+            p['pnl_pct'] = f"{((curr_price / cost_price) - 1) * 100:+.2f}%" if cost_price > 0 else "0.00%"
+
+            total_market_value += (curr_price * shares)
+            total_cost_value += (cost_price * shares)
+
+        # 4. 账户维度精算
+        current_equity = round(cash + total_market_value, 2)
+        position_pnl = round(total_market_value - total_cost_value, 2)
+
+        # 当日盈亏计算 (基于今日实时总资产与昨日 NAV 存盘的差值)
+        daily_pnl = 0.0
+        daily_pnl_pct = 0.0
+        if os.path.exists(self.nav_file):
+            df_nav = pd.read_csv(self.nav_file)
+            if not df_nav.empty:
+                last_equity = df_nav.iloc[-1]['Equity']
+                daily_pnl = round(current_equity - last_equity, 2)
+                daily_pnl_pct = round((daily_pnl / last_equity) * 100, 2) if last_equity > 0 else 0.0
+
+        # 5. 组装全量资产快照
+        snapshot = {
+            "available_cash": cash,
+            "positions": positions,
+            "pnl_summary": {
+                "position_pnl": position_pnl,
+                "daily_pnl": daily_pnl,
+                "daily_pnl_pct": daily_pnl_pct
+            },
+            "metrics": {
+                "total_equity": current_equity,
+                "total_pnl": round(position_pnl, 2),
+                "market_value": round(total_market_value, 2),
+                "annualized_return": 0.0,
+                "sharpe_ratio": 0.0,
+                "max_drawdown": 0.0,
+                "calmar_ratio": 0.0
+                # 这里可以根据需要计算年化、夏普等...
+            },
+            "updated_at": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S")
+        }
+
+        # 6. 💾 物理落盘 (API 接口读取的唯一来源)
+        assets_json = os.path.join(os.path.dirname(self.system_file), "portfolio_assets.json")
+        with open(assets_json, 'w', encoding='utf-8') as f:
+            json.dump(snapshot, f, indent=4, ensure_ascii=False)
+
+        logger.info(f"✅ 资产审计完成。当前净资产: {current_equity}, 云端对齐已完成。")
+        return snapshot

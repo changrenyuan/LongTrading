@@ -157,7 +157,7 @@ class LiveEngine:
         # 6. 落库记忆、报告与净值
         self.ledger.save_system_ledger(account, strategy, self.universe)
         self.ledger.record_daily_nav(current_date_str, current_equity)  # 💡 新增：记录每日净值
-
+        self.ledger.update_assets_snapshot()
         logger.info("=" * 80)
         logger.info("【操作审批纪要 (Execution Summary)】")
         for o in sell_orders: logger.info(o)

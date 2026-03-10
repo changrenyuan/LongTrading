@@ -32,127 +32,226 @@ DAILY_NAV_FILE = os.path.join(BASE_DIR, "data", "daily_nav.csv")
 BACKTEST_DATA_DIR = os.path.join(BASE_DIR, "data", "backtest")
 CHARTS_DIR = os.path.join(BASE_DIR, "data", "charts")
 LIVE_SCRIPT = os.path.join(BASE_DIR, "live.py")
+# 核心资产与指标快照 (由 engine.py/ledger.py 生成)
+PORTFOLIO_ASSETS_FILE = os.path.join(BASE_DIR, "data","portfolio_assets.json")
 from utils.metrics import MetricsCalculator # 💡 引入专业的精算师
 
 @app.get("/")
 def ping(): return {"status": "ok"}
+# --- 通用读取函数 ---
+# 交易日历缓存（避免频繁请求）
+_trading_days_cache = {"year": None, "days": set()}
 
 
+def get_trading_days(year: int) -> set:
+    """获取指定年份的交易日（使用 akshare）"""
+    global _trading_days_cache
+
+    if _trading_days_cache["year"] == year:
+        return _trading_days_cache["days"]
+
+    try:
+        import akshare as ak
+        # 获取交易日历
+        df = ak.tool_trade_date_hist_sina()
+        # 筛选当年交易日
+        trading_days = set()
+        for date_str in df['trade_date'].astype(str):
+            if date_str.startswith(str(year)):
+                trading_days.add(date_str)
+
+        _trading_days_cache = {"year": year, "days": trading_days}
+        return trading_days
+    except Exception as e:
+        print(f"获取交易日历失败: {e}")
+        # 降级：排除周末
+        from datetime import date, timedelta
+        trading_days = set()
+        start = date(year, 1, 1)
+        end = date(year, 12, 31)
+        current = start
+        while current <= end:
+            if current.weekday() < 5:  # 周一到周五
+                trading_days.add(current.strftime('%Y%m%d'))
+            current += timedelta(days=1)
+        return trading_days
+
+
+@app.get("/api/v1/market/status")
+def get_market_status():
+    """获取市场交易状态"""
+    from datetime import datetime, time
+
+    now = datetime.now()
+    today_str = now.strftime('%Y%m%d')
+    current_time = now.time()
+
+    # 定义交易时段
+    MORNING_OPEN = time(9, 30)
+    MORNING_CLOSE = time(11, 30)
+    AFTERNOON_OPEN = time(13, 0)
+    AFTERNOON_CLOSE = time(15, 0)
+
+    # 判断是否是交易日
+    trading_days = get_trading_days(now.year)
+    is_trading_day = today_str in trading_days
+
+    # 判断市场状态
+    market_status = "休市"
+    status_code = 0  # 0:休市 1:开盘前 2:早盘 3:午休 4:午盘 5:收盘后
+
+    if is_trading_day:
+        if current_time < MORNING_OPEN:
+            market_status = "开盘前"
+            status_code = 1
+        elif MORNING_OPEN <= current_time < MORNING_CLOSE:
+            market_status = "早盘交易中"
+            status_code = 2
+        elif MORNING_CLOSE <= current_time < AFTERNOON_OPEN:
+            market_status = "午间休市"
+            status_code = 3
+        elif AFTERNOON_OPEN <= current_time < AFTERNOON_CLOSE:
+            market_status = "午盘交易中"
+            status_code = 4
+        else:
+            market_status = "已收盘"
+            status_code = 5
+    else:
+        # 非交易日
+        if current_time < MORNING_OPEN:
+            market_status = "非交易日"
+            status_code = 0
+        else:
+            market_status = "休市日"
+            status_code = 0
+
+    # 计算距离下一交易状态的时间
+    next_event = None
+    next_event_time = None
+
+    if is_trading_day:
+        if status_code == 1:  # 开盘前
+            next_event = "开盘"
+            next_event_time = datetime.combine(now.date(), MORNING_OPEN)
+        elif status_code == 2:  # 早盘
+            next_event = "午休"
+            next_event_time = datetime.combine(now.date(), MORNING_CLOSE)
+        elif status_code == 3:  # 午休
+            next_event = "午盘开盘"
+            next_event_time = datetime.combine(now.date(), AFTERNOON_OPEN)
+        elif status_code == 4:  # 午盘
+            next_event = "收盘"
+            next_event_time = datetime.combine(now.date(), AFTERNOON_CLOSE)
+
+    # 计算剩余时间
+    countdown = None
+    if next_event_time:
+        delta = next_event_time - now
+        total_seconds = int(delta.total_seconds())
+        if total_seconds > 0:
+            hours, remainder = divmod(total_seconds, 3600)
+            minutes, seconds = divmod(remainder, 60)
+            countdown = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+
+    return {
+        "is_trading_day": is_trading_day,
+        "market_status": market_status,
+        "status_code": status_code,
+        "current_time": now.strftime("%Y-%m-%d %H:%M:%S"),
+        "date": now.strftime("%Y-%m-%d"),
+        "weekday": ["周一", "周二", "周三", "周四", "周五", "周六", "周日"][now.weekday()],
+        "next_event": next_event,
+        "countdown": countdown,
+        "trading_periods": {
+            "morning": {"open": "09:30", "close": "11:30"},
+            "afternoon": {"open": "13:00", "close": "15:00"}
+        }
+    }
+# @app.get("/api/v1/ledger/status")
 @app.get("/api/v1/ledger/status")
 def get_ledger_status():
-    sys_pos, man_pos = {}, {}
+    sys_data, man_data = {"cash": 0.0, "pos": {}}, {"cash": 0.0, "pos": {}}
+
+    # 1. 提取系统账本数据
     if os.path.exists(SYSTEM_ACCOUNT_FILE):
         with open(SYSTEM_ACCOUNT_FILE, "r", encoding="utf-8") as f:
-            # 使用 (shares, cost_price) 元组作为值
-            sys_pos = {
+            raw = json.load(f)
+            sys_data["cash"] = round(float(raw.get("available_cash", 0.0)), 2)
+            # 记录 (股数, 成本价) 用于对比
+            sys_data["pos"] = {
                 p['symbol']: (p['shares'], round(float(p.get('cost_price', 0)), 3))
-                for p in json.load(f).get('positions', [])
+                for p in raw.get('positions', [])
             }
 
-    # 2. 提取人工账本：包含股数和成本价
+    # 2. 提取人工账本数据
     if os.path.exists(MANUAL_ACCOUNT_FILE):
         with open(MANUAL_ACCOUNT_FILE, "r", encoding="utf-8") as f:
-            # 确保人工账本 JSON 中也包含 cost_price 字段
-            man_pos = {
+            raw = json.load(f)
+            man_data["cash"] = round(float(raw.get("available_cash", 0.0)), 2)
+            man_data["pos"] = {
                 p['symbol']: (p['shares'], round(float(p.get('cost_price', 0)), 3))
-                for p in json.load(f).get('positions', [])
+                for p in raw.get('positions', [])
             }
-    is_match = (sys_pos == man_pos)
-    return {"is_match": is_match,
-            "message": "🟢 账本对账一致" if is_match else "🔴 对账异常：系统预估持仓与人工真实账本不符！"}
 
+    # 3. 核心对账逻辑：现金 + 持仓
+    cash_match = (sys_data["cash"] == man_data["cash"])
+    pos_match = (sys_data["pos"] == man_data["pos"])
+
+    is_match = cash_match and pos_match
+
+    # 4. 构造详细的反馈信息
+    if is_match:
+        return {"is_match": True, "message": "🟢 现金与持仓对账完全一致"}
+
+    errors = []
+    if not cash_match:
+        errors.append(f"现金不符(系统:{sys_data['cash']} vs 人工:{man_data['cash']})")
+    if not pos_match:
+        errors.append("持仓细节不符")
+
+    return {
+        "is_match": False,
+        "message": f"🔴 对账异常：{', '.join(errors)}",
+        "details": {
+            "cash_diff": round(sys_data["cash"] - man_data["cash"], 2),
+            "sys_pos_count": len(sys_data["pos"]),
+            "man_pos_count": len(man_data["pos"])
+        }
+    }
 
 # @app.get("/api/v1/ledger/assets")
 @app.get("/api/v1/ledger/assets")
 def get_portfolio_status():
     """
-    💡 核心数据总线：适配 page.tsx 的前端结构
-    包含：可用现金、完整持仓、量化指标 (metrics)、盈亏概览 (pnl_summary)
+    💡 优化：删除所有计算、MetricsCalculator 和 CSV 读取。
+    直接透传由后端精算好的全量资产数据。
     """
-    # 初始默认结构
-    data = {
+    default_structure = {
         "available_cash": 0.0,
         "positions": [],
-        "metrics": {
-            "total_pnl": 0.0,
-            "annualized_return": 0.0,
-            "sharpe_ratio": 0.0,
-            "max_drawdown": 0.0,
-            "calmar_ratio": 0.0
-        },
-        "pnl_summary": {
-            "position_pnl": 0.0,  # 对应 Card 1: 持仓盈亏
-            "daily_pnl": 0.0,  # 对应 Card 2: 当日盈亏
-            "daily_pnl_pct": 0.0  # 对应 Card 2: 当日涨跌幅
-        }
+        "metrics": {"total_pnl": 0.0, "annualized_return": 0.0, "sharpe_ratio": 0.0, "max_drawdown": 0.0, "calmar_ratio": 0.0},
+        "pnl_summary": {"position_pnl": 0.0, "daily_pnl": 0.0, "daily_pnl_pct": 0.0}
     }
+    try:
+        # 1. 实例化 LedgerManager 并执行实时审计
+        # 这将触发 15 分钟保鲜检查及所有财务指标的重算
 
-    # 1. 加载系统账本
-    if os.path.exists(SYSTEM_ACCOUNT_FILE):
-        try:
-            with open(SYSTEM_ACCOUNT_FILE, "r", encoding="utf-8") as f:
-                raw_account = json.load(f)
-                data["available_cash"] = raw_account.get("available_cash", 0.0)
-                data["positions"] = raw_account.get("positions", [])
-        except Exception as e:
-            print(f"读取账本失败: {e}")
-
-    # 2. 💡 数据补全与持仓盈亏 (position_pnl) 计算
-    current_pos_pnl = 0.0
-    for p in data["positions"]:
-        # 针对前端 Number(pnl_pct) 的适配：如果 pnl_pct 是字符串 "+5.2%"，转换为 float
-        if isinstance(p.get("pnl_pct"), str):
-            try:
-                p["pnl_pct"] = float(p["pnl_pct"].replace('%', '').replace('+', ''))
-            except:
-                p["pnl_pct"] = 0.0
-
-        # 盈亏计算防御
-        if p.get('pnl') is None:
-            shares = float(p.get('shares', 0))
-            curr = float(p.get('current_price', 0))
-            cost = float(p.get('cost_price', 0))
-            p['pnl'] = round((curr - cost) * shares, 2)
-
-        current_pos_pnl += float(p.get('pnl', 0.0))
-
-    data["pnl_summary"]["position_pnl"] = round(current_pos_pnl, 2)
-
-    # 3. 💡 历史净值分析：当日盈亏 (daily_pnl) 与 量化指标 (metrics)
-    if os.path.exists(DAILY_NAV_FILE):
-        try:
-            df_nav = pd.read_csv(DAILY_NAV_FILE)
-            if len(df_nav) > 0:
-                # 基础总盈亏
-                init_eq = df_nav.iloc[0]['Equity']
-                curr_eq = df_nav.iloc[-1]['Equity']
-                data["metrics"]["total_pnl"] = round(curr_eq - init_eq, 2)
-
-                # 当日盈亏与百分比计算
-                if len(df_nav) >= 2:
-                    yesterday_eq = df_nav.iloc[-2]['Equity']
-                    daily_diff = curr_eq - yesterday_eq
-                    data["pnl_summary"]["daily_pnl"] = round(daily_diff, 2)
-                    data["pnl_summary"]["daily_pnl_pct"] = round((daily_diff / yesterday_eq) * 100, 2)
-
-                # 专业精算 (夏普/卡玛/年化)
-                if len(df_nav) > 1:
-                    df_nav['Date'] = pd.to_datetime(df_nav['Date'])
-                    df_nav.set_index('Date', inplace=True)
-                    df_nav.rename(columns={'Equity': 'equity'}, inplace=True)
-
-                    calc_res = MetricsCalculator.calculate(df_nav, initial_capital=init_eq)
-                    # 映射 MetricsCalculator 的中文 Key 到前端期待的英文 Key
-                    data["metrics"]["annualized_return"] = float(calc_res.get("年化收益率", "0").strip('%'))
-                    data["metrics"]["sharpe_ratio"] = float(calc_res.get("夏普比率", 0))
-                    data["metrics"]["max_drawdown"] = float(calc_res.get("最大回撤", "0").strip('%'))
-                    data["metrics"]["calmar_ratio"] = float(calc_res.get("卡玛比率", 0))
-        except Exception as e:
-            print(f"精算分析失败: {e}")
-
-    return data
-
-
+        # 2. 物理读取由 lm.update_assets_snapshot 生成的最鲜 JSON
+        if os.path.exists(PORTFOLIO_ASSETS_FILE):
+            with open(PORTFOLIO_ASSETS_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        else:
+            raise HTTPException(status_code=404, detail="资产审计文件未生成")
+        lm = LedgerManager()
+        background_tasks.add_task(lm.update_assets_snapshot)
+    except Exception as e:
+        # 发生任何错误，返回默认结构，保证前端不崩
+        return {
+            "available_cash": 0.0, "positions": [],
+            "metrics": {"total_pnl": 0.0, "annualized_return": 0.0, "sharpe_ratio": 0.0, "max_drawdown": 0.0,
+                        "calmar_ratio": 0.0},
+            "pnl_summary": {"position_pnl": 0.0, "daily_pnl": 0.0, "daily_pnl_pct": 0.0}
+        }
 @app.get("/api/v1/ledger/nav_history")
 def get_nav_history():
     """

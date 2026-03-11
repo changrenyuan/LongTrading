@@ -1,0 +1,79 @@
+2026-03-06 14:53:28,106 - INFO - [para_tuning_win50pv3.py:155] - 🚀 ==================================================
+2026-03-06 14:53:28,106 - INFO - [para_tuning_win50pv3.py:156] - 🚀 [MT_ALPHA] 高胜率/高卡玛 AI 寻优内核 v3.0
+2026-03-06 14:53:28,107 - INFO - [para_tuning_win50pv3.py:157] - 🚀 ==================================================
+2026-03-06 14:53:28,107 - INFO - [para_tuning_win50pv3.py:26] - 🔍 [步骤1/6] 正在解析持仓文件: data/live_broker_account.json
+2026-03-06 14:53:28,107 - INFO - [para_tuning_win50pv3.py:41] - ✅ JSON 加载成功: 初始现金 10,000,000.00 | 现有持仓: ['002131', '600410', '600111', '600938', '601899', '002490', '600522', '601939']
+2026-03-06 14:53:28,143 - INFO - [cloudakpd.py:40] - ============================================================
+2026-03-06 14:53:28,143 - INFO - [cloudakpd.py:41] - 📊 [DataCenter] 数据内核启动审计...
+2026-03-06 14:53:28,143 - INFO - [cloudakpd.py:42] -    ▫️ 存储模式 : ☁️  云端 (PostgreSQL)
+2026-03-06 14:53:28,144 - INFO - [cloudakpd.py:43] -    ▫️ 连接节点 : ep-noisy-dust-a1zv7w56-pooler.ap-southeast-1.aws.neon.tech/neondb
+2026-03-06 14:53:31,249 - INFO - [cloudakpd.py:82] - 📂 字段审计完成，当前库结构正常。
+2026-03-06 14:53:31,249 - INFO - [cloudakpd.py:46] - ============================================================
+2026-03-06 14:53:31,249 - INFO - [para_tuning_win50pv3.py:164] - 📡 [步骤2/6] 正在从云端读取快照选股...
+2026-03-06 14:53:32,623 - INFO - [cloudakpd.py:234] - ---------------------------------------------
+2026-03-06 14:53:32,623 - INFO - [cloudakpd.py:235] - 🔍 [审计] 读取成功: 2026-03-06
+2026-03-06 14:53:32,624 - INFO - [cloudakpd.py:236] -    ▫️ 标的总数 : 5487 条
+2026-03-06 14:53:32,624 - INFO - [cloudakpd.py:237] -    ▫️ 资金状态 : 盘中实时
+2026-03-06 14:53:32,624 - INFO - [cloudakpd.py:238] -    ▫️ 存入时间 : 2026-03-06 13:30:24.421662
+2026-03-06 14:53:32,627 - INFO - [cloudakpd.py:240] -    ▫️ 样本 : symbol name  latest_price
+920000 安徽凤凰         18.07
+920001 纬达光电         19.73
+920002 万达轴承         92.56
+2026-03-06 14:53:32,627 - INFO - [cloudakpd.py:241] - ---------------------------------------------
+2026-03-06 14:53:32,631 - INFO - [para_tuning_win50pv3.py:182] - 🎯 [步骤3/6] 寻优池已锁定 (22只): 300475(香农芯创) | 601899(紫金矿业) | 601179(中国西电) | 600089(特变电工) | 600703(三安光电) | 600938(中国海油) | 601939(建设银行) | 600522(中天科技) | 300476(胜宏科技) | 002195(岩山科技) | 600111(北方稀土) | 300394(天孚通信) | 300502(新易盛) | 600410(华胜天成) | 300308(中际旭创) | 002490(山东墨龙) | 000988(华工科技) | 000547(航天发展) | 600875(东方电气) | 002131(利欧股份) | 002384(东山精密) | 002506(协鑫集成)
+2026-03-06 14:53:32,631 - INFO - [para_tuning_win50pv3.py:185] - 🚚 [步骤4/6] 正在搬运历史 K 线数据 (AkShareProvider)...
+2026-03-06 14:53:33,500 - DEBUG - [akshare_pd.py:78] - 👉 数据列名检查: ['date', 'open', 'high', 'low', 'close', 'volume', 'amount', 'outstanding_share', 'turnover']
+2026-03-06 14:53:34,370 - DEBUG - [akshare_pd.py:78] - 👉 数据列名检查: ['date', 'open', 'high', 'low', 'close', 'volume', 'amount', 'outstanding_share', 'turnover']
+2026-03-06 14:53:35,394 - DEBUG - [akshare_pd.py:78] - 👉 数据列名检查: ['date', 'open', 'high', 'low', 'close', 'volume', 'amount', 'outstanding_share', 'turnover']
+2026-03-06 14:53:36,538 - DEBUG - [akshare_pd.py:78] - 👉 数据列名检查: ['date', 'open', 'high', 'low', 'close', 'volume', 'amount', 'outstanding_share', 'turnover']
+2026-03-06 14:53:38,173 - DEBUG - [akshare_pd.py:78] - 👉 数据列名检查: ['date', 'open', 'high', 'low', 'close', 'volume', 'amount', 'outstanding_share', 'turnover']
+2026-03-06 14:53:38,175 - INFO - [para_tuning_win50pv3.py:194] -    ▫️ 加载进度: 5/22 (23%)
+2026-03-06 14:53:39,086 - DEBUG - [akshare_pd.py:78] - 👉 数据列名检查: ['date', 'open', 'high', 'low', 'close', 'volume', 'amount', 'outstanding_share', 'turnover']
+2026-03-06 14:53:40,235 - DEBUG - [akshare_pd.py:78] - 👉 数据列名检查: ['date', 'open', 'high', 'low', 'close', 'volume', 'amount', 'outstanding_share', 'turnover']
+2026-03-06 14:53:41,208 - DEBUG - [akshare_pd.py:78] - 👉 数据列名检查: ['date', 'open', 'high', 'low', 'close', 'volume', 'amount', 'outstanding_share', 'turnover']
+2026-03-06 14:53:42,255 - DEBUG - [akshare_pd.py:78] - 👉 数据列名检查: ['date', 'open', 'high', 'low', 'close', 'volume', 'amount', 'outstanding_share', 'turnover']
+2026-03-06 14:53:43,262 - DEBUG - [akshare_pd.py:78] - 👉 数据列名检查: ['date', 'open', 'high', 'low', 'close', 'volume', 'amount', 'outstanding_share', 'turnover']
+2026-03-06 14:53:43,264 - INFO - [para_tuning_win50pv3.py:194] -    ▫️ 加载进度: 10/22 (45%)
+2026-03-06 14:53:44,453 - DEBUG - [akshare_pd.py:78] - 👉 数据列名检查: ['date', 'open', 'high', 'low', 'close', 'volume', 'amount', 'outstanding_share', 'turnover']
+2026-03-06 14:53:45,290 - DEBUG - [akshare_pd.py:78] - 👉 数据列名检查: ['date', 'open', 'high', 'low', 'close', 'volume', 'amount', 'outstanding_share', 'turnover']
+2026-03-06 14:53:46,309 - DEBUG - [akshare_pd.py:78] - 👉 数据列名检查: ['date', 'open', 'high', 'low', 'close', 'volume', 'amount', 'outstanding_share', 'turnover']
+2026-03-06 14:53:47,282 - DEBUG - [akshare_pd.py:78] - 👉 数据列名检查: ['date', 'open', 'high', 'low', 'close', 'volume', 'amount', 'outstanding_share', 'turnover']
+2026-03-06 14:53:48,259 - DEBUG - [akshare_pd.py:78] - 👉 数据列名检查: ['date', 'open', 'high', 'low', 'close', 'volume', 'amount', 'outstanding_share', 'turnover']
+2026-03-06 14:53:48,260 - INFO - [para_tuning_win50pv3.py:194] -    ▫️ 加载进度: 15/22 (68%)
+2026-03-06 14:53:49,353 - DEBUG - [akshare_pd.py:78] - 👉 数据列名检查: ['date', 'open', 'high', 'low', 'close', 'volume', 'amount', 'outstanding_share', 'turnover']
+2026-03-06 14:53:50,597 - DEBUG - [akshare_pd.py:78] - 👉 数据列名检查: ['date', 'open', 'high', 'low', 'close', 'volume', 'amount', 'outstanding_share', 'turnover']
+2026-03-06 14:53:51,604 - DEBUG - [akshare_pd.py:78] - 👉 数据列名检查: ['date', 'open', 'high', 'low', 'close', 'volume', 'amount', 'outstanding_share', 'turnover']
+2026-03-06 14:53:52,572 - DEBUG - [akshare_pd.py:78] - 👉 数据列名检查: ['date', 'open', 'high', 'low', 'close', 'volume', 'amount', 'outstanding_share', 'turnover']
+2026-03-06 14:53:53,618 - DEBUG - [akshare_pd.py:78] - 👉 数据列名检查: ['date', 'open', 'high', 'low', 'close', 'volume', 'amount', 'outstanding_share', 'turnover']
+2026-03-06 14:53:53,620 - INFO - [para_tuning_win50pv3.py:194] -    ▫️ 加载进度: 20/22 (91%)
+2026-03-06 14:53:54,705 - DEBUG - [akshare_pd.py:78] - 👉 数据列名检查: ['date', 'open', 'high', 'low', 'close', 'volume', 'amount', 'outstanding_share', 'turnover']
+2026-03-06 14:53:56,743 - DEBUG - [akshare_pd.py:78] - 👉 数据列名检查: ['date', 'open', 'high', 'low', 'close', 'volume', 'amount', 'outstanding_share', 'turnover']
+2026-03-06 14:53:56,745 - INFO - [para_tuning_win50pv3.py:53] - 🧠 [步骤5/6] 启动 AI 寻优引擎 | 标的总数: 22 | 预设试验: 500 次
+2026-03-06 14:53:56,745 - INFO - [para_tuning_win50pv3.py:54] - 🎯 寻优红线: 胜率 < 45% 或 最大回撤 > 15% 将触发评分熔断。
+2026-03-06 15:08:56,378 - INFO - [para_tuning_win50pv3.py:142] - 💾 [步骤6/6] 全量试验记录已存入: data/tuning_logs/trials_20260306_150856.csv
+2026-03-06 15:08:56,380 - INFO - [para_tuning_win50pv3.py:149] - 💾 最优参数组已导出: data/best_params_win50p.json
+2026-03-06 15:08:56,383 - INFO - [para_tuning_win50pv3.py:209] - 📈 [审计完成] 正在绘制回测业绩曲线图...
+2026-03-06 15:08:57,244 - INFO - [plotter.py:51] - 📈 账户总资产曲线图已保存至: data/charts\portfolio_equity.png
+2026-03-06 15:08:58,103 - INFO - [plotter.py:175] - 📈 300475 专业 2x2 深度分析图已保存至: data/charts\AI_WinRate_Final300475_2x2_analysis.png
+2026-03-06 15:08:59,010 - INFO - [plotter.py:175] - 📈 601899 专业 2x2 深度分析图已保存至: data/charts\AI_WinRate_Final601899_2x2_analysis.png
+2026-03-06 15:08:59,872 - INFO - [plotter.py:175] - 📈 601179 专业 2x2 深度分析图已保存至: data/charts\AI_WinRate_Final601179_2x2_analysis.png
+2026-03-06 15:09:00,718 - INFO - [plotter.py:175] - 📈 600089 专业 2x2 深度分析图已保存至: data/charts\AI_WinRate_Final600089_2x2_analysis.png
+2026-03-06 15:09:01,658 - INFO - [plotter.py:175] - 📈 600703 专业 2x2 深度分析图已保存至: data/charts\AI_WinRate_Final600703_2x2_analysis.png
+2026-03-06 15:09:02,528 - INFO - [plotter.py:175] - 📈 600938 专业 2x2 深度分析图已保存至: data/charts\AI_WinRate_Final600938_2x2_analysis.png
+2026-03-06 15:09:03,430 - INFO - [plotter.py:175] - 📈 601939 专业 2x2 深度分析图已保存至: data/charts\AI_WinRate_Final601939_2x2_analysis.png
+2026-03-06 15:09:04,291 - INFO - [plotter.py:175] - 📈 600522 专业 2x2 深度分析图已保存至: data/charts\AI_WinRate_Final600522_2x2_analysis.png
+2026-03-06 15:09:05,311 - INFO - [plotter.py:175] - 📈 300476 专业 2x2 深度分析图已保存至: data/charts\AI_WinRate_Final300476_2x2_analysis.png
+2026-03-06 15:09:06,266 - INFO - [plotter.py:175] - 📈 002195 专业 2x2 深度分析图已保存至: data/charts\AI_WinRate_Final002195_2x2_analysis.png
+2026-03-06 15:09:07,223 - INFO - [plotter.py:175] - 📈 600111 专业 2x2 深度分析图已保存至: data/charts\AI_WinRate_Final600111_2x2_analysis.png
+2026-03-06 15:09:08,101 - INFO - [plotter.py:175] - 📈 300394 专业 2x2 深度分析图已保存至: data/charts\AI_WinRate_Final300394_2x2_analysis.png
+2026-03-06 15:09:09,034 - INFO - [plotter.py:175] - 📈 300502 专业 2x2 深度分析图已保存至: data/charts\AI_WinRate_Final300502_2x2_analysis.png
+2026-03-06 15:09:10,184 - INFO - [plotter.py:175] - 📈 600410 专业 2x2 深度分析图已保存至: data/charts\AI_WinRate_Final600410_2x2_analysis.png
+2026-03-06 15:09:11,202 - INFO - [plotter.py:175] - 📈 300308 专业 2x2 深度分析图已保存至: data/charts\AI_WinRate_Final300308_2x2_analysis.png
+2026-03-06 15:09:12,035 - INFO - [plotter.py:175] - 📈 002490 专业 2x2 深度分析图已保存至: data/charts\AI_WinRate_Final002490_2x2_analysis.png
+2026-03-06 15:09:12,821 - INFO - [plotter.py:175] - 📈 000988 专业 2x2 深度分析图已保存至: data/charts\AI_WinRate_Final000988_2x2_analysis.png
+2026-03-06 15:09:13,758 - INFO - [plotter.py:175] - 📈 000547 专业 2x2 深度分析图已保存至: data/charts\AI_WinRate_Final000547_2x2_analysis.png
+2026-03-06 15:09:14,601 - INFO - [plotter.py:175] - 📈 600875 专业 2x2 深度分析图已保存至: data/charts\AI_WinRate_Final600875_2x2_analysis.png
+2026-03-06 15:09:15,456 - INFO - [plotter.py:175] - 📈 002131 专业 2x2 深度分析图已保存至: data/charts\AI_WinRate_Final002131_2x2_analysis.png
+2026-03-06 15:09:16,225 - INFO - [plotter.py:175] - 📈 002384 专业 2x2 深度分析图已保存至: data/charts\AI_WinRate_Final002384_2x2_analysis.png
+2026-03-06 15:09:17,140 - INFO - [plotter.py:175] - 📈 002506 专业 2x2 深度分析图已保存至: data/charts\AI_WinRate_Final002506_2x2_analysis.png
+2026-03-06 15:09:17,141 - INFO - [para_tuning_win50pv3.py:215] - 🎉 寻优任务圆满结束。

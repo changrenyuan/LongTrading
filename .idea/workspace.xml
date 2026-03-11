@@ -5,11 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="daily update2">
-      <change afterPath="$PROJECT_DIR$/utils/time.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/engineBacktestold.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/live_broker_account.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/live_broker_account.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/system_account.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_account.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webui/api_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/webui/api_server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/engineBacktest.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/engineBacktest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/backtest/backtest_stocks.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/backtest/backtest_stocks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/backtest/kline_300308.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/backtest/kline_300308.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/backtest/kline_300502.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/backtest/kline_300502.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/backtest/kline_601606.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/backtest/kline_601606.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/backtest/strategy_trend/drawdown.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/backtest/strategy_trend/drawdown.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/backtest/strategy_trend/equity_curve.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/backtest/strategy_trend/equity_curve.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/backtest/summary.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/backtest/summary.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/backtest/trades.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/backtest/trades.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,17 +85,17 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/git/LongTrading/nextjs/src/app/settings",
+    "last_opened_file_path": "D:/git/LongTrading/core",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\git\LongTrading\core" />
       <recent name="D:\git\LongTrading\nextjs\src\app\settings" />
       <recent name="D:\git\LongTrading\nextjs\src\components\charts" />
       <recent name="D:\git\LongTrading\strategies" />
       <recent name="D:\git\LongTrading\nextjs\src\components\ui" />
-      <recent name="D:\git\LongTrading\nextjs\src\app\dashboard" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\git\LongTrading\data\backtest" />
@@ -339,7 +345,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773114392975</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="daily update2">
+      <option name="closed" value="true" />
+      <created>1773135548943</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1773135548943</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

@@ -3,24 +3,6 @@
     "name": "长城军工",
     "kline": [
         {
-            "date": "2024-02-05",
-            "open": 9.17,
-            "high": 9.17,
-            "low": 8.3,
-            "close": 8.5,
-            "ma5": 0.0,
-            "ma20": 0.0
-        },
-        {
-            "date": "2024-02-06",
-            "open": 8.46,
-            "high": 9.2,
-            "low": 8.1,
-            "close": 9.11,
-            "ma5": 0.0,
-            "ma20": 0.0
-        },
-        {
             "date": "2024-02-07",
             "open": 9.14,
             "high": 9.68,
@@ -44,7 +26,7 @@
             "high": 10.09,
             "low": 9.82,
             "close": 9.98,
-            "ma5": 9.38,
+            "ma5": 0.0,
             "ma20": 0.0
         },
         {
@@ -53,7 +35,7 @@
             "high": 9.99,
             "low": 9.77,
             "close": 9.98,
-            "ma5": 9.68,
+            "ma5": 0.0,
             "ma20": 0.0
         },
         {
@@ -180,7 +162,7 @@
             "low": 10.39,
             "close": 10.56,
             "ma5": 10.52,
-            "ma20": 10.13
+            "ma20": 0.0
         },
         {
             "date": "2024-03-12",
@@ -189,7 +171,7 @@
             "low": 10.52,
             "close": 10.79,
             "ma5": 10.55,
-            "ma20": 10.25
+            "ma20": 0.0
         },
         {
             "date": "2024-03-13",
@@ -405,7 +387,7 @@
             "low": 9.69,
             "close": 10.11,
             "ma5": 10.2,
-            "ma20": 10.63
+            "ma20": 10.64
         },
         {
             "date": "2024-04-18",
@@ -981,7 +963,7 @@
             "low": 9.25,
             "close": 9.36,
             "ma5": 9.18,
-            "ma20": 9.23
+            "ma20": 9.24
         },
         {
             "date": "2024-07-23",
@@ -1233,7 +1215,7 @@
             "low": 8.95,
             "close": 9.12,
             "ma5": 9.08,
-            "ma20": 9.52
+            "ma20": 9.51
         },
         {
             "date": "2024-08-30",
@@ -2448,7 +2430,7 @@
             "low": 12.26,
             "close": 12.35,
             "ma5": 12.59,
-            "ma20": 12.69
+            "ma20": 12.7
         },
         {
             "date": "2025-03-27",
@@ -2628,7 +2610,7 @@
             "low": 11.63,
             "close": 11.72,
             "ma5": 11.93,
-            "ma20": 11.99
+            "ma20": 11.98
         },
         {
             "date": "2025-04-25",
@@ -4501,6 +4483,24 @@
             "close": 45.5,
             "ma5": 47.17,
             "ma20": 45.46
+        },
+        {
+            "date": "2026-03-09",
+            "open": 45.51,
+            "high": 45.95,
+            "low": 44.55,
+            "close": 44.61,
+            "ma5": 46.19,
+            "ma20": 45.41
+        },
+        {
+            "date": "2026-03-10",
+            "open": 44.09,
+            "high": 44.73,
+            "low": 44.09,
+            "close": 44.55,
+            "ma5": 45.7,
+            "ma20": 45.43
         }
     ],
     "signals": [
@@ -4520,7 +4520,7 @@
             "symbol": "601606",
             "name": "长城军工",
             "action": "BUY",
-            "shares": 6300,
+            "shares": 5900,
             "price": 14.01,
             "pnl": 0.0,
             "reason": "技术指标触发",
@@ -4531,7 +4531,7 @@
             "symbol": "601606",
             "name": "长城军工",
             "action": "BUY",
-            "shares": 6000,
+            "shares": 5600,
             "price": 14.77,
             "pnl": 0.0,
             "reason": "技术指标触发",
@@ -4542,9 +4542,9 @@
             "symbol": "601606",
             "name": "长城军工",
             "action": "SELL",
-            "shares": 19300,
+            "shares": 18500,
             "price": 11.84,
-            "pnl": -31363.81,
+            "pnl": -29316.23,
             "reason": "技术指标触发",
             "status": "回测中已执行"
         },
@@ -4553,7 +4553,7 @@
             "symbol": "601606",
             "name": "长城军工",
             "action": "BUY",
-            "shares": 6000,
+            "shares": 5700,
             "price": 13.58,
             "pnl": 0.0,
             "reason": "技术指标触发",
@@ -4564,9 +4564,9 @@
             "symbol": "601606",
             "name": "长城军工",
             "action": "SELL",
-            "shares": 6000,
+            "shares": 5700,
             "price": 12.01,
-            "pnl": -9477.65,
+            "pnl": -9003.77,
             "reason": "技术指标触发",
             "status": "回测中已执行"
         },
@@ -4575,7 +4575,7 @@
             "symbol": "601606",
             "name": "长城军工",
             "action": "BUY",
-            "shares": 3700,
+            "shares": 3600,
             "price": 14.18,
             "pnl": 0.0,
             "reason": "技术指标触发",
@@ -4586,7 +4586,7 @@
             "symbol": "601606",
             "name": "长城军工",
             "action": "BUY",
-            "shares": 2700,
+            "shares": 2600,
             "price": 16.69,
             "pnl": 0.0,
             "reason": "技术指标触发",
@@ -4597,7 +4597,7 @@
             "symbol": "601606",
             "name": "长城军工",
             "action": "BUY",
-            "shares": 2400,
+            "shares": 2300,
             "price": 18.36,
             "pnl": 0.0,
             "reason": "技术指标触发",
@@ -4608,7 +4608,7 @@
             "symbol": "601606",
             "name": "长城军工",
             "action": "BUY",
-            "shares": 2000,
+            "shares": 1800,
             "price": 20.2,
             "pnl": 0.0,
             "reason": "技术指标触发",
@@ -4619,9 +4619,9 @@
             "symbol": "601606",
             "name": "长城军工",
             "action": "SELL",
-            "shares": 5400,
+            "shares": 5100,
             "price": 28.28,
-            "pnl": 61593.33,
+            "pnl": 58437.57,
             "reason": "技术指标触发",
             "status": "回测中已执行"
         },
@@ -4630,24 +4630,14 @@
             "symbol": "601606",
             "name": "长城军工",
             "action": "SELL",
-            "shares": 5400,
+            "shares": 5200,
             "price": 26.66,
-            "pnl": 52852.33,
+            "pnl": 51166.14,
             "reason": "技术指标触发",
             "status": "回测中已执行"
         }
     ],
     "pnlRatioData": [
-        {
-            "date": "2024-02-05",
-            "pnlRatio": 0.0,
-            "totalPnl": 0.0
-        },
-        {
-            "date": "2024-02-06",
-            "pnlRatio": 0.0,
-            "totalPnl": 0.0
-        },
         {
             "date": "2024-02-07",
             "pnlRatio": 0.0,
@@ -5570,1586 +5560,1586 @@
         },
         {
             "date": "2024-11-18",
-            "pnlRatio": -3.2438,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0256,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-11-19",
-            "pnlRatio": -3.2372,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0194,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-11-20",
-            "pnlRatio": -3.2347,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0172,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-11-21",
-            "pnlRatio": -3.2394,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0215,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-11-22",
-            "pnlRatio": -3.2488,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0303,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-11-25",
-            "pnlRatio": -3.2568,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0377,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-11-26",
-            "pnlRatio": -3.2568,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0377,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-11-27",
-            "pnlRatio": -3.2568,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0377,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-11-28",
-            "pnlRatio": -3.2568,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0377,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-11-29",
-            "pnlRatio": -3.2568,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0377,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-12-02",
-            "pnlRatio": -3.2568,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0377,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-12-03",
-            "pnlRatio": -3.2568,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0377,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-12-04",
-            "pnlRatio": -3.2568,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0377,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-12-05",
-            "pnlRatio": -3.2524,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0338,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-12-06",
-            "pnlRatio": -3.2524,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0338,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-12-09",
-            "pnlRatio": -3.2615,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0419,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-12-10",
-            "pnlRatio": -3.2603,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0408,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-12-11",
-            "pnlRatio": -3.2544,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0356,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-12-12",
-            "pnlRatio": -3.2556,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0367,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-12-13",
-            "pnlRatio": -3.2656,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0455,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-12-16",
-            "pnlRatio": -3.274,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0529,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-12-17",
-            "pnlRatio": -3.2822,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0602,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-12-18",
-            "pnlRatio": -3.2771,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0556,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-12-19",
-            "pnlRatio": -3.2795,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0578,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-12-20",
-            "pnlRatio": -3.2764,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0551,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-12-23",
-            "pnlRatio": -3.2808,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0589,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-12-24",
-            "pnlRatio": -3.2822,
-            "totalPnl": -31363.81
+            "pnlRatio": -3.0602,
+            "totalPnl": -29316.23
         },
         {
             "date": "2024-12-25",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2024-12-26",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2024-12-27",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2024-12-30",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2024-12-31",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-01-02",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-01-03",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-01-06",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-01-07",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-01-08",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-01-09",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-01-10",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-01-13",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-01-14",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-01-15",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-01-16",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-01-17",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-01-20",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-01-21",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-01-22",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-01-23",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-01-24",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-01-27",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-02-05",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-02-06",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-02-07",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-02-10",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-02-11",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-02-12",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-02-13",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-02-14",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-02-17",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-02-18",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-02-19",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-02-20",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-02-21",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-02-24",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-02-25",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-02-26",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-02-27",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-02-28",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-03-03",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-03-04",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-03-05",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-03-06",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-03-07",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-03-10",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-03-11",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-03-12",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-03-13",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-03-14",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-03-17",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-03-18",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-03-19",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-03-20",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-03-21",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-03-24",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-03-25",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-03-26",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-03-27",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-03-28",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-03-31",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-04-01",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-04-02",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-04-03",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-04-07",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-04-08",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-04-09",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-04-10",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-04-11",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-04-14",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-04-15",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-04-16",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-04-17",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-04-18",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-04-21",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-04-22",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-04-23",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-04-24",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-04-25",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-04-28",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-04-29",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-04-30",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-05-06",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-05-07",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-05-08",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-05-09",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-05-12",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-05-13",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-05-14",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-05-15",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-05-16",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-05-19",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-05-20",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-05-21",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-05-22",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-05-23",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-05-26",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-05-27",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-05-28",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-05-29",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-05-30",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-06-03",
-            "pnlRatio": -4.2832,
-            "totalPnl": -40841.46
+            "pnlRatio": -4.0082,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-06-04",
-            "pnlRatio": -4.2666,
-            "totalPnl": -40841.46
+            "pnlRatio": -3.9927,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-06-05",
-            "pnlRatio": -4.2551,
-            "totalPnl": -40841.46
+            "pnlRatio": -3.982,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-06-06",
-            "pnlRatio": -4.2541,
-            "totalPnl": -40841.46
+            "pnlRatio": -3.9807,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-06-09",
-            "pnlRatio": -4.247,
-            "totalPnl": -40841.46
+            "pnlRatio": -3.974,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-06-10",
-            "pnlRatio": -4.2582,
-            "totalPnl": -40841.46
+            "pnlRatio": -3.9844,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-06-11",
-            "pnlRatio": -4.2648,
-            "totalPnl": -40841.46
+            "pnlRatio": -3.9905,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-06-12",
-            "pnlRatio": -4.2569,
-            "totalPnl": -40841.46
+            "pnlRatio": -3.9831,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-06-13",
-            "pnlRatio": -4.2527,
-            "totalPnl": -40841.46
+            "pnlRatio": -3.9794,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-06-16",
-            "pnlRatio": -4.2192,
-            "totalPnl": -40841.46
+            "pnlRatio": -3.9481,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-06-17",
-            "pnlRatio": -4.2113,
-            "totalPnl": -40841.46
+            "pnlRatio": -3.9409,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-06-18",
-            "pnlRatio": -4.1545,
-            "totalPnl": -40841.46
+            "pnlRatio": -3.8885,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-06-19",
-            "pnlRatio": -4.1241,
-            "totalPnl": -40841.46
+            "pnlRatio": -3.8606,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-06-20",
-            "pnlRatio": -4.1059,
-            "totalPnl": -40841.46
+            "pnlRatio": -3.8449,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-06-23",
-            "pnlRatio": -4.0632,
-            "totalPnl": -40841.46
+            "pnlRatio": -3.8071,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-06-24",
-            "pnlRatio": -4.0641,
-            "totalPnl": -40841.46
+            "pnlRatio": -3.8081,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-06-25",
-            "pnlRatio": -3.9476,
-            "totalPnl": -40841.46
+            "pnlRatio": -3.7027,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-06-26",
-            "pnlRatio": -3.8094,
-            "totalPnl": -40841.46
+            "pnlRatio": -3.5768,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-06-27",
-            "pnlRatio": -3.694,
-            "totalPnl": -40841.46
+            "pnlRatio": -3.4714,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-06-30",
-            "pnlRatio": -3.5757,
-            "totalPnl": -40841.46
+            "pnlRatio": -3.3639,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-07-01",
-            "pnlRatio": -3.4789,
-            "totalPnl": -40841.46
+            "pnlRatio": -3.2766,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-07-02",
-            "pnlRatio": -3.5706,
-            "totalPnl": -40841.46
+            "pnlRatio": -3.3598,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-07-03",
-            "pnlRatio": -3.5106,
-            "totalPnl": -40841.46
+            "pnlRatio": -3.3045,
+            "totalPnl": -38320.0
         },
         {
             "date": "2025-07-04",
-            "pnlRatio": 1.8259,
-            "totalPnl": 20751.87
+            "pnlRatio": 1.7742,
+            "totalPnl": 20117.57
         },
         {
             "date": "2025-07-07",
-            "pnlRatio": 1.8286,
-            "totalPnl": 20751.87
+            "pnlRatio": 1.777,
+            "totalPnl": 20117.57
         },
         {
             "date": "2025-07-08",
-            "pnlRatio": 1.7997,
-            "totalPnl": 20751.87
+            "pnlRatio": 1.7488,
+            "totalPnl": 20117.57
         },
         {
             "date": "2025-07-09",
-            "pnlRatio": 1.8007,
-            "totalPnl": 20751.87
+            "pnlRatio": 1.7497,
+            "totalPnl": 20117.57
         },
         {
             "date": "2025-07-10",
-            "pnlRatio": 6.4705,
-            "totalPnl": 73604.2
+            "pnlRatio": 6.2792,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-07-11",
-            "pnlRatio": 6.4931,
-            "totalPnl": 73604.2
+            "pnlRatio": 6.3013,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-07-14",
-            "pnlRatio": 6.4962,
-            "totalPnl": 73604.2
+            "pnlRatio": 6.3043,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-07-15",
-            "pnlRatio": 6.1956,
-            "totalPnl": 73604.2
+            "pnlRatio": 6.012,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-07-16",
-            "pnlRatio": 6.0594,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.8795,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-07-17",
-            "pnlRatio": 5.9192,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.7433,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-07-18",
-            "pnlRatio": 5.931,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.7547,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-07-21",
-            "pnlRatio": 5.972,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.7946,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-07-22",
-            "pnlRatio": 5.9878,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.81,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-07-23",
-            "pnlRatio": 6.0136,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.8351,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-07-24",
-            "pnlRatio": 6.0281,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.8491,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-07-25",
-            "pnlRatio": 6.0263,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.8474,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-07-28",
-            "pnlRatio": 5.9767,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.7992,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-07-29",
-            "pnlRatio": 5.8219,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.6487,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-07-30",
-            "pnlRatio": 5.8515,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.6775,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-07-31",
-            "pnlRatio": 5.8626,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.6883,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-08-01",
-            "pnlRatio": 5.923,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.7469,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-08-04",
-            "pnlRatio": 5.9092,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.7336,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-08-05",
-            "pnlRatio": 5.9297,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.7535,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-08-06",
-            "pnlRatio": 5.8903,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.7152,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-08-07",
-            "pnlRatio": 5.918,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.7421,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-08-08",
-            "pnlRatio": 5.9314,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.7551,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-08-11",
-            "pnlRatio": 5.8268,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.6534,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-08-12",
-            "pnlRatio": 5.7127,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.5426,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-08-13",
-            "pnlRatio": 5.4324,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.2701,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-08-14",
-            "pnlRatio": 5.4791,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.3155,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-08-15",
-            "pnlRatio": 5.4608,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.2978,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-08-18",
-            "pnlRatio": 5.3681,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.2076,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-08-19",
-            "pnlRatio": 5.2672,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.1096,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-08-20",
-            "pnlRatio": 5.2803,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.1224,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-08-21",
-            "pnlRatio": 5.2588,
-            "totalPnl": 73604.2
+            "pnlRatio": 5.1014,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-08-22",
-            "pnlRatio": 5.1359,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.982,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-08-25",
-            "pnlRatio": 4.9733,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.824,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-08-26",
-            "pnlRatio": 5.0747,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.9225,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-08-27",
-            "pnlRatio": 4.8886,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7418,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-08-28",
-            "pnlRatio": 4.5901,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.4518,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-08-29",
-            "pnlRatio": 4.5826,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.4446,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-09-01",
-            "pnlRatio": 4.3969,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.2642,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-09-02",
-            "pnlRatio": 4.5715,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.4337,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-09-03",
-            "pnlRatio": 4.5358,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.3991,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-09-04",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-09-05",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-09-08",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-09-09",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-09-10",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-09-11",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-09-12",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-09-15",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-09-16",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-09-17",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-09-18",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-09-19",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-09-22",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-09-23",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-09-24",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-09-25",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-09-26",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-09-29",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-09-30",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-10-09",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-10-10",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-10-13",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-10-14",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-10-15",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-10-16",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-10-17",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-10-20",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-10-21",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-10-22",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-10-23",
-            "pnlRatio": 4.721,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5789,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-10-24",
-            "pnlRatio": 4.7211,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5791,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-10-27",
-            "pnlRatio": 4.6932,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.543,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-10-28",
-            "pnlRatio": 4.6813,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5295,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-10-29",
-            "pnlRatio": 4.6894,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.5387,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-10-30",
-            "pnlRatio": 4.7476,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6045,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-10-31",
-            "pnlRatio": 4.8033,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6678,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-11-03",
-            "pnlRatio": 4.8033,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6678,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-11-04",
-            "pnlRatio": 4.8033,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6678,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-11-05",
-            "pnlRatio": 4.8033,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6678,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-11-06",
-            "pnlRatio": 4.8033,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6678,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-11-07",
-            "pnlRatio": 4.8033,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6678,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-11-10",
-            "pnlRatio": 4.8033,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6678,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-11-11",
-            "pnlRatio": 4.8033,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6678,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-11-12",
-            "pnlRatio": 4.8033,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6678,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-11-13",
-            "pnlRatio": 4.8033,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6678,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-11-14",
-            "pnlRatio": 4.8033,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6678,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-11-17",
-            "pnlRatio": 4.8033,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6678,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-11-18",
-            "pnlRatio": 4.8033,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6678,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-11-19",
-            "pnlRatio": 4.8033,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6678,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-11-20",
-            "pnlRatio": 4.8033,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6678,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-11-21",
-            "pnlRatio": 4.8033,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6678,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-11-24",
-            "pnlRatio": 4.8033,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6678,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-11-25",
-            "pnlRatio": 4.8033,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6678,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-11-26",
-            "pnlRatio": 4.8033,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6678,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-11-27",
-            "pnlRatio": 4.8033,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6678,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-11-28",
-            "pnlRatio": 4.8034,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6678,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-12-01",
-            "pnlRatio": 4.796,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6607,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-12-02",
-            "pnlRatio": 4.7948,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6594,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-12-03",
-            "pnlRatio": 4.8005,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.665,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-12-04",
-            "pnlRatio": 4.7968,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6614,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-12-05",
-            "pnlRatio": 4.7963,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6609,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-12-08",
-            "pnlRatio": 4.786,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6509,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-12-09",
-            "pnlRatio": 4.7749,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.64,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-12-10",
-            "pnlRatio": 4.7718,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.637,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-12-11",
-            "pnlRatio": 4.7808,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6458,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-12-12",
-            "pnlRatio": 4.7823,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6473,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-12-15",
-            "pnlRatio": 4.7858,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6507,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-12-16",
-            "pnlRatio": 4.7917,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6565,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-12-17",
-            "pnlRatio": 4.7798,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6449,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-12-18",
-            "pnlRatio": 4.7857,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6506,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-12-19",
-            "pnlRatio": 4.7855,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6504,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-12-22",
-            "pnlRatio": 4.7713,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6366,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-12-23",
-            "pnlRatio": 4.7702,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6355,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-12-24",
-            "pnlRatio": 4.7661,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6315,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-12-25",
-            "pnlRatio": 4.7644,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6298,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-12-26",
-            "pnlRatio": 4.7684,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6338,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-12-29",
-            "pnlRatio": 4.7717,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.637,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-12-30",
-            "pnlRatio": 4.7665,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6319,
+            "totalPnl": 71283.71
         },
         {
             "date": "2025-12-31",
-            "pnlRatio": 4.7826,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6476,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-01-05",
-            "pnlRatio": 4.7812,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6462,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-01-06",
-            "pnlRatio": 4.7982,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6628,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-01-07",
-            "pnlRatio": 4.7876,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6524,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-01-08",
-            "pnlRatio": 4.8165,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6807,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-01-09",
-            "pnlRatio": 4.8365,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7001,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-01-12",
-            "pnlRatio": 4.8365,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7001,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-01-13",
-            "pnlRatio": 4.8365,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7001,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-01-14",
-            "pnlRatio": 4.8365,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7001,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-01-15",
-            "pnlRatio": 4.8365,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7001,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-01-16",
-            "pnlRatio": 4.8365,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7001,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-01-19",
-            "pnlRatio": 4.8365,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7001,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-01-20",
-            "pnlRatio": 4.8365,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7001,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-01-21",
-            "pnlRatio": 4.8365,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7001,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-01-22",
-            "pnlRatio": 4.8365,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7001,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-01-23",
-            "pnlRatio": 4.8365,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7001,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-01-26",
-            "pnlRatio": 4.8365,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7001,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-01-27",
-            "pnlRatio": 4.8365,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7001,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-01-28",
-            "pnlRatio": 4.8365,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7002,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-01-29",
-            "pnlRatio": 4.841,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7045,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-01-30",
-            "pnlRatio": 4.8299,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.6937,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-02-02",
-            "pnlRatio": 4.8485,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7118,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-02-03",
-            "pnlRatio": 4.8485,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7118,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-02-04",
-            "pnlRatio": 4.8485,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7118,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-02-05",
-            "pnlRatio": 4.8485,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7118,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-02-06",
-            "pnlRatio": 4.8485,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7118,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-02-09",
-            "pnlRatio": 4.8485,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7118,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-02-10",
-            "pnlRatio": 4.8485,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7118,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-02-11",
-            "pnlRatio": 4.8485,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7118,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-02-12",
-            "pnlRatio": 4.8485,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7118,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-02-13",
-            "pnlRatio": 4.8485,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7118,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-02-24",
-            "pnlRatio": 4.8485,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7118,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-02-25",
-            "pnlRatio": 4.8485,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7118,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-02-26",
-            "pnlRatio": 4.8485,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7118,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-02-27",
-            "pnlRatio": 4.8485,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7118,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-03-02",
-            "pnlRatio": 4.8485,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7118,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-03-03",
-            "pnlRatio": 4.8485,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7118,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-03-04",
-            "pnlRatio": 4.8485,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7118,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-03-05",
-            "pnlRatio": 4.8485,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7118,
+            "totalPnl": 71283.71
         },
         {
             "date": "2026-03-06",
-            "pnlRatio": 4.8485,
-            "totalPnl": 73604.2
+            "pnlRatio": 4.7118,
+            "totalPnl": 71283.71
+        },
+        {
+            "date": "2026-03-09",
+            "pnlRatio": 4.7118,
+            "totalPnl": 71283.71
+        },
+        {
+            "date": "2026-03-10",
+            "pnlRatio": 4.7118,
+            "totalPnl": 71283.71
         }
     ],
     "capitalUsageData": [
-        {
-            "date": "2024-02-05",
-            "capitalUsage": 0.0,
-            "position": 0
-        },
-        {
-            "date": "2024-02-06",
-            "capitalUsage": 0.0,
-            "position": 0
-        },
         {
             "date": "2024-02-07",
             "capitalUsage": 0.0,
@@ -8042,33 +8032,33 @@
         },
         {
             "date": "2024-11-08",
-            "capitalUsage": 18.3107,
-            "position": 13300
+            "capitalUsage": 17.7599,
+            "position": 12900
         },
         {
             "date": "2024-11-11",
-            "capitalUsage": 27.7089,
-            "position": 19300
+            "capitalUsage": 26.5681,
+            "position": 18500
         },
         {
             "date": "2024-11-12",
-            "capitalUsage": 26.4683,
-            "position": 19300
+            "capitalUsage": 25.3611,
+            "position": 18500
         },
         {
             "date": "2024-11-13",
-            "capitalUsage": 25.7852,
-            "position": 19300
+            "capitalUsage": 24.6982,
+            "position": 18500
         },
         {
             "date": "2024-11-14",
-            "capitalUsage": 25.0123,
-            "position": 19300
+            "capitalUsage": 23.9463,
+            "position": 18500
         },
         {
             "date": "2024-11-15",
-            "capitalUsage": 24.1815,
-            "position": 19300
+            "capitalUsage": 23.1387,
+            "position": 18500
         },
         {
             "date": "2024-11-18",
@@ -8132,78 +8122,78 @@
         },
         {
             "date": "2024-12-04",
-            "capitalUsage": 8.461,
-            "position": 6000
+            "capitalUsage": 8.0208,
+            "position": 5700
         },
         {
             "date": "2024-12-05",
-            "capitalUsage": 8.5863,
-            "position": 6000
+            "capitalUsage": 8.1402,
+            "position": 5700
         },
         {
             "date": "2024-12-06",
-            "capitalUsage": 8.5863,
-            "position": 6000
+            "capitalUsage": 8.1402,
+            "position": 5700
         },
         {
             "date": "2024-12-09",
-            "capitalUsage": 8.3296,
-            "position": 6000
+            "capitalUsage": 7.8957,
+            "position": 5700
         },
         {
             "date": "2024-12-10",
-            "capitalUsage": 8.3639,
-            "position": 6000
+            "capitalUsage": 7.9284,
+            "position": 5700
         },
         {
             "date": "2024-12-11",
-            "capitalUsage": 8.5293,
-            "position": 6000
+            "capitalUsage": 8.086,
+            "position": 5700
         },
         {
             "date": "2024-12-12",
-            "capitalUsage": 8.4952,
-            "position": 6000
+            "capitalUsage": 8.0534,
+            "position": 5700
         },
         {
             "date": "2024-12-13",
-            "capitalUsage": 8.2151,
-            "position": 6000
+            "capitalUsage": 7.7866,
+            "position": 5700
         },
         {
             "date": "2024-12-16",
-            "capitalUsage": 7.9794,
-            "position": 6000
+            "capitalUsage": 7.5622,
+            "position": 5700
         },
         {
             "date": "2024-12-17",
-            "capitalUsage": 7.7482,
-            "position": 6000
+            "capitalUsage": 7.3422,
+            "position": 5700
         },
         {
             "date": "2024-12-18",
-            "capitalUsage": 7.8928,
-            "position": 6000
+            "capitalUsage": 7.4798,
+            "position": 5700
         },
         {
             "date": "2024-12-19",
-            "capitalUsage": 7.8235,
-            "position": 6000
+            "capitalUsage": 7.4138,
+            "position": 5700
         },
         {
             "date": "2024-12-20",
-            "capitalUsage": 7.9101,
-            "position": 6000
+            "capitalUsage": 7.4963,
+            "position": 5700
         },
         {
             "date": "2024-12-23",
-            "capitalUsage": 7.7888,
-            "position": 6000
+            "capitalUsage": 7.3808,
+            "position": 5700
         },
         {
             "date": "2024-12-24",
-            "capitalUsage": 7.7482,
-            "position": 6000
+            "capitalUsage": 7.3422,
+            "position": 5700
         },
         {
             "date": "2024-12-25",
@@ -8727,128 +8717,128 @@
         },
         {
             "date": "2025-06-05",
-            "capitalUsage": 5.4663,
-            "position": 3700
+            "capitalUsage": 5.3046,
+            "position": 3600
         },
         {
             "date": "2025-06-06",
-            "capitalUsage": 5.1644,
-            "position": 3700
+            "capitalUsage": 5.0112,
+            "position": 3600
         },
         {
             "date": "2025-06-09",
-            "capitalUsage": 5.1941,
-            "position": 3700
+            "capitalUsage": 5.0401,
+            "position": 3600
         },
         {
             "date": "2025-06-10",
-            "capitalUsage": 5.0883,
-            "position": 3700
+            "capitalUsage": 4.9373,
+            "position": 3600
         },
         {
             "date": "2025-06-11",
-            "capitalUsage": 5.0846,
-            "position": 3700
+            "capitalUsage": 4.9336,
+            "position": 3600
         },
         {
             "date": "2025-06-12",
-            "capitalUsage": 4.9788,
-            "position": 3700
+            "capitalUsage": 4.8308,
+            "position": 3600
         },
         {
             "date": "2025-06-13",
-            "capitalUsage": 5.1588,
-            "position": 3700
+            "capitalUsage": 5.0058,
+            "position": 3600
         },
         {
             "date": "2025-06-16",
-            "capitalUsage": 5.1526,
-            "position": 3700
+            "capitalUsage": 4.9999,
+            "position": 3600
         },
         {
             "date": "2025-06-17",
-            "capitalUsage": 5.2612,
-            "position": 3700
+            "capitalUsage": 5.1055,
+            "position": 3600
         },
         {
             "date": "2025-06-18",
-            "capitalUsage": 5.7097,
-            "position": 3700
+            "capitalUsage": 5.5417,
+            "position": 3600
         },
         {
             "date": "2025-06-19",
-            "capitalUsage": 10.7862,
-            "position": 6400
+            "capitalUsage": 10.4252,
+            "position": 6200
         },
         {
             "date": "2025-06-20",
-            "capitalUsage": 16.2429,
-            "position": 8800
+            "capitalUsage": 15.6586,
+            "position": 8500
         },
         {
             "date": "2025-06-23",
-            "capitalUsage": 21.7043,
-            "position": 10800
+            "capitalUsage": 20.6709,
+            "position": 10300
         },
         {
             "date": "2025-06-24",
-            "capitalUsage": 21.8059,
-            "position": 10800
+            "capitalUsage": 20.7685,
+            "position": 10300
         },
         {
             "date": "2025-06-25",
-            "capitalUsage": 23.2996,
-            "position": 10800
+            "capitalUsage": 22.2138,
+            "position": 10300
         },
         {
             "date": "2025-06-26",
-            "capitalUsage": 24.7305,
-            "position": 10800
+            "capitalUsage": 23.6028,
+            "position": 10300
         },
         {
             "date": "2025-06-27",
-            "capitalUsage": 25.7984,
-            "position": 10800
+            "capitalUsage": 24.6422,
+            "position": 10300
         },
         {
             "date": "2025-06-30",
-            "capitalUsage": 27.4685,
-            "position": 10800
+            "capitalUsage": 26.2666,
+            "position": 10300
         },
         {
             "date": "2025-07-01",
-            "capitalUsage": 29.4014,
-            "position": 10800
+            "capitalUsage": 28.1478,
+            "position": 10300
         },
         {
             "date": "2025-07-02",
-            "capitalUsage": 27.9481,
-            "position": 10800
+            "capitalUsage": 26.7315,
+            "position": 10300
         },
         {
             "date": "2025-07-03",
-            "capitalUsage": 28.314,
-            "position": 10800
+            "capitalUsage": 27.0906,
+            "position": 10300
         },
         {
             "date": "2025-07-04",
-            "capitalUsage": 13.4366,
-            "position": 5400
+            "capitalUsage": 12.9691,
+            "position": 5200
         },
         {
             "date": "2025-07-07",
-            "capitalUsage": 13.6518,
-            "position": 5400
+            "capitalUsage": 13.1778,
+            "position": 5200
         },
         {
             "date": "2025-07-08",
-            "capitalUsage": 13.473,
-            "position": 5400
+            "capitalUsage": 13.0049,
+            "position": 5200
         },
         {
             "date": "2025-07-09",
-            "capitalUsage": 13.3212,
-            "position": 5400
+            "capitalUsage": 12.8576,
+            "position": 5200
         },
         {
             "date": "2025-07-10",
@@ -9637,6 +9627,16 @@
         },
         {
             "date": "2026-03-06",
+            "capitalUsage": 0.0,
+            "position": 0
+        },
+        {
+            "date": "2026-03-09",
+            "capitalUsage": 0.0,
+            "position": 0
+        },
+        {
+            "date": "2026-03-10",
             "capitalUsage": 0.0,
             "position": 0
         }

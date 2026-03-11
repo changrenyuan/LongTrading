@@ -9,20 +9,17 @@ from utils.logger import global_logger as logger
 
 
 class BacktestEngine:
-    def __init__(self, data_dict: Dict[str, pd.DataFrame], strategy, account, pricing_mode='conservative'):
+    def __init__(self, data_dict: Dict[str, pd.DataFrame], strategy, account):
         """
         :param data_dict: 格式为 {'300502': df1, '300308': df2} 的历史 K 线字典
         :param strategy: 继承自 BaseStrategy 的策略实例
         :param account: Portfolio 资金大管家实例
-        :param pricing_mode: 'standard' (收盘价) 或 'conservative' (极端保守: 买入取两日最高, 卖出取两日最低)
         """
         self.data_dict = data_dict
         self.strategy = strategy
         self.account = account
         self.daily_history: List[dict] = []  # 存放每天的快照
-        self.pricing_mode = pricing_mode
 
-        logger.info(f"🛠 引擎初始化成功 | 定价模式: {self.pricing_mode.upper()}")
     def run(self) -> pd.DataFrame:
         """
         启动时间机器，运行回测

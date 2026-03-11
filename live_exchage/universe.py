@@ -7,7 +7,7 @@ from data_provider.cloudakpd import DataCenter  # 💡 引入云端地基
 
 
 class UniverseManager:
-    def __init__(self, pool_file="data/universe_pool.json"):
+    def __init__(self, pool_file="data/config/universe_pool.json"):
         """
         股票池管理器：从云端动态筛选“活水”，并维护实盘监控属性
         """
@@ -61,6 +61,69 @@ class UniverseManager:
         """获取股票名称"""
         return str(self.get_spot_val(sym, self.name_col, sym))
 
+        # ============================================================================
+        #                              新增功能函数区
+        # ============================================================================
+
+    def show_pool(self):
+        """1. 展示当前股票池 JSON 列表"""
+        if not os.path.exists(self.pool_file):
+            logger.warning(f"⚠️ 股票池文件不存在: {self.pool_file}")
+            return []
+        try:
+            with open(self.pool_file, 'r', encoding='utf-8') as f:
+                pool = json.load(f)
+            return pool
+        except Exception as e:
+            logger.error(f"❌ 读取股票池失败: {e}")
+            return []
+
+    def add_symbol(self, symbol, reason="手动新增"):
+        """2. 新增股票进入 JSON 列表"""
+        symbol = str(symbol).zfill(6)
+        pool = self.show_pool()
+
+        # 检查是否已存在
+        if any(item['symbol'] == symbol for item in pool):
+            logger.info(f"ℹ️ 股票 {symbol} 已在池中，无需重复添加。")
+            return pool
+
+        name = self.get_sym_name(symbol)
+        pool.append({
+            "symbol": symbol,
+            "name": name,
+            "reason": reason
+        })
+
+        self._save_pool(pool)
+        logger.info(f"✅ 已手动新增股票: {symbol}({name})")
+        return pool
+
+    def remove_symbol(self, symbol):
+        """3. 从 JSON 列表中删除股票"""
+        symbol = str(symbol).zfill(6)
+        pool = self.show_pool()
+
+        new_pool = [item for item in pool if item['symbol'] != symbol]
+
+        if len(new_pool) == len(pool):
+            logger.warning(f"⚠️ 股票池中未找到标的: {symbol}")
+            return pool
+
+        self._save_pool(new_pool)
+        logger.info(f"🗑️ 已从股票池中移除: {symbol}")
+        return new_pool
+
+    def _save_pool(self, pool_data):
+        """内部工具：持久化存储"""
+        try:
+            os.makedirs(os.path.dirname(self.pool_file), exist_ok=True)
+            with open(self.pool_file, 'w', encoding='utf-8') as f:
+                json.dump(pool_data, f, indent=4, ensure_ascii=False)
+        except Exception as e:
+            logger.error(f"❌ 持久化股票池失败: {e}")
+
+    # ============================================================================
     def build_dynamic_stock_pool(self, held_symbols, max_size=20, lookback_days=20):
         """
         💡 升级：基于云端 20 日成交额排名统计热度，构建动态股票池
@@ -75,7 +138,7 @@ class UniverseManager:
             pool_details.append({
                 "symbol": sym,
                 "name": self.get_sym_name(sym),
-                "reason": "🛡️ 实盘持仓标的，强制监控"
+                "reason": "实盘曾持仓标的，强制监控"
             })
 
         # 2. 💡 从云端数据库进行 SQL 热度审计 (不再扫描本地文件)
@@ -118,7 +181,7 @@ class UniverseManager:
                 pool_details.append({
                     "symbol": code,
                     "name": self.get_sym_name(code),
-                    "reason": f"🔥 近期榜单前20强入围 {hot_counter[code]} 次"
+                    "reason": f"近期榜单前20强入围 {hot_counter[code]} 次"
                 })
 
         # 4. 持久化股票池 JSON (供实盘与 WebUI 展示)
@@ -131,3 +194,32 @@ class UniverseManager:
             logger.error(f"❌ [UniverseManager] 保存股票池详情失败: {e}")
 
         return pool_symbols, lookback_days
+
+
+# ============================================================================
+#                                  功能测试
+# ============================================================================
+if __name__ == "__main__":
+    # 初始化管理器
+    mgr = UniverseManager()
+
+    # 1. 测试新增
+    print("\n--- 测试新增 ---")
+    mgr.add_symbol("600519", "测试：手动添加贵州茅台")
+    mgr.add_symbol("000001", "测试：手动添加平安银行")
+
+    # 2. 测试展示
+    print("\n--- 当前股票池内容 ---")
+    current_pool = mgr.show_pool()
+    for item in current_pool:
+        print(f"[{item['symbol']}] {item['name']} - 理由: {item['reason']}")
+
+    # 3. 测试删除
+    print("\n--- 测试删除 ---")
+    mgr.remove_symbol("000001")
+
+    # 4. 再次查看验证
+    print("\n--- 删除后的股票池内容 ---")
+    final_pool = mgr.show_pool()
+    for item in final_pool:
+        print(f"[{item['symbol']}] {item['name']} - 理由: {item['reason']}")

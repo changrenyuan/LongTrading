@@ -34,7 +34,7 @@ class LiveEngine:
         # 2. 活水股票池构建
         held_symbols = [str(pos.get('symbol', '')) for pos in positions_list if int(pos.get('shares', 0)) > 0]
         logger.info("📡 正在全盘扫描历史数据与近期快照，构建动态监控池...")
-        target_symbols, scanned_days = self.universe.build_dynamic_stock_pool(held_symbols, max_size=20)
+        target_symbols, scanned_days = self.universe.build_dynamic_stock_pool(held_symbols, max_size=50)
         logger.info(f"🏦 会计部接管完毕: 可用现金 【{available_cash:,.2f} 元】，真实持仓 【{len(held_symbols)} 只】，雷达标的 【{len(target_symbols)} 只】。")
         logger.info(f"🎯 监控池构建完毕: 汇聚近 {scanned_days} 日霸榜标的，实盘监控总数: 【{len(target_symbols)} 只】。")
 

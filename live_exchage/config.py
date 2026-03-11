@@ -14,8 +14,8 @@ class LiveConfig:
             log_dir = os.path.join(BASE_DIR, "data", "tuning_logs")
 
         # 使用绝对路径去匹配文件
-        csv_files = glob.glob(os.path.join(log_dir, "optuna_log_*.csv")) + \
-                    glob.glob(os.path.join(BASE_DIR, "optuna_log_*.csv"))
+        csv_files = glob.glob(os.path.join(log_dir, "trials_*.csv")) + \
+                    glob.glob(os.path.join(BASE_DIR, "trials_*.csv"))
 
         base_cfg = {
             'macd_fast': 12, 'macd_slow': 26, 'macd_signal': 9, 'vol_ma_window': 20,

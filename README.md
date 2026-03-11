@@ -1,4 +1,4 @@
-# MT_Alpha 自动化量化交易系统
+# longtrading 自动化养老交易系统
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)

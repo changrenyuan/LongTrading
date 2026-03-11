@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="daily update2">
-      <change afterPath="$PROJECT_DIR$/para_tuning_trend.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strategies/paratuning/para_tuning_trendv5.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/file_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/live_broker_account.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/live_broker_account.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/system_account.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_account.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/live_exchage/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/live_exchage/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/live_exchage/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/live_exchage/engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/live_exchage/universe.py" beforeDir="false" afterPath="$PROJECT_DIR$/live_exchage/universe.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/uvicorn_20260310.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/uvicorn_20260310.log" afterDir="false" />
-    </list>
+    <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="daily update2" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

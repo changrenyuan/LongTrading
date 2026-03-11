@@ -8,4 +8,10 @@ data/*.json
 .idea/
 .vscode/
 /data_provider/logs/
-
+*.csv
+*.pkl
+*.pt
+*.onnx
+data/
+backtest_result/
+logs/

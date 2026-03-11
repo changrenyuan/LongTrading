@@ -5,17 +5,89 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="daily update2">
-      <change afterPath="$PROJECT_DIR$/core/engineBacktestold.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/engineBacktest.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/engineBacktest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/backtest/backtest_stocks.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/backtest/backtest_stocks.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/backtest/kline_300308.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/backtest/kline_300308.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/backtest/kline_300502.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/backtest/kline_300502.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/backtest/kline_601606.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/backtest/kline_601606.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/backtest/strategy_trend/drawdown.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/backtest/strategy_trend/drawdown.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/backtest/strategy_trend/equity_curve.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/backtest/strategy_trend/equity_curve.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/backtest/summary.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/backtest/summary.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/backtest/trades.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/backtest/trades.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/backtest/backtest_stocks.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/backtest/kline_300308.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/backtest/kline_300502.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/backtest/kline_601606.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/backtest/strategy_trend/drawdown.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/backtest/strategy_trend/equity_curve.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/backtest/summary.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/backtest/trades.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_BigPicture_Final000547_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_BigPicture_Final000988_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_BigPicture_Final002131_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_BigPicture_Final002195_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_BigPicture_Final002384_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_BigPicture_Final002490_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_BigPicture_Final300308_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_BigPicture_Final300394_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_BigPicture_Final300475_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_BigPicture_Final300476_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_BigPicture_Final300502_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_BigPicture_Final600089_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_BigPicture_Final600111_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_BigPicture_Final600410_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_BigPicture_Final600522_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_BigPicture_Final600875_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_BigPicture_Final600938_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_BigPicture_Final601179_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_BigPicture_Final601899_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_BigPicture_Final601939_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_BigPicture_Final688525_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_WinRate_Final000547_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_WinRate_Final000988_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_WinRate_Final002131_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_WinRate_Final002195_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_WinRate_Final002384_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_WinRate_Final002490_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_WinRate_Final002506_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_WinRate_Final300308_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_WinRate_Final300394_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_WinRate_Final300475_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_WinRate_Final300476_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_WinRate_Final300502_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_WinRate_Final600089_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_WinRate_Final600111_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_WinRate_Final600410_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_WinRate_Final600522_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_WinRate_Final600703_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_WinRate_Final600875_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_WinRate_Final600938_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_WinRate_Final601179_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_WinRate_Final601899_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/AI_WinRate_Final601939_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/Trend300308_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/Trend300502_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/Trend601606_2x2_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/charts/portfolio_equity.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/-m_20260306.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/backtest_20260309.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/backtest_20260310.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/cron_scheduler_20260306.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/cron_scheduler_20260309.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/live_20260306.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/live_20260309.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/live_20260310.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/main_20260306.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/para_tuning_win50p_20260306.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/para_tuning_win50pv2_20260306.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/para_tuning_win50pv3_20260306.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/para_tuning_win50pv4_20260306.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/uvicorn_20260306.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/uvicorn_20260307.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/uvicorn_20260309.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/data/ops_test/kline_300502.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/data/ops_test/klines/kline_000988.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/data/ops_test/klines/kline_002261.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/data/ops_test/klines/kline_300308.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/data/ops_test/klines/kline_300502.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/data/ops_test/klines/kline_601899.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/data/ops_test/market_snapshot.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/data/ops_test/top5_klines.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/logs/daylyops_20260309.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/logs/testops_20260309.log" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,51 +116,51 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.account.executor": "Run",
-    "Python.akshare_pd.executor": "Run",
-    "Python.api_server.executor": "Run",
-    "Python.backtest.executor": "Run",
-    "Python.cloudakpd.executor": "Run",
-    "Python.cron_scheduler.executor": "Run",
-    "Python.daylyops.executor": "Run",
-    "Python.engine.executor": "Run",
-    "Python.live.executor": "Run",
-    "Python.live_trading.executor": "Run",
-    "Python.live_tradingv2.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.mainv2.executor": "Run",
-    "Python.notifier.executor": "Run",
-    "Python.para_tuing.executor": "Run",
-    "Python.para_tuing_multi.executor": "Run",
-    "Python.para_tuing_multi_all.executor": "Run",
-    "Python.para_tuing_multi_all_log.executor": "Run",
-    "Python.para_tuing_multi_all_log_kama.executor": "Run",
-    "Python.para_tuning_win50p.executor": "Run",
-    "Python.para_tuning_win50pv2.executor": "Run",
-    "Python.para_tuning_win50pv3.executor": "Run",
-    "Python.para_tuning_win50pv4.executor": "Run",
-    "Python.plotter.executor": "Run",
-    "Python.pushjson.executor": "Run",
-    "Python.test.executor": "Run",
-    "Python.testacc.executor": "Run",
-    "Python.testak.executor": "Run",
-    "Python.testakshare.executor": "Run",
-    "Python.testcloud.executor": "Run",
-    "Python.testdate.executor": "Run",
-    "Python.testnf.executor": "Run",
-    "Python.testops.executor": "Run",
-    "Python.testwplot.executor": "Run",
-    "Python.time.executor": "Run",
-    "Python.trendv4.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/git/LongTrading/core",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.account.executor&quot;: &quot;Run&quot;,
+    &quot;Python.akshare_pd.executor&quot;: &quot;Run&quot;,
+    &quot;Python.api_server.executor&quot;: &quot;Run&quot;,
+    &quot;Python.backtest.executor&quot;: &quot;Run&quot;,
+    &quot;Python.cloudakpd.executor&quot;: &quot;Run&quot;,
+    &quot;Python.cron_scheduler.executor&quot;: &quot;Run&quot;,
+    &quot;Python.daylyops.executor&quot;: &quot;Run&quot;,
+    &quot;Python.engine.executor&quot;: &quot;Run&quot;,
+    &quot;Python.live.executor&quot;: &quot;Run&quot;,
+    &quot;Python.live_trading.executor&quot;: &quot;Run&quot;,
+    &quot;Python.live_tradingv2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.mainv2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.notifier.executor&quot;: &quot;Run&quot;,
+    &quot;Python.para_tuing.executor&quot;: &quot;Run&quot;,
+    &quot;Python.para_tuing_multi.executor&quot;: &quot;Run&quot;,
+    &quot;Python.para_tuing_multi_all.executor&quot;: &quot;Run&quot;,
+    &quot;Python.para_tuing_multi_all_log.executor&quot;: &quot;Run&quot;,
+    &quot;Python.para_tuing_multi_all_log_kama.executor&quot;: &quot;Run&quot;,
+    &quot;Python.para_tuning_win50p.executor&quot;: &quot;Run&quot;,
+    &quot;Python.para_tuning_win50pv2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.para_tuning_win50pv3.executor&quot;: &quot;Run&quot;,
+    &quot;Python.para_tuning_win50pv4.executor&quot;: &quot;Run&quot;,
+    &quot;Python.plotter.executor&quot;: &quot;Run&quot;,
+    &quot;Python.pushjson.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testacc.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testak.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testakshare.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testcloud.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testdate.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testnf.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testops.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testwplot.executor&quot;: &quot;Run&quot;,
+    &quot;Python.time.executor&quot;: &quot;Run&quot;,
+    &quot;Python.trendv4.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/git/LongTrading/core&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\git\LongTrading\core" />

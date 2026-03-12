@@ -1,0 +1,53 @@
+{
+  "task_id": "bt_20260311_172738",
+  "created_at": "2026-03-11T17:27:38.021247",
+  "backtest_config": {
+    "version": "1.0",
+    "last_update": "2026-03-27T14:30:00",
+    "stock_pool": {
+      "symbols": [
+        "300502",
+        "300308",
+        "601606"
+      ],
+      "symbol_names": {
+        "300502": "新易盛",
+        "300308": "中际旭创",
+        "601606": "长城军工"
+      }
+    },
+    "capital": {
+      "initial_capital": 1000000.0,
+      "currency": "CNY"
+    },
+    "backtest_period": {
+      "start_date": "2024-01-01",
+      "end_date": "2026-03-27",
+      "use_custom_period": false
+    },
+    "strategy_params": {
+      "strategy_name": "InstitutionalTrendStrategy",
+      "use_optimized_params": true,
+      "custom_params": {}
+    },
+    "execution": {
+      "pricing_mode": "conservative",
+      "commission_rate": 0.0003
+    }
+  },
+  "strategy_params": {
+    "ma_short": 8,
+    "ma_mid": 38,
+    "ma_long": 70,
+    "enable_partial_exit": true,
+    "bias_entry_limit": 1.25,
+    "stop_loss_pct": 0.08,
+    "trailing_stop_pct": 0.33999999999999997,
+    "partial_exit_pct": 0.3,
+    "partial_exit_min_profit": 0.15000000000000002,
+    "profit_tier1": 0.15,
+    "trailing_tier1": 0.1,
+    "unit_size": 0.2,
+    "max_units": 4
+  }
+}

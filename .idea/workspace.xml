@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="daily update2" />
+    <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="refactor">
+      <change afterPath="$PROJECT_DIR$/historyfile/backtestv1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backtest.py" beforeDir="false" afterPath="$PROJECT_DIR$/backtest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/system_account.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_account.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -77,23 +83,23 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "roundv2",
-    "last_opened_file_path": "D:/git/LongTrading/strategies/paratuning",
+    "last_opened_file_path": "D:/SPB_Data/.openclaw/workspace/LongTrading",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\git\LongTrading" />
       <recent name="D:\git\LongTrading\strategies\paratuning" />
       <recent name="D:\git\LongTrading\data\config" />
       <recent name="D:\git\LongTrading\data\ledger" />
-      <recent name="D:\git\LongTrading" />
       <recent name="D:\git\LongTrading\core" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\git\LongTrading\historyfile" />
       <recent name="D:\git\LongTrading\data\config" />
       <recent name="D:\git\LongTrading\data\backtest" />
       <recent name="D:\git\LongTrading\data\backtest\strategy_trend" />
-      <recent name="D:\git\LongTrading\historyfile" />
       <recent name="D:\git\LongTrading\living" />
     </key>
   </component>
@@ -345,7 +351,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773135548943</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="refactor">
+      <option name="closed" value="true" />
+      <created>1773219935335</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1773219935335</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -368,6 +382,7 @@
     <MESSAGE value="nextjs clean" />
     <MESSAGE value="daily update" />
     <MESSAGE value="daily update2" />
-    <option name="LAST_COMMIT_MESSAGE" value="daily update2" />
+    <MESSAGE value="refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor" />
   </component>
 </project>

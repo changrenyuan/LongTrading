@@ -1,0 +1,18 @@
+{
+  "version": "1.0",
+  "task_id": "bt_20260311_172738",
+  "status": "completed",
+  "last_update": "2026-03-11T17:27:41.645628",
+  "progress": {
+    "current_step": "回测完成",
+    "progress_pct": 100,
+    "start_time": "2026-03-11T17:27:38.020214",
+    "elapsed_seconds": 3
+  },
+  "result": {
+    "completed": true,
+    "success": true,
+    "error_message": null,
+    "output_dir": "data\\backtest\\bt_20260311_172738"
+  }
+}

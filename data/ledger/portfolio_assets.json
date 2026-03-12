@@ -1,0 +1,128 @@
+{
+    "available_cash": 961180216.5576997,
+    "positions": [
+        {
+            "symbol": "601179",
+            "name": "中国西电",
+            "shares": 860000,
+            "cost_price": 19.18,
+            "current_price": 19.12,
+            "pnl": -51600.0,
+            "pnl_pct": "-0.31%",
+            "highest_price": 20.1,
+            "buy_date": "2026-03-11",
+            "buy_reason": "顺势金叉确认，首次建仓"
+        },
+        {
+            "symbol": "600089",
+            "name": "特变电工",
+            "shares": 529700,
+            "cost_price": 31.14,
+            "current_price": 31.05,
+            "pnl": -47673.0,
+            "pnl_pct": "-0.29%",
+            "highest_price": 31.9,
+            "buy_date": "2026-03-11",
+            "buy_reason": "顺势金叉确认，首次建仓"
+        },
+        {
+            "symbol": "002202",
+            "name": "金风科技",
+            "shares": 323300,
+            "cost_price": 30.01,
+            "current_price": 29.89,
+            "pnl": -38796.0,
+            "pnl_pct": "-0.40%",
+            "highest_price": 31.0,
+            "buy_date": "2026-03-11",
+            "buy_reason": "顺势金叉确认，首次建仓"
+        },
+        {
+            "symbol": "600522",
+            "name": "中天科技",
+            "shares": 300,
+            "cost_price": 29.434,
+            "current_price": 30.04,
+            "pnl": 181.8,
+            "pnl_pct": "+2.06%",
+            "highest_price": 31.82,
+            "buy_date": "历史遗留",
+            "buy_reason": "未知建仓逻辑"
+        },
+        {
+            "symbol": "601939",
+            "name": "建设银行",
+            "shares": 200,
+            "cost_price": 8.62,
+            "current_price": 9.02,
+            "pnl": 80.0,
+            "pnl_pct": "+4.64%",
+            "highest_price": 9.84,
+            "buy_date": "历史遗留",
+            "buy_reason": "未知建仓逻辑"
+        },
+        {
+            "symbol": "000547",
+            "name": "航天发展",
+            "shares": 290800,
+            "cost_price": 33.36,
+            "current_price": 33.31,
+            "pnl": -14540.0,
+            "pnl_pct": "-0.15%",
+            "highest_price": 33.36,
+            "buy_date": "2026-03-11",
+            "buy_reason": "顺势金叉确认，首次建仓"
+        },
+        {
+            "symbol": "600938",
+            "name": "中国海油",
+            "shares": 232000,
+            "cost_price": 41.82,
+            "current_price": 41.94,
+            "pnl": 27840.0,
+            "pnl_pct": "+0.29%",
+            "highest_price": 41.82,
+            "buy_date": "2026-03-11",
+            "buy_reason": "顺势金叉确认，首次建仓"
+        },
+        {
+            "symbol": "600703",
+            "name": "三安光电",
+            "shares": 568400,
+            "cost_price": 17.07,
+            "current_price": 17.08,
+            "pnl": 5684.0,
+            "pnl_pct": "+0.06%",
+            "highest_price": 17.07,
+            "buy_date": "2026-03-11",
+            "buy_reason": "顺势金叉确认，首次建仓"
+        },
+        {
+            "symbol": "601857",
+            "name": "中国石油",
+            "shares": 802500,
+            "cost_price": 12.09,
+            "current_price": 12.15,
+            "pnl": 48150.0,
+            "pnl_pct": "+0.50%",
+            "highest_price": 12.09,
+            "buy_date": "2026-03-11",
+            "buy_reason": "顺势金叉确认，首次建仓"
+        }
+    ],
+    "pnl_summary": {
+        "position_pnl": -70673.2,
+        "daily_pnl": -57319.44,
+        "daily_pnl_pct": -0.01
+    },
+    "metrics": {
+        "total_equity": 1042620129.56,
+        "total_pnl": -70673.2,
+        "market_value": 81439913.0,
+        "annualized_return": 0.0,
+        "sharpe_ratio": 0.0,
+        "max_drawdown": 0.0,
+        "calmar_ratio": 0.0
+    },
+    "updated_at": "2026-03-11 14:35:22"
+}

@@ -1,0 +1,15 @@
+{
+    "ma_short": 8,
+    "ma_mid": 38,
+    "ma_long": 70,
+    "enable_partial_exit": true,
+    "bias_entry_limit": 1.25,
+    "stop_loss_pct": 0.08,
+    "trailing_stop_pct": 0.34,
+    "partial_exit_pct": 0.3,
+    "partial_exit_min_profit": 0.15000000000000002,
+    "profit_tier1": 0.15,
+    "trailing_tier1": 0.1,
+    "unit_size": 0.2,
+    "max_units": 4
+}

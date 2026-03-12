@@ -1,0 +1,104 @@
+{
+    "available_cash": 1000000000.0,
+    "positions": [
+        {
+            "symbol": "002131",
+            "name": "利欧股份",
+            "shares": 0,
+            "cost_price": 9.1,
+            "highest_price": 10.4
+        },
+        {
+            "symbol": "600410",
+            "name": "",
+            "shares": 0,
+            "cost_price": 28.127,
+            "highest_price": 31.13
+        },
+        {
+            "symbol": "601179",
+            "name": "中国西电",
+            "shares": 860000,
+            "cost_price": 19.18,
+            "current_price": 19.18,
+            "pnl": 0.0,
+            "pnl_pct": "+0.00%",
+            "highest_price": 19.18,
+            "buy_date": "2026-03-11",
+            "buy_reason": "顺势金叉确认，首次建仓"
+        },
+        {
+            "symbol": "600089",
+            "name": "特变电工",
+            "shares": 529700,
+            "cost_price": 31.14,
+            "current_price": 31.14,
+            "pnl": 0.0,
+            "pnl_pct": "+0.00%",
+            "highest_price": 31.14,
+            "buy_date": "2026-03-11",
+            "buy_reason": "顺势金叉确认，首次建仓"
+        },
+        {
+            "symbol": "002202",
+            "name": "金风科技",
+            "shares": 323300,
+            "cost_price": 30.01,
+            "current_price": 30.01,
+            "pnl": 0.0,
+            "pnl_pct": "+0.00%",
+            "highest_price": 30.01,
+            "buy_date": "2026-03-11",
+            "buy_reason": "顺势金叉确认，首次建仓"
+        },
+        {
+            "symbol": "600111",
+            "name": "北方稀土",
+            "shares": 0,
+            "cost_price": 60,
+            "highest_price": 63.57
+        },
+        {
+            "symbol": "600938",
+            "name": "",
+            "shares": 0,
+            "cost_price": 36.5,
+            "highest_price": 42.6
+        },
+        {
+            "symbol": "601899",
+            "name": "紫金矿业",
+            "shares": 0,
+            "cost_price": 39.35,
+            "highest_price": 44.94
+        },
+        {
+            "symbol": "002490",
+            "name": "",
+            "shares": 0,
+            "cost_price": 9.4,
+            "highest_price": 10.65
+        },
+        {
+            "symbol": "600522",
+            "name": "中天科技",
+            "shares": 300,
+            "cost_price": 29.434,
+            "highest_price": 31.82
+        },
+        {
+            "symbol": "601939",
+            "name": "",
+            "shares": 200,
+            "cost_price": 8.62,
+            "highest_price": 9.84
+        },
+        {
+            "symbol": "300528",
+            "name": "幸福蓝海",
+            "shares": 0,
+            "cost_price": 17.33,
+            "highest_price": 29.46
+        }
+    ]
+}

@@ -1,0 +1,35 @@
+{
+  "version": "1.0",
+  "last_update": "2026-03-27T14:30:00",
+
+  "stock_pool": {
+    "symbols": ["300502", "300308", "601606"],
+    "symbol_names": {
+      "300502": "新易盛",
+      "300308": "中际旭创",
+      "601606": "长城军工"
+    }
+  },
+
+  "capital": {
+    "initial_capital": 1000000.0,
+    "currency": "CNY"
+  },
+
+  "backtest_period": {
+    "start_date": "2024-01-01",
+    "end_date": "2026-03-27",
+    "use_custom_period": false
+  },
+
+  "strategy_params": {
+    "strategy_name": "InstitutionalTrendStrategy",
+    "use_optimized_params": true,
+    "custom_params": {}
+  },
+
+  "execution": {
+    "pricing_mode": "conservative",
+    "commission_rate": 0.0003
+  }
+}

@@ -98,14 +98,15 @@ python live.py
 
 ```bash
 # 启动 FastAPI 后端
-cd webui
-python api_server.py
+uvicorn webui.api_server:app --reload --port=8000 
 
-# 启动 Streamlit 前端（新终端）
-streamlit run web_dashboard.py
+# 废弃了 Streamlit 前端（新终端）
+# 使用nextjs前端
+# git clone longtradingui 项目
+
 ```
 
-访问 `http://localhost:8501` 查看实时交易监控看板。
+访问 `http://localhost:5000` 查看实时交易监控看板。
 
 ## 📊 策略详解
 

@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="refactor">
-      <change afterPath="$PROJECT_DIR$/data_json.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/LongTrading.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/LongTrading.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,55 +34,55 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.account.executor": "Run",
-    "Python.akshare_pd.executor": "Run",
-    "Python.api_server.executor": "Run",
-    "Python.backtest.executor": "Run",
-    "Python.cloudakpd.executor": "Run",
-    "Python.config.executor": "Run",
-    "Python.cron_scheduler.executor": "Run",
-    "Python.daylyops.executor": "Run",
-    "Python.engine.executor": "Run",
-    "Python.file_manager.executor": "Run",
-    "Python.live.executor": "Run",
-    "Python.live_trading.executor": "Run",
-    "Python.live_tradingv2.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.mainv2.executor": "Run",
-    "Python.notifier.executor": "Run",
-    "Python.para_tuing.executor": "Run",
-    "Python.para_tuing_multi.executor": "Run",
-    "Python.para_tuing_multi_all.executor": "Run",
-    "Python.para_tuing_multi_all_log.executor": "Run",
-    "Python.para_tuing_multi_all_log_kama.executor": "Run",
-    "Python.para_tuning_trend.executor": "Run",
-    "Python.para_tuning_win50p.executor": "Run",
-    "Python.para_tuning_win50pv2.executor": "Run",
-    "Python.para_tuning_win50pv3.executor": "Run",
-    "Python.para_tuning_win50pv4.executor": "Run",
-    "Python.plotter.executor": "Run",
-    "Python.pushjson.executor": "Run",
-    "Python.test.executor": "Run",
-    "Python.testacc.executor": "Run",
-    "Python.testak.executor": "Run",
-    "Python.testakshare.executor": "Run",
-    "Python.testcloud.executor": "Run",
-    "Python.testdate.executor": "Run",
-    "Python.testnf.executor": "Run",
-    "Python.testops.executor": "Run",
-    "Python.testwplot.executor": "Run",
-    "Python.time.executor": "Run",
-    "Python.trendv4.executor": "Run",
-    "Python.universe.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "roundv2",
-    "last_opened_file_path": "D:/SPB_Data/.openclaw/workspace/git/LongTrading",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.account.executor&quot;: &quot;Run&quot;,
+    &quot;Python.akshare_pd.executor&quot;: &quot;Run&quot;,
+    &quot;Python.api_server.executor&quot;: &quot;Run&quot;,
+    &quot;Python.backtest.executor&quot;: &quot;Run&quot;,
+    &quot;Python.cloudakpd.executor&quot;: &quot;Run&quot;,
+    &quot;Python.config.executor&quot;: &quot;Run&quot;,
+    &quot;Python.cron_scheduler.executor&quot;: &quot;Run&quot;,
+    &quot;Python.daylyops.executor&quot;: &quot;Run&quot;,
+    &quot;Python.engine.executor&quot;: &quot;Run&quot;,
+    &quot;Python.file_manager.executor&quot;: &quot;Run&quot;,
+    &quot;Python.live.executor&quot;: &quot;Run&quot;,
+    &quot;Python.live_trading.executor&quot;: &quot;Run&quot;,
+    &quot;Python.live_tradingv2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.mainv2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.notifier.executor&quot;: &quot;Run&quot;,
+    &quot;Python.para_tuing.executor&quot;: &quot;Run&quot;,
+    &quot;Python.para_tuing_multi.executor&quot;: &quot;Run&quot;,
+    &quot;Python.para_tuing_multi_all.executor&quot;: &quot;Run&quot;,
+    &quot;Python.para_tuing_multi_all_log.executor&quot;: &quot;Run&quot;,
+    &quot;Python.para_tuing_multi_all_log_kama.executor&quot;: &quot;Run&quot;,
+    &quot;Python.para_tuning_trend.executor&quot;: &quot;Run&quot;,
+    &quot;Python.para_tuning_win50p.executor&quot;: &quot;Run&quot;,
+    &quot;Python.para_tuning_win50pv2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.para_tuning_win50pv3.executor&quot;: &quot;Run&quot;,
+    &quot;Python.para_tuning_win50pv4.executor&quot;: &quot;Run&quot;,
+    &quot;Python.plotter.executor&quot;: &quot;Run&quot;,
+    &quot;Python.pushjson.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testacc.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testak.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testakshare.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testcloud.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testdate.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testnf.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testops.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testwplot.executor&quot;: &quot;Run&quot;,
+    &quot;Python.time.executor&quot;: &quot;Run&quot;,
+    &quot;Python.trendv4.executor&quot;: &quot;Run&quot;,
+    &quot;Python.universe.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;roundv2&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/SPB_Data/.openclaw/workspace/git/LongTrading&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\git\LongTrading" />

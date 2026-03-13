@@ -15,3 +15,4 @@ data/*.json
 data/
 backtest_result/
 logs/
+.idea/workspace.xml

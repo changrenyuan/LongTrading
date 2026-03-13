@@ -14,5 +14,5 @@ data/*.json
 *.onnx
 data/
 backtest_result/
-logs/
-.idea/workspace.xml
+logs
+*.xml

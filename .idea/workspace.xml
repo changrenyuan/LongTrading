@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="refactor">
+      <change afterPath="$PROJECT_DIR$/webui/webui.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/config/universe_pool.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/config/universe_pool.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/system_account.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_account.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webui/web_dashboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/webui/web_dashboard.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +81,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "roundv2",
-    "last_opened_file_path": "D:/SPB_Data/.openclaw/workspace/LongTrading",
+    "last_opened_file_path": "D:/SPB_Data/.openclaw/workspace/LongTrading_roundv2",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
@@ -365,7 +365,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773295311121</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="refactor">
+      <option name="closed" value="true" />
+      <created>1773366816363</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1773366816363</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

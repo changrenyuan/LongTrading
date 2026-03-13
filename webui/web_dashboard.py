@@ -1,3 +1,6 @@
+# web_dashboard.py已经废弃。
+# 采用nextjs作为前端
+
 import streamlit as st
 import requests
 import pandas as pd

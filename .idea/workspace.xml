@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="refactor">
+      <change afterPath="$PROJECT_DIR$/data_json.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/LongTrading.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/LongTrading.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />

@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="refactor">
-      <change afterPath="$PROJECT_DIR$/historyfile/backtestv1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backtest.py" beforeDir="false" afterPath="$PROJECT_DIR$/backtest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/config/universe_pool.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/config/universe_pool.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/system_account.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/system_account.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -359,7 +357,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773219935335</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="refactor">
+      <option name="closed" value="true" />
+      <created>1773295311121</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1773295311121</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

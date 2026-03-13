@@ -1,4 +1,4 @@
-# MT_Alpha 数据目录规划方案
+# MT_Alpha 数据目录规划方案--未实现
 
 > 版本：v2.0  
 > 更新时间：2026-03-27  
@@ -76,6 +76,7 @@ LongTrading/data/
 ### 1️⃣ 配置模块 (`/data/config/`)
 
 #### `strategy_params.json` - 策略参数配置
+
 **来源**：原 `best_params_win50p.json`  
 **用途**：存储策略的核心参数，实盘引擎启动时优先读取
 
@@ -84,26 +85,26 @@ LongTrading/data/
   "version": "2.0",
   "last_update": "2026-03-27T14:30:00",
   "source": "optuna_optimization",
-  
+
   "params": {
     // 均线系统
     "ma_short": 5,
     "ma_mid": 12,
     "ma_long": 50,
-    
+
     // 风控参数
     "stop_loss_pct": 0.10,
     "trailing_stop_pct": 0.20,
-    
+
     // 仓位管理
     "unit_size": 0.25,
     "max_units": 4,
-    
+
     // 信号过滤
     "bias_entry_limit": 1.08,
     "add_pos_min_profit": 0.08
   },
-  
+
   "performance": {
     "sharpe_ratio": 1.85,
     "win_rate": 0.65,
@@ -113,6 +114,7 @@ LongTrading/data/
 ```
 
 #### `universe_pool.json` - 股票池配置
+
 **保持原名**：`universe_pool.json`  
 **用途**：定义监控的股票池及筛选规则
 
@@ -120,7 +122,7 @@ LongTrading/data/
 {
   "version": "2.0",
   "last_update": "2026-03-27T14:30:00",
-  
+
   "pool": [
     {
       "symbol": "300502",
@@ -137,7 +139,7 @@ LongTrading/data/
       "priority": 2
     }
   ],
-  
+
   "filter_rules": {
     "min_amount": 500000000,
     "max_pool_size": 20,
@@ -148,25 +150,26 @@ LongTrading/data/
 ```
 
 #### `risk_config.json` - 风控参数配置（新增）
+
 **用途**：独立的风控参数配置，支持前端动态调整
 
 ```json
 {
   "version": "1.0",
   "last_update": "2026-03-27T14:30:00",
-  
+
   "position_limits": {
     "max_positions": 5,
     "max_single_position_pct": 0.30,
     "max_total_position_pct": 0.95
   },
-  
+
   "stop_loss": {
     "hard_stop_pct": 0.10,
     "time_stop_days": 30,
     "max_drawdown_pct": 0.15
   },
-  
+
   "trading_hours": {
     "market_open": "09:30:00",
     "market_close": "15:00:00",
@@ -180,6 +183,7 @@ LongTrading/data/
 ### 2️⃣ 行情快照模块 (`/data/market/`)
 
 #### `snapshot.json` - 全市场快照
+
 **来源**：原 `market_status.json`  
 **用途**：存储最后一次引擎运行时的全市场行情快照
 
@@ -188,22 +192,22 @@ LongTrading/data/
   "timestamp": "2026-03-27T14:30:00",
   "market_status": "交易中",
   "trading_day": "2026-03-27",
-  
+
   "overview": {
     "total_stocks": 5234,
     "advancing": 2856,
     "declining": 2134,
     "unchanged": 244
   },
-  
+
   "top_gainers": [
     {"symbol": "300xxx", "name": "xxx科技", "change_pct": 10.01}
   ],
-  
+
   "top_losers": [
     {"symbol": "600xxx", "name": "xxx股份", "change_pct": -9.98}
   ],
-  
+
   "snapshot_data": [
     {
       "symbol": "300502",
@@ -222,6 +226,7 @@ LongTrading/data/
 ```
 
 #### `kline_cache/{symbol}.json` - K线数据缓存
+
 **来源**：原 `backtest/kline_{symbol}.json`（拆分）  
 **用途**：缓存历史K线数据，避免重复请求API
 
@@ -231,7 +236,7 @@ LongTrading/data/
   "name": "新易盛",
   "last_update": "2026-03-27T14:30:00",
   "data_source": "akshare",
-  
+
   "kline": [
     {
       "date": "2026-03-27",
@@ -243,7 +248,7 @@ LongTrading/data/
       "amount": 55678900
     }
   ],
-  
+
   "indicators": {
     "ma5": [45.10, 44.95, ...],
     "ma20": [44.50, 44.45, ...],
@@ -257,6 +262,7 @@ LongTrading/data/
 ### 3️⃣ 账户与账本模块 (`/data/ledger/`)
 
 #### `broker_account.json` - 人工/券商账本
+
 **来源**：原 `live_broker_account.json`（仅改名）  
 **用途**：人工维护的真实持仓账本，系统只读
 
@@ -265,9 +271,9 @@ LongTrading/data/
   "version": "2.0",
   "last_update": "2026-03-27T09:00:00",
   "source": "manual_input",
-  
+
   "available_cash": 50000.00,
-  
+
   "positions": [
     {
       "symbol": "300502",
@@ -283,6 +289,7 @@ LongTrading/data/
 ```
 
 #### `system_account.json` - 系统账本
+
 **保持原名**：`system_account.json`  
 **用途**：系统自动维护的账本，包含实时计算的盈亏
 
@@ -290,10 +297,10 @@ LongTrading/data/
 {
   "version": "2.0",
   "last_update": "2026-03-27T14:30:00",
-  
+
   "available_cash": 50000.00,
   "total_equity": 108200.00,
-  
+
   "positions": [
     {
       "symbol": "300502",
@@ -313,6 +320,7 @@ LongTrading/data/
 ```
 
 #### `portfolio.json` - 资产组合快照
+
 **来源**：原 `portfolio_assets.json`  
 **用途**：前端Dashboard展示的核心数据，包含绩效指标
 
@@ -321,7 +329,7 @@ LongTrading/data/
   "version": "2.0",
   "last_update": "2026-03-27T14:30:00",
   "snapshot_time": "2026-03-27T14:30:00",
-  
+
   "assets": {
     "available_cash": 50000.00,
     "total_cost": 63000.00,
@@ -330,7 +338,7 @@ LongTrading/data/
     "floating_pnl": 7190.00,
     "floating_pnl_pct": 11.41
   },
-  
+
   "positions": [
     {
       "symbol": "300502",
@@ -346,7 +354,7 @@ LongTrading/data/
       "status": "holding"
     }
   ],
-  
+
   "metrics": {
     "sharpe_ratio": 1.85,
     "max_drawdown": -8.23,
@@ -355,7 +363,7 @@ LongTrading/data/
     "annualized_return": 25.6,
     "calmar_ratio": 3.11
   },
-  
+
   "pnl_summary": {
     "today_pnl": 1250.00,
     "today_pnl_pct": 1.05,
@@ -366,6 +374,7 @@ LongTrading/data/
 ```
 
 #### `nav_history.json` - 净值历史
+
 **来源**：原 `daily_nav.csv`（迁移为JSON）  
 **用途**：绘制资产曲线图
 
@@ -374,7 +383,7 @@ LongTrading/data/
   "version": "1.0",
   "last_update": "2026-03-27T14:30:00",
   "initial_capital": 100000.00,
-  
+
   "nav_curve": [
     {
       "date": "2026-03-01",
@@ -391,7 +400,7 @@ LongTrading/data/
       "position_value": 70190.00
     }
   ],
-  
+
   "statistics": {
     "total_days": 26,
     "trading_days": 19,
@@ -402,6 +411,7 @@ LongTrading/data/
 ```
 
 #### `reconciliation.json` - 对账状态
+
 **用途**：记录系统账本与人工账本的对比结果
 
 ```json
@@ -409,19 +419,19 @@ LongTrading/data/
   "version": "1.0",
   "last_check": "2026-03-27T14:30:00",
   "is_match": true,
-  
+
   "details": {
     "cash_match": true,
     "position_match": true,
     "position_count_match": true,
-    
+
     "differences": [],
-    
+
     "broker_total": {
       "cash": 50000.00,
       "positions": 1
     },
-    
+
     "system_total": {
       "cash": 50000.00,
       "positions": 1
@@ -435,6 +445,7 @@ LongTrading/data/
 ### 4️⃣ 交易信号模块 (`/data/trade/`)
 
 #### `signals_today.json` - 今日交易信号（核心）
+
 **用途**：引擎生成的买卖建议信号，前端实时展示
 
 ```json
@@ -442,7 +453,7 @@ LongTrading/data/
   "version": "2.0",
   "last_update": "2026-03-27T14:30:00",
   "trading_day": "2026-03-27",
-  
+
   "signals": [
     {
       "signal_id": "live_300502_20260327143000_BUY",
@@ -455,14 +466,14 @@ LongTrading/data/
       "confidence": 0.85,
       "reason": "多头趋势确认+缩量回踩至MA20支撑",
       "status": "pending",
-      
+
       "indicators": {
         "ma5": 44.95,
         "ma20": 44.50,
         "bias": 1.015,
         "volume_ratio": 0.85
       },
-      
+
       "risk_params": {
         "stop_loss_price": 40.68,
         "take_profit_price": 54.24
@@ -481,7 +492,7 @@ LongTrading/data/
       "status": "pending"
     }
   ],
-  
+
   "summary": {
     "total_signals": 2,
     "buy_signals": 1,
@@ -492,13 +503,14 @@ LongTrading/data/
 ```
 
 #### `orders_pending.json` - 待处理订单
+
 **用途**：记录尚未成交的订单
 
 ```json
 {
   "version": "1.0",
   "last_update": "2026-03-27T14:35:00",
-  
+
   "orders": [
     {
       "order_id": "ORD_20260327_001",
@@ -516,13 +528,14 @@ LongTrading/data/
 ```
 
 #### `orders_history.json` - 历史订单记录
+
 **用途**：记录已成交或已取消的订单
 
 ```json
 {
   "version": "1.0",
   "last_update": "2026-03-27T15:30:00",
-  
+
   "orders": [
     {
       "order_id": "ORD_20260327_001",
@@ -542,6 +555,7 @@ LongTrading/data/
 ```
 
 #### `ledger.csv` - 交易流水
+
 **保持原名**：`live_trade_ledger.csv`  
 **保持格式**：CSV格式，便于Excel查看
 
@@ -556,6 +570,7 @@ timestamp,symbol,name,action,shares,price,trade_value,fee,realized_pnl,reason,st
 ### 5️⃣ 回测模块 (`/data/backtest/`)
 
 #### `latest_result.json` - 最新回测结果
+
 **用途**：存储最后一次回测的完整结果
 
 ```json
@@ -566,7 +581,7 @@ timestamp,symbol,name,action,shares,price,trade_value,fee,realized_pnl,reason,st
   "end_date": "2026-03-27",
   "initial_capital": 1000000.00,
   "final_equity": 1250000.00,
-  
+
   "performance": {
     "total_return": 25.0,
     "annualized_return": 12.5,
@@ -577,7 +592,7 @@ timestamp,symbol,name,action,shares,price,trade_value,fee,realized_pnl,reason,st
     "profit_loss_ratio": 2.3,
     "total_trades": 120
   },
-  
+
   "symbols": ["300502", "300308", "601606"],
   "strategy_name": "InstitutionalTrendStrategy",
   "params_used": {}
@@ -585,30 +600,37 @@ timestamp,symbol,name,action,shares,price,trade_value,fee,realized_pnl,reason,st
 ```
 
 #### `summary.json` - 绩效汇总
+
 **保持原名**：`summary.json`  
 **保持结构**：原有格式
 
 #### `equity_curve.json` - 权益曲线
+
 **保持原名**：`equity_curve.json`  
 **保持结构**：原有格式
 
 #### `drawdown.json` - 回撤曲线
+
 **保持原名**：`drawdown.json`  
 **保持结构**：原有格式
 
 #### `trades.json` - 回测交易流水
+
 **保持原名**：`trades.json`  
 **保持结构**：原有格式
 
 #### `stocks_overview.json` - 股票概览
+
 **来源**：原 `backtest_stocks.json`（改名）  
 **保持结构**：原有格式
 
 #### `kline/{symbol}.json` - 个股K线与信号
+
 **来源**：原 `kline_{symbol}.json`（移动到子目录）  
 **保持结构**：原有格式
 
 #### `optimization/progress.json` - 寻优进度
+
 **用途**：前端进度条显示
 
 ```json
@@ -632,16 +654,17 @@ timestamp,symbol,name,action,shares,price,trade_value,fee,realized_pnl,reason,st
 ### 6️⃣ 系统状态模块 (`/data/system/`)
 
 #### `engine_state.json` - 引擎状态
+
 **用途**：记录引擎当前状态，便于前端监控
 
 ```json
 {
   "version": "1.0",
   "last_update": "2026-03-27T14:30:00",
-  
+
   "status": "running",
   "mode": "live",
-  
+
   "last_run": {
     "start_time": "2026-03-27T14:30:00",
     "end_time": "2026-03-27T14:31:00",
@@ -649,16 +672,16 @@ timestamp,symbol,name,action,shares,price,trade_value,fee,realized_pnl,reason,st
     "status": "success",
     "signals_generated": 2
   },
-  
+
   "next_scheduled_run": "2026-03-28T09:30:00",
-  
+
   "health": {
     "database": "connected",
     "data_provider": "akshare",
     "api_server": "running",
     "last_data_update": "2026-03-27T14:30:00"
   },
-  
+
   "statistics": {
     "total_runs": 156,
     "success_runs": 152,
@@ -669,13 +692,14 @@ timestamp,symbol,name,action,shares,price,trade_value,fee,realized_pnl,reason,st
 ```
 
 #### `runtime_metrics.json` - 运行时指标
+
 **用途**：记录系统运行时的性能指标
 
 ```json
 {
   "version": "1.0",
   "last_update": "2026-03-27T14:30:00",
-  
+
   "performance": {
     "avg_execution_time_ms": 125,
     "max_execution_time_ms": 350,
@@ -683,7 +707,7 @@ timestamp,symbol,name,action,shares,price,trade_value,fee,realized_pnl,reason,st
     "max_memory_usage_mb": 512,
     "cpu_usage_pct": 15.5
   },
-  
+
   "data_freshness": {
     "market_snapshot_age_seconds": 300,
     "portfolio_age_seconds": 120,
@@ -764,34 +788,43 @@ timestamp,symbol,name,action,shares,price,trade_value,fee,realized_pnl,reason,st
 ### 第一阶段：目录重构（保持向后兼容）
 
 1. **创建新的目录结构**
-```bash
-mkdir -p data/{config,market,ledger,trade,system,archive}
-mkdir -p data/market/kline_cache
-mkdir -p data/backtest/{kline,optimization}
-mkdir -p data/system/{logs,debug}
-```
+   
+   ```bash
+   mkdir -p data/{config,market,ledger,trade,system,archive}
+   mkdir -p data/market/kline_cache
+   mkdir -p data/backtest/{kline,optimization}
+   mkdir -p data/system/{logs,debug}
+   ```
 
 2. **迁移现有文件（软链接或复制）**
-```bash
-# 配置文件
-mv data/best_params_win50p.json data/config/strategy_params.json
-mv data/universe_pool.json data/config/universe_pool.json
+   
+   ```bash
+   # 配置文件
+   mv data/best_params_win50p.json data/config/strategy_params.json
+   mv data/universe_pool.json data/config/universe_pool.json
+   ```
 
 # 账户文件
+
 mv data/live_broker_account.json data/ledger/broker_account.json
+
 # system_account.json 保持位置
+
 # portfolio_assets.json 移动到 ledger/
 
 # 市场数据
+
 mv data/market_status.json data/market/snapshot.json
 
 # 交易数据
+
 mv data/live_trade_ledger.csv data/trade/ledger.csv
 
 # 回测数据
-mv data/backtest/kline_*.json data/backtest/kline/
-```
 
+mv data/backtest/kline_*.json data/backtest/kline/
+
+```
 3. **创建兼容性链接（过渡期）**
 ```python
 # 在代码中添加兼容层
@@ -815,11 +848,14 @@ def ensure_compatibility():
 ### 第二阶段：代码适配
 
 1. **更新文件路径常量**
-```python
-# webui/api_server.py
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+   
+   ```python
+   # webui/api_server.py
+   BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+   ```
 
 # 新的文件路径定义
+
 CONFIG_DIR = os.path.join(BASE_DIR, "data", "config")
 MARKET_DIR = os.path.join(BASE_DIR, "data", "market")
 LEDGER_DIR = os.path.join(BASE_DIR, "data", "ledger")
@@ -828,6 +864,7 @@ BACKTEST_DIR = os.path.join(BASE_DIR, "data", "backtest")
 SYSTEM_DIR = os.path.join(BASE_DIR, "data", "system")
 
 # 具体文件路径
+
 STRATEGY_PARAMS_FILE = os.path.join(CONFIG_DIR, "strategy_params.json")
 UNIVERSE_POOL_FILE = os.path.join(CONFIG_DIR, "universe_pool.json")
 BROKER_ACCOUNT_FILE = os.path.join(LEDGER_DIR, "broker_account.json")
@@ -836,8 +873,8 @@ PORTFOLIO_FILE = os.path.join(LEDGER_DIR, "portfolio.json")
 SNAPSHOT_FILE = os.path.join(MARKET_DIR, "snapshot.json")
 SIGNALS_FILE = os.path.join(TRADE_DIR, "signals_today.json")
 ENGINE_STATE_FILE = os.path.join(SYSTEM_DIR, "engine_state.json")
-```
 
+```
 2. **更新数据读写逻辑**
 ```python
 # utils/data_manager.py（新增）
@@ -847,7 +884,7 @@ from typing import Dict, Any
 
 class DataManager:
     """统一数据管理器，处理所有JSON文件的读写"""
-    
+
     @staticmethod
     def load_json(file_path: str) -> Dict[str, Any]:
         """加载JSON文件"""
@@ -855,19 +892,19 @@ class DataManager:
             return {}
         with open(file_path, 'r', encoding='utf-8') as f:
             return json.load(f)
-    
+
     @staticmethod
     def save_json(file_path: str, data: Dict[str, Any]):
         """保存JSON文件"""
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
         with open(file_path, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
-    
+
     @staticmethod
     def load_strategy_params() -> dict:
         """加载策略参数"""
         return DataManager.load_json(STRATEGY_PARAMS_FILE)
-    
+
     @staticmethod
     def save_portfolio(data: dict):
         """保存资产组合"""
@@ -906,21 +943,25 @@ def get_portfolio_status():
 ## ✅ 优势总结
 
 ### 1. 调试友好
+
 - JSON文件按功能模块分类，一目了然
 - 可以直接复制 `market/snapshot.json` 到回测环境复现问题
 - 所有文件都有 `last_update` 字段，便于排查数据新鲜度
 
 ### 2. 向后兼容
+
 - 核心数据结构保持不变
 - 通过软链接支持旧路径
 - 渐进式迁移，不影响现有功能
 
 ### 3. 扩展性强
+
 - 模块化设计，易于添加新功能
 - 清晰的分层架构
 - 支持未来的Redis迁移
 
 ### 4. 生产就绪
+
 - 符合成熟交易系统的最佳实践
 - 支持多环境部署（开发/测试/生产）
 - 便于监控和运维

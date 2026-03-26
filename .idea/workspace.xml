@@ -5,17 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="daily update2">
-      <change afterPath="$PROJECT_DIR$/core/engineBacktestold.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/math/data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/math/math_gpu_note.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/engineBacktest.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/engineBacktest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/backtest/backtest_stocks.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/backtest/backtest_stocks.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/backtest/kline_300308.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/backtest/kline_300308.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/backtest/kline_300502.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/backtest/kline_300502.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/backtest/kline_601606.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/backtest/kline_601606.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/backtest/strategy_trend/drawdown.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/backtest/strategy_trend/drawdown.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/backtest/strategy_trend/equity_curve.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/backtest/strategy_trend/equity_curve.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/backtest/summary.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/backtest/summary.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/backtest/trades.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/backtest/trades.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/account.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/engineBacktestold.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_provider/testak.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_provider/testakshare.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_provider/testakshare.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +48,7 @@
     "Python.backtest.executor": "Run",
     "Python.cloudakpd.executor": "Run",
     "Python.cron_scheduler.executor": "Run",
+    "Python.data.executor": "Run",
     "Python.daylyops.executor": "Run",
     "Python.engine.executor": "Run",
     "Python.live.executor": "Run",
@@ -84,18 +81,18 @@
     "Python.trendv4.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/git/LongTrading/core",
+    "git-widget-placeholder": "feature/v1",
+    "last_opened_file_path": "D:/git/LongTrading/math",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\git\LongTrading\math" />
       <recent name="D:\git\LongTrading\core" />
       <recent name="D:\git\LongTrading\nextjs\src\app\settings" />
       <recent name="D:\git\LongTrading\nextjs\src\components\charts" />
       <recent name="D:\git\LongTrading\strategies" />
-      <recent name="D:\git\LongTrading\nextjs\src\components\ui" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\git\LongTrading\data\backtest" />

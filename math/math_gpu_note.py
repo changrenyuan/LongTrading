@@ -57,7 +57,7 @@ os.makedirs(CSV_DIR, exist_ok=True)      # 自动创建存储目录
 
 SEQ_LEN = 10                             # 时序输入窗口：10日K线
 LATENT_DIM = 32                          # 挖掘AI隐因子数量：32个
-BATCH_SIZE = 16                          # 训练批次大小
+BATCH_SIZE = 128                          # 训练批次大小
 EPOCHS = 150                              # 每窗口训练轮数
 TRAIN_WINDOW = 200                       # 滚动训练窗口：200日历史数据
 PRED_STEP = 20                           # 滚动预测步长：20日
@@ -223,6 +223,83 @@ def build_base_features(df):
     df["range_x_vol"] = df["range"] * df["vol_ratio_5"]
     df["body_x_mom"] = df["body"] * df["mom_5"]
     # ==================================================================================
+    # ==================================================================================
+    # 【8】均线交叉与距离（MA Spreading）
+    # 核心：捕捉多头/空头排列的发散程度，判断超买超卖
+    # ==================================================================================
+    # 1. 均线距离（也叫乖离率的变体）：短期均线偏离长期均线的比例
+    df["ma_5_20_spread"] = (df["ma5"] - df["ma20"]) / (df["ma20"] + 1e-8)
+    df["ma_20_60_spread"] = (df["ma20"] - df["ma60"]) / (df["ma60"] + 1e-8)
+
+    # 2. 均线斜率（Slope）：判断趋势的“加速度”
+    # 逻辑：今天ma5比昨天ma5涨了百分之几
+    df["ma5_slope"] = df["ma5"].pct_change(1)
+    df["ma20_slope"] = df["ma20"].pct_change(1)
+
+    # 3. 均线挤压（Squeeze）：判断是否即将变盘
+    # 逻辑：多条均线的标准差。标准差越小，说明均线越粘合，爆发力可能越强。
+    df["ma_squeeze"] = df[["ma5", "ma10", "ma20"]].std(axis=1) / (df["ma20"] + 1e-8)# ==================================================================================
+    # 【7】非线性数学变换（增强 AI 识别能力）
+    # 核心：处理金融数据长尾分布、压缩极端异常值、模拟复合逻辑
+    # ==================================================================================
+    
+    # 1. 对数变换（Log Transform）：主要针对成交量和成交额
+    # 目的：将指数级增长的数据拉回到线性区间，防止巨大的成交量冲偏 AI 权重
+    df["log_vol"] = np.log1p(volume)
+    df["log_amt"] = np.log1p(amount)
+    
+    # 2. 差分对数（Log Return）：模拟复合增长率
+    df["log_ret_5"] = np.log(close / (close.shift(5) + 1e-8))
+
+    # 3. 波动率调整收益率（Volatility Scaled Return / Sharpe-like）
+    # 核心：涨得稳比涨得猛更重要。将收益率除以波动率。
+    for t in [5, 10]:
+        # 逻辑：收益率 / 波动率 = 风险调整后的动量
+        df[f"norm_ret_{t}"] = df[f"ret_{t}"] / (df[f"cv_{t}"] + 1e-8)
+
+    # 4. 幂变换（Power / Sqrt Transform）：处理波动
+    # 目的：模拟价格波动的非线性感知，减弱尖峰
+    df["sqrt_atr"] = np.sqrt(df["atr"])
+    
+    # 5. 符号映射（Sign Interaction）：判断方向的共振
+    # 逻辑：如果 5日收益和 20日偏离同向，赋予更高权重
+    df["direction_sync"] = np.sign(df["ret_5"]) * np.sign(df["bias_20"])
+
+    # 6. 软截断（Sigmoid-like Transformation）：
+    # 逻辑：将无穷大的乖离率压缩到 [-1, 1] 之间，防止过大的 Bias 导致模型梯度爆炸
+    # 使用 np.tanh 模拟 sigmoid 效果
+    df["scaled_bias_60"] = np.tanh(df["bias_vwap_60"] * 10) 
+
+    # 7. 相对排名（Rolling Rank）：
+    # 逻辑：价格在过去 60 天处于什么位置（0到1之间）
+    # 这是机构最喜欢的“时序分位数”因子
+    df["price_rank_60"] = close.rolling(60).rank(pct=True)
+    df["vol_rank_20"] = volume.rolling(20).rank(pct=True)
+
+    # ==================================================================================
+# ==================================================================================
+    # 【9】成交量深度变化（Volume Dynamics）
+    # 核心：识别“放量滞涨”或“缩量过顶”
+    # ==================================================================================
+    # 1. 成交量变化率（ROC）
+    df["vol_change_3"] = volume.pct_change(3) # 3日成交量变化
+    df["vol_change_5"] = volume.pct_change(5) # 5日成交量变化
+
+    # 2. 量价背离因子（Price-Volume Divergence）
+    # 逻辑：价格涨幅 / 成交量涨幅。如果价格猛涨但量缩，数值会很大，预示风险。
+    df["pv_divergence"] = df["ret_1"] / (volume.pct_change(1) + 1e-8)
+
+    # 3. 换手率相对强度
+    # 逻辑：当前的换手率在过去一段时间的排名（0-1之间）
+    df["turnover_rank_10"] = df["turnover"].rolling(10).rank(pct=True)
+
+    # 4. 能量潮（OBV）的变体：累积成交量
+    # 简单的 OBV 逻辑
+    df["obv_delta"] = np.where(df["ret_1"] > 0, volume, -volume)
+    df["obv_ma_diff"] = df["obv_delta"].rolling(10).mean() / (volume.rolling(10).mean() + 1e-8)
+
+    # ==================================================================================
+
     df = df.dropna().reset_index(drop=True)
     return df
 
@@ -283,13 +360,16 @@ class AlphaSeqEncoder(nn.Module):
     # 模型初始化：输入维度=因子数量，输出维度=32个隐因子
     def __init__(self, input_dim, latent_dim=32):
         super().__init__()
-        # 双向GRU：输入维度=因子数，隐藏层256，2层，batch优先
-        self.gru = nn.GRU(input_dim, 256, 2, batch_first=True, bidirectional=True)
+        # 单向GRU：输入维度=因子数，隐藏层512，2层，batch优先
+        self.gru = nn.GRU(input_dim, 512, num_layers=2, batch_first=True, bidirectional=False)
         # 输出投影层：将512维GRU输出 → 压缩为32维隐因子
         self.proj = nn.Sequential(
-            nn.Linear(512, 128),  # 维度降维
+            nn.Linear(512, 256),  # 维度降维
+            nn.BatchNorm1d(256), # 增加批归一化，训练更稳定
             nn.GELU(),             # 非线性激活
-            nn.Dropout(0.1),       # 防止过拟合（正则化）
+            nn.Dropout(0.2),       # 防止过拟合（正则化）
+            nn.Linear(256, 128),  # 维度降维
+            nn.GELU(),             # 非线性激活
             nn.Linear(128, latent_dim)  # 输出32个AI隐因子
         )
 
@@ -352,7 +432,7 @@ def walk_forward_latent_features(df, factor_cols):
 
         # 初始化模型、优化器、损失函数
         model = AlphaSeqEncoder(n_features, LATENT_DIM).to(DEVICE)
-        opt = torch.optim.AdamW(model.parameters(), lr=1e-3)
+        opt = torch.optim.AdamW(model.parameters(), lr=5e-4)
         criterion = nn.MSELoss()
 
         # 模型训练（仅使用历史数据）
@@ -474,7 +554,7 @@ def ic_analysis(df):
     df = df[non_latent_cols + sorted_cols]
 
     print(f"\n🎯 有效因子清单（已对齐至正向）：{best}")
-    return df, best
+    return df, best, ic_dict
 
 
 # ==========================================
@@ -527,7 +607,7 @@ def rolling_ic_stability(df):
 
     # 按月分组计算综合Alpha分数的IC值
     ic_month = df.groupby("yearmonth").apply(
-        lambda x: x["alpha_score"].corr(x["target"])
+        lambda x: x["alpha_score"].corr(x["target"], method="spearman")
     )
     print(ic_month.round(3))
     # 统计IC的均值（有效性）和标准差（稳定性）
@@ -570,6 +650,7 @@ def build_alpha_signal(df, best_factors):
     df["alpha_score"] = df["alpha_score"].rolling(20).apply(
         lambda x: (x.iloc[-1] - x.mean()) / (x.std() + 1e-8)
     )
+
     # 默认状态为观望
     df["signal"] = "观望"
     # 标准化分数 > 1.0 → 发出买入信号
@@ -588,6 +669,9 @@ def build_alpha_signal(df, best_factors):
 # ==========================================
 def backtest(df):
     # 筛选所有发出买入信号的样本
+    position = 0
+    entry_price = 0
+    hold_days = 5
     buy = df[df["signal"] == "买入 📈"]
     # 无信号时直接返回
     if len(buy) == 0:
@@ -608,7 +692,7 @@ def backtest(df):
 
     # 控制台打印回测结果，核心绩效一目了然
     print("\n" + "=" * 60)
-    print("             实盘级真实回测（无泄露）")
+    print("             回测")
     print("=" * 60)
     print(f"信号总数：{len(profit)} 个")
     print(f"预测胜率：{win / len(profit) * 100:.2f}%")
@@ -623,7 +707,7 @@ def ai_pipeline(df):
     exclude = ["date", "open", "high", "low", "close", "volume", "amount", "target"]
     factor_cols = [c for c in df.columns if c not in exclude and not c.startswith("latent")]
     df = walk_forward_latent_features(df, factor_cols)
-    df, best = ic_analysis(df)
+    df, best, ic_dict = ic_analysis(df)
     df = build_alpha_signal(df, best)
     backtest(df)
 

@@ -5,13 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3098e47b-d65c-4118-af82-a5adf0c752cd" name="Changes" comment="daily update2">
-      <change afterPath="$PROJECT_DIR$/math/data.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/math/math_gpu_note.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/math/LLM/KLLM.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/math/LLM/stock_data.db" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/math/akshare.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/math/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/account.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/engineBacktestold.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_provider/testak.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_provider/testakshare.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_provider/testakshare.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/math/data.py" beforeDir="false" afterPath="$PROJECT_DIR$/math/data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/math/math_gpu_note.py" beforeDir="false" afterPath="$PROJECT_DIR$/math/math_gpu_note.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +42,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.KLLM.executor": "Run",
     "Python.account.executor": "Run",
     "Python.akshare_pd.executor": "Run",
     "Python.api_server.executor": "Run",
@@ -82,17 +83,17 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "feature/v1",
-    "last_opened_file_path": "D:/git/LongTrading/math",
+    "last_opened_file_path": "D:/git/LongTrading/math/LLM",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\git\LongTrading\math\LLM" />
       <recent name="D:\git\LongTrading\math" />
       <recent name="D:\git\LongTrading\core" />
       <recent name="D:\git\LongTrading\nextjs\src\app\settings" />
       <recent name="D:\git\LongTrading\nextjs\src\components\charts" />
-      <recent name="D:\git\LongTrading\strategies" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\git\LongTrading\data\backtest" />
@@ -350,7 +351,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773135548943</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="daily update2">
+      <option name="closed" value="true" />
+      <created>1774518131231</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1774518131231</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

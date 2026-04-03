@@ -125,7 +125,7 @@ if __name__ == "__main__":
     # 配置参数
     CODE = "300502"
     START = "20230101"
-    END = "20260326"
+    END = "20260327"
 
     # 1. 一站式获取并存储（兼容原用法）
     fetch_and_save_data(CODE, START, END, save_type="db")
